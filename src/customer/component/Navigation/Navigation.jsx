@@ -222,31 +222,6 @@ export default function Navigation() {
                     Create account
                   </a>
                 </div>
-
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-white hover:text-yellow-400">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      aria-hidden="true"
-                      className="h-6 w-6"
-                    />
-                  </a>
-                </div>
-
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      aria-hidden="true"
-                      className="h-6 w-6 flex-shrink-0 text-white group-hover:text-yellow-400"
-                    />
-                    <span className="ml-2 text-sm font-medium text-white group-hover:text-yellow-400">
-                      0
-                    </span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
