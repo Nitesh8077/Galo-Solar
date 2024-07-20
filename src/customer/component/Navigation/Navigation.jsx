@@ -15,12 +15,9 @@ import {
   TabPanel,
   TabPanels,
 } from "@headlessui/react";
-import {
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import About from "../../../About/About"; // Ensure this path is correct based on your project structure
+import Home from "../../../Home/Home"; // Ensure this path is correct based on your project structure
 
 const navigation = {
   pages: [
@@ -35,6 +32,12 @@ const navigation = {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const [activeComponent, setActiveComponent] = useState("Home"); // State to manage active component
+
+  const handleNavigation = (pageName) => {
+    setActiveComponent(pageName);
+    setOpen(false); // Close the mobile menu if it's open
+  };
 
   return (
     <div className="bg-white">
@@ -69,7 +72,8 @@ export default function Navigation() {
                   {navigation.pages.map((page) => (
                     <Tab
                       key={page.name}
-                      className="flex-1 whitespace-nowrap  px-1 py-4 text-base font-medium text-gray-900  data-[selected]:text-yellow-400"
+                      className="flex-1 whitespace-nowrap px-1 py-4 text-base font-medium text-black data-[selected]:text-yellow-400 focus:outline-none focus:ring-0 active:outline-none"
+                      onClick={() => handleNavigation(page.name)}
                     >
                       {page.name}
                     </Tab>
@@ -126,7 +130,7 @@ export default function Navigation() {
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
+                className="relative rounded-md bg-yellow-400 p-2 lg:hidden"
               >
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open menu</span>
@@ -147,60 +151,13 @@ export default function Navigation() {
                   {navigation.pages.map((page) => (
                     <Popover key={page.name} className="flex">
                       <div className="relative flex">
-                        <PopoverButton className="relative z-10 -mb-px flex items-center pt-px text-sm font-medium text-white transition-colors duration-200 ease-out hover:text-yellow-400 data-[open]:text-yellow-400">
+                        <PopoverButton
+                          className="relative z-10 -mb-px flex items-center pt-px text-sm font-medium text-white transition-colors duration-200 ease-out hover:text-yellow-400 data-[open]:text-yellow-400 focus:outline-none focus:ring-0 active:outline-none"
+                          onClick={() => handleNavigation(page.name)}
+                        >
                           {page.name}
                         </PopoverButton>
                       </div>
-
-                      <PopoverPanel
-                        transition
-                        className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-                      >
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                        <div
-                          aria-hidden="true"
-                          className="absolute inset-0 top-1/2 bg-white shadow"
-                        />
-
-                        <div className="relative bg-white">
-                          <div className="mx-auto max-w-7xl px-8">
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                              <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                <div
-                                  key={page.name}
-                                  className="group relative text-base sm:text-sm"
-                                >
-                                  <a
-                                    href={page.href}
-                                    className="mt-6 block font-medium text-gray-900"
-                                  >
-                                    <span
-                                      aria-hidden="true"
-                                      className="absolute inset-0 z-10"
-                                    />
-                                    {page.name}
-                                  </a>
-                                  <p aria-hidden="true" className="mt-1">
-                                    {page.name === "Home"
-                                      ? "Welcome"
-                                      : `Learn more about ${page.name}`}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                <div key={page.name}>
-                                  <p
-                                    id={`${page.name}-heading`}
-                                    className="font-medium text-gray-900"
-                                  >
-                                    {page.name}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </PopoverPanel>
                     </Popover>
                   ))}
                 </div>
@@ -227,6 +184,12 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+
+      <main>
+        {activeComponent === "Home" && <Home />}
+        {activeComponent === "About Us" && <About />}
+        {/* Add other components similarly */}
+      </main>
     </div>
   );
 }
