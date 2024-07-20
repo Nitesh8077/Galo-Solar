@@ -23,7 +23,6 @@ const navigation = {
   pages: [
     { name: "Home", default: true },
     { name: "About Us", href: "#" },
-    { name: "Solar Pump", href: "#" },
     { name: "Power Plant", href: "#" },
     { name: "Support", href: "#" },
     { name: "Contact Us", href: "#" },
@@ -165,8 +164,8 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-opacity-50">
-                    Enquire Now
+                  <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none ">
+                    ENQUIRE NOW !
                   </button>
                 </div>
               </div>

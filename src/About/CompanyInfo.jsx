@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css";
-
 const CompanyInfo = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
   }, []);
 
   return (
-    <div className="bg-black text-yellow-400 p-8 space-y-8">
+    <div ref={containerRef} className="bg-black text-yellow-400 p-8 space-y-8">
       <div
         className={`transition-opacity duration-1000 ${
-          isVisible ? "opacity-100" : "opacity-0"
+          isVisible ? "opacity-100 delay-100" : "opacity-0"
         }`}
       >
         <h2 className="text-2xl font-bold flex items-center">
           <span className="mr-2">
-            <img src="./images/legacyicon.svg" />
+            <img src="./images/legacyicon.svg" alt="Legacy Icon" />
           </span>
           A Legacy of Innovation and Sustainability
         </h2>
@@ -28,13 +47,13 @@ const CompanyInfo = () => {
         </p>
       </div>
       <div
-        className={`transition-opacity duration-1000 delay-200 ${
-          isVisible ? "opacity-100" : "opacity-0"
+        className={`transition-opacity duration-1000 ${
+          isVisible ? "opacity-100 delay-300" : "opacity-0"
         }`}
       >
         <h2 className="text-2xl font-bold flex items-center">
           <span className="mr-2">
-            <img src="./images/legacyicon.svg" />
+            <img src="./images/legacyicon.svg" alt="Legacy Icon" />
           </span>
           Proudly Made in India
         </h2>
@@ -46,13 +65,13 @@ const CompanyInfo = () => {
         </p>
       </div>
       <div
-        className={`transition-opacity duration-1000 delay-400 ${
-          isVisible ? "opacity-100" : "opacity-0"
+        className={`transition-opacity duration-1000 ${
+          isVisible ? "opacity-100 delay-500" : "opacity-0"
         }`}
       >
         <h2 className="text-2xl font-bold flex items-center">
           <span className="mr-2">
-            <img src="./images/legacyicon.svg" />
+            <img src="./images/legacyicon.svg" alt="Legacy Icon" />
           </span>
           Our Vision for the Future
         </h2>
