@@ -165,19 +165,9 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-white hover:text-yellow-400"
-                  >
-                    Sign in
-                  </a>
-                  <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-white hover:text-yellow-400"
-                  >
-                    Create account
-                  </a>
+                  <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                    Enquire Now
+                  </button>
                 </div>
               </div>
             </div>
