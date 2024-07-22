@@ -44,10 +44,11 @@ export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState("Home");
   const [showSupportOptions, setShowSupportOptions] = useState(false);
+  const [activeSupportOption, setActiveSupportOption] = useState(null);
 
   const handleNavigation = (pageName) => {
     if (pageName === "Support") {
-      setShowSupportOptions(!showSupportOptions);
+      setShowSupportOptions(true);
     } else {
       setActiveComponent(pageName);
       setShowSupportOptions(false);
@@ -59,10 +60,10 @@ export default function Navigation() {
     if (option.component) {
       setActiveComponent(option.component);
     } else {
-      // Handle other options
       setActiveComponent(option.name);
     }
-    setShowSupportOptions(false);
+    setActiveSupportOption(option.name);
+    setShowSupportOptions(true);
     setOpen(false);
   };
 
@@ -226,11 +227,11 @@ export default function Navigation() {
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Support" && <Support />}
         {activeComponent === "Solar Panel" && <SolarPanel />}
+        {activeComponent === "SupportForBusiness" && <Support />}
         {activeComponent === "SolarProductQuery" && <SolarProductQuery />}
         {activeComponent === "EnquiryForSolarProject" && (
           <EnquiryForSolarProject />
         )}
-        {/* Add other components similarly */}
       </main>
     </div>
   );
