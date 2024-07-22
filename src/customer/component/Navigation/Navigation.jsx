@@ -16,26 +16,54 @@ import {
   TabPanels,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import About from "../../../About/About"; // Ensure this path is correct based on your project structure
-import Home from "../../../Home/Home"; // Ensure this path is correct based on your project structure
+import About from "../../../About/About";
+import Home from "../../../Home/Home";
+import Support from "../../../Support/SupportForBusiness/Support"; // Ensure this path is correct based on your project structure
+import SolarPanel from "../../../SolarPanel/SolarPanel"; // Ensure this path is correct based on your project structure
+import SolarProductQuery from "../../../Support/SolarProductQuery/SolarProductQuery"; // Ensure this path is correct based on your project structure
+import EnquiryForSolarProject from "../../../Support/EnquiryForSolarProject/EnquiryForSolarProject"; // Ensure this path is correct based on your project structure
 
 const navigation = {
   pages: [
     { name: "Home", default: true },
     { name: "About Us", href: "#" },
-    { name: "Power Plant", href: "#" },
+    { name: "Solar Panel", href: "#" },
     { name: "Support", href: "#" },
     { name: "Contact Us", href: "#" },
   ],
 };
 
+const supportOptions = [
+  { name: "Support For Business", component: "Support" },
+  { name: "Solar Product Query", component: "SolarProductQuery" },
+  { name: "Enquiry for Solar Project", component: "EnquiryForSolarProject" },
+  { name: "Customer Support", href: "#" },
+];
+
 export default function Navigation() {
   const [open, setOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("Home"); // State to manage active component
+  const [activeComponent, setActiveComponent] = useState("Home");
+  const [showSupportOptions, setShowSupportOptions] = useState(false);
 
   const handleNavigation = (pageName) => {
-    setActiveComponent(pageName);
-    setOpen(false); // Close the mobile menu if it's open
+    if (pageName === "Support") {
+      setShowSupportOptions(!showSupportOptions);
+    } else {
+      setActiveComponent(pageName);
+      setShowSupportOptions(false);
+    }
+    setOpen(false);
+  };
+
+  const handleSupportOptionClick = (option) => {
+    if (option.component) {
+      setActiveComponent(option.component);
+    } else {
+      // Handle other options
+      setActiveComponent(option.name);
+    }
+    setShowSupportOptions(false);
+    setOpen(false);
   };
 
   return (
@@ -148,7 +176,7 @@ export default function Navigation() {
               <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.pages.map((page) => (
-                    <Popover key={page.name} className="flex">
+                    <Popover key={page.name} className="relative flex">
                       <div className="relative flex">
                         <PopoverButton
                           className="relative z-10 -mb-px flex items-center pt-px text-sm font-medium text-white transition-colors duration-200 ease-out hover:text-yellow-400 data-[open]:text-yellow-400 focus:outline-none focus:ring-0 active:outline-none"
@@ -156,6 +184,25 @@ export default function Navigation() {
                         >
                           {page.name}
                         </PopoverButton>
+                        {page.name === "Support" && showSupportOptions && (
+                          <PopoverPanel className="absolute z-20 mt-2 w-56 bg-white border border-gray-300 shadow-lg rounded-md top-full left-0">
+                            <div className="py-2">
+                              {supportOptions.map((option) => (
+                                <a
+                                  key={option.name}
+                                  href={option.href || "#"}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSupportOptionClick(option);
+                                  }}
+                                  className="block px-4 py-2 text-gray-900 hover:bg-yellow-50 hover:text-black transition-colors duration-200"
+                                >
+                                  {option.name}
+                                </a>
+                              ))}
+                            </div>
+                          </PopoverPanel>
+                        )}
                       </div>
                     </Popover>
                   ))}
@@ -177,6 +224,12 @@ export default function Navigation() {
       <main>
         {activeComponent === "Home" && <Home />}
         {activeComponent === "About Us" && <About />}
+        {activeComponent === "Support" && <Support />}
+        {activeComponent === "Solar Panel" && <SolarPanel />}
+        {activeComponent === "SolarProductQuery" && <SolarProductQuery />}
+        {activeComponent === "EnquiryForSolarProject" && (
+          <EnquiryForSolarProject />
+        )}
         {/* Add other components similarly */}
       </main>
     </div>
