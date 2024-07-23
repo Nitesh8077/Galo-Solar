@@ -22,6 +22,7 @@ import Support from "../../../Support/SupportForBusiness/Support"; // Ensure thi
 import SolarPanel from "../../../SolarPanel/SolarPanel"; // Ensure this path is correct based on your project structure
 import SolarProductQuery from "../../../Support/SolarProductQuery/SolarProductQuery"; // Ensure this path is correct based on your project structure
 import EnquiryForSolarProject from "../../../Support/EnquiryForSolarProject/EnquiryForSolarProject"; // Ensure this path is correct based on your project structure
+import ContactUs from "../../../ContactUs/ContactUs"; // Ensure this path is correct based on your project structure
 
 const navigation = {
   pages: [
@@ -37,18 +38,16 @@ const supportOptions = [
   { name: "Support For Business", component: "Support" },
   { name: "Solar Product Query", component: "SolarProductQuery" },
   { name: "Enquiry for Solar Project", component: "EnquiryForSolarProject" },
-  { name: "Customer Support", href: "#" },
 ];
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState("Home");
   const [showSupportOptions, setShowSupportOptions] = useState(false);
-  const [activeSupportOption, setActiveSupportOption] = useState(null);
 
   const handleNavigation = (pageName) => {
     if (pageName === "Support") {
-      setShowSupportOptions(true);
+      setShowSupportOptions(!showSupportOptions);
     } else {
       setActiveComponent(pageName);
       setShowSupportOptions(false);
@@ -60,10 +59,10 @@ export default function Navigation() {
     if (option.component) {
       setActiveComponent(option.component);
     } else {
+      // Handle other options
       setActiveComponent(option.name);
     }
-    setActiveSupportOption(option.name);
-    setShowSupportOptions(true);
+    setShowSupportOptions(false);
     setOpen(false);
   };
 
@@ -227,11 +226,12 @@ export default function Navigation() {
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Support" && <Support />}
         {activeComponent === "Solar Panel" && <SolarPanel />}
-        {activeComponent === "SupportForBusiness" && <Support />}
         {activeComponent === "SolarProductQuery" && <SolarProductQuery />}
         {activeComponent === "EnquiryForSolarProject" && (
           <EnquiryForSolarProject />
         )}
+        {activeComponent === "Contact Us" && <ContactUs />}
+        {/* Add other components similarly */}
       </main>
     </div>
   );
