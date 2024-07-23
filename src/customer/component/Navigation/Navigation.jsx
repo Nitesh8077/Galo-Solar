@@ -8,11 +8,6 @@ import {
   Popover,
   PopoverButton,
   PopoverPanel,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
 } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -21,11 +16,11 @@ import {
 } from "@heroicons/react/24/outline";
 import About from "../../../About/About";
 import Home from "../../../Home/Home";
-import Support from "../../../Support/SupportForBusiness/Support"; // Ensure this path is correct based on your project structure
-import SolarPanel from "../../../SolarPanel/SolarPanel"; // Ensure this path is correct based on your project structure
-import SolarProductQuery from "../../../Support/SolarProductQuery/SolarProductQuery"; // Ensure this path is correct based on your project structure
-import EnquiryForSolarProject from "../../../Support/EnquiryForSolarProject/EnquiryForSolarProject"; // Ensure this path is correct based on your project structure
-import ContactUs from "../../../ContactUs/ContactUs"; // Ensure this path is correct based on your project structure
+import Support from "../../../Support/SupportForBusiness/Support";
+import SolarPanel from "../../../SolarPanel/SolarPanel";
+import SolarProductQuery from "../../../Support/SolarProductQuery/SolarProductQuery";
+import EnquiryForSolarProject from "../../../Support/EnquiryForSolarProject/EnquiryForSolarProject";
+import ContactUs from "../../../ContactUs/ContactUs";
 
 const navigation = {
   pages: [
@@ -78,7 +73,7 @@ export default function Navigation() {
             transition
             className="relative flex w-full max-w-xs transform flex-col overflow-y-auto bg-white pb-12 shadow-xl transition duration-300 ease-in-out data-[closed]:-translate-x-full"
           >
-            <div className="flex px-4 pb-2 pt-5">
+            <div className="flex px-4 pb-2 pt-5 justify-between">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -88,6 +83,14 @@ export default function Navigation() {
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="h-6 w-6" />
               </button>
+
+              {/* Logo */}
+              <div className="flex justify-center flex-grow">
+                <a href="#">
+                  <span className="sr-only">Your Company</span>
+                  <img alt="" src="./images/galo.png" className="h-20 w-auto" />
+                </a>
+              </div>
             </div>
 
             {/* Links */}
@@ -140,7 +143,7 @@ export default function Navigation() {
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         >
-          <div className="flex h-24 items-center">
+          <div className="flex h-24 items-center justify-between lg:justify-start">
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -152,14 +155,13 @@ export default function Navigation() {
             </button>
 
             {/* Logo */}
-            <div className="ml-4 flex lg:ml-0">
+            <div className="flex-1 flex items-center justify-center lg:justify-start">
               <a href="#">
                 <span className="sr-only">Your Company</span>
                 <img alt="" src="./images/galo.png" className="h-20 w-auto" />
               </a>
             </div>
 
-            {/* Flyout menus */}
             <div className="hidden lg:ml-8 lg:block lg:self-stretch">
               <div className="flex h-full space-x-8">
                 {navigation.pages.map((page) => (
@@ -196,12 +198,10 @@ export default function Navigation() {
               </div>
             </div>
 
-            <div className="ml-auto flex items-center">
-              <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none">
-                  ENQUIRE NOW
-                </button>
-              </div>
+            <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+              <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none">
+                ENQUIRE NOW
+              </button>
             </div>
           </div>
         </nav>
