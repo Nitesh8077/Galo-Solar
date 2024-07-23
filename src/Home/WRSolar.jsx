@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import solarImage from "/images/wrp.svg"; // Adjust the path according to your project structure
+import solarImage from "/images/ap.svg"; // Adjust the path according to your project structure
 
-const Practice = () => {
+const WRSolar = () => {
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
@@ -27,7 +27,7 @@ const Practice = () => {
           className="w-full max-w-8xl"
         />
       </div>
-      <p className="text-2xl -mt-44" data-aos="fade-up" data-aos-delay="600">
+      <p className="text-2xl mt-10" data-aos="fade-up" data-aos-delay="600">
         At <span className="font-bold">Galo Solar</span>, we pride ourselves on
         offering a comprehensive selection of solar systems designed to meet the
         diverse energy needs of households and businesses. Whether you're
@@ -54,4 +54,4 @@ const Practice = () => {
   );
 };
 
-export default Practice;
+export default WRSolar;

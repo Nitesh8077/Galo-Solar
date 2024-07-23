@@ -4,6 +4,8 @@ import HomeSectionCarausel from "../../component/HomeSectionCarausel/HomeSection
 import SolarCal from "./SolarCal";
 import HomeSectionCarauselBifacial from "../../component/HomeSectionCarausel/HomeSectionCarauselBifacial";
 import ReviewCardCarausel from "../../component/HomeSectionCarausel/ReviewCardCarausel";
+import SolarCalculatorForm from "./SolarCalculatorForm";
+import WRSolar from "../../../Home/WRSolar";
 
 const HomePage = () => {
   return (
@@ -12,8 +14,7 @@ const HomePage = () => {
 
       <SolarCal />
       <div>
-        <HomeSectionCarausel />
-        <HomeSectionCarauselBifacial />
+        <WRSolar />
         <ReviewCardCarausel />
       </div>
     </div>
