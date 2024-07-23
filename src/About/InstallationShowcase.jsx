@@ -78,17 +78,17 @@ const InstallationShowcase = () => {
           Join us in our journey towards a brighter, greener future.
         </p>
       </div>
-      <div className="flex justify-around mt-8">
+      <div className="flex flex-wrap justify-center gap-6 mt-8">
         <div
           className={`transition-opacity duration-1000 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-xs">
             <img
               src={lucknowImage}
               alt="Lucknow"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold text-center">Lucknow</h3>
@@ -100,11 +100,11 @@ const InstallationShowcase = () => {
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-xs">
             <img
               src={haryanaImage}
               alt="Haryana"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold text-center">Haryana</h3>
@@ -116,11 +116,11 @@ const InstallationShowcase = () => {
             isVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-xs">
             <img
               src={ghaziabadImage}
               alt="Ghaziabad"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-4">
               <h3 className="text-lg font-semibold text-center">Ghaziabad</h3>
