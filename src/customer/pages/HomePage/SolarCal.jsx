@@ -1,29 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 
-const SolarCal = () => {
+function SolarCal() {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
-    <div className="bg-black flex flex-col md:flex-row justify-center items-center space-y-10 md:space-y-0 md:space-x-40 h-screen md:h-80 -mt-2">
-      <button className="w-72 h-56 flex justify-center items-center">
-        <div>
+    <div className="bg-black h-auto py-8 flex flex-col items-center justify-center -m-2">
+      <div
+        className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
+        data-aos="fade-up"
+      >
+        <button className="flex items-center bg-yellow-500 text-black text-xl md:text-2xl lg:text-4xl font-bold py-2 px-4 rounded-3xl hover:bg-yellow-600">
           <img
-            src="./images/button2.svg"
-            alt="Button 2"
-            className="hover:scale-105 transition-transform duration-200"
+            src="/images/en.svg"
+            className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16"
+            alt="EN"
           />
-        </div>
-      </button>
-
-      <button className="w-96 flex justify-center items-center">
-        <div>
+          <p className="ml-2 md:ml-4">
+            ENQUIRE <br /> NOW!
+          </p>
+        </button>
+        <button className="flex items-center bg-yellow-500 text-black text-xl md:text-2xl lg:text-4xl font-bold py-2 px-4 rounded-3xl hover:bg-yellow-600">
           <img
-            src="./images/button1.svg"
-            alt="Button 1"
-            className="hover:scale-105 transition-transform duration-200"
+            src="/images/sc.svg"
+            className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16"
+            alt="SC"
           />
-        </div>
-      </button>
+          <p className="ml-2 md:ml-4">
+            SOLAR
+            <br /> CALCULATOR
+          </p>
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 export default SolarCal;

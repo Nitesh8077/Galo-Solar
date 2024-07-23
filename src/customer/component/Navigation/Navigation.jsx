@@ -88,7 +88,12 @@ export default function Navigation() {
               <div className="flex justify-center flex-grow">
                 <a href="#">
                   <span className="sr-only">Your Company</span>
-                  <img alt="" src="./images/galo.png" className="h-20 w-auto" />
+                  <img
+                    alt=""
+                    src="./images/galo.png"
+                    className="h-12 w-auto md:h-20"
+                  />{" "}
+                  {/* Updated logo size */}
                 </a>
               </div>
             </div>
@@ -158,7 +163,12 @@ export default function Navigation() {
             <div className="flex-1 flex items-center justify-center lg:justify-start">
               <a href="#">
                 <span className="sr-only">Your Company</span>
-                <img alt="" src="./images/galo.png" className="h-20 w-auto" />
+                <img
+                  alt=""
+                  src="./images/galo.png"
+                  className="h-16 w-auto lg:h-20"
+                />{" "}
+                {/* Updated logo size */}
               </a>
             </div>
 
