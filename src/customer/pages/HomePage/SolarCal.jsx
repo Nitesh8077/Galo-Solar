@@ -9,7 +9,7 @@ function SolarCal() {
   }, []);
 
   return (
-    <div className="bg-black h-auto py-8 flex flex-col items-center justify-center -m-2">
+    <div className="bg-black h-auto py-8 flex flex-col items-center justify-center">
       <div
         className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
         data-aos="fade-up"
