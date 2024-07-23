@@ -15,7 +15,10 @@ const Banner = () => {
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <h1 className="text-yellow-400 text-5xl font-bold" data-aos="fade-down">
+        <h1
+          className="text-yellow-400 text-3xl sm:text-4xl md:text-5xl font-bold"
+          data-aos="fade-down"
+        >
           Enquiry For Solar Project
         </h1>
       </div>
