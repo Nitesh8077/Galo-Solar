@@ -6,25 +6,25 @@ const items = [
   <img
     src="/images/web.jpg"
     alt="Image 1"
-    className="item h-80 w-full object-cover"
+    className="item w-full h-auto object-contain"
     data-value="1"
   />,
   <img
     src="/images/two.jpg"
     alt="Image 2"
-    className="item h-80 w-full object-cover"
+    className="item w-full h-auto object-contain"
     data-value="2"
   />,
   <img
     src="/images/three.svg"
-    alt="Image 2"
-    className="item h-80 w-full object-cover"
-    data-value="2"
+    alt="Image 3"
+    className="item w-full h-auto object-contain"
+    data-value="3"
   />,
 ];
 
 const MainCarausel = () => (
-  <div className="bg-black">
+  <div className="bg-black w-full">
     <AliceCarousel
       items={items}
       controlsStrategy="alternate"
