@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import solarImage from "/images/ap.svg"; // Adjust the path according to your project structure
+import solarImage from "/images/ap.png"; // Adjust the path according to your project structure
+import Product from "./Products/Product";
 
 const WRSolar = () => {
+  const [showProduct, setShowProduct] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
+
+  const toggleProduct = () => {
+    setShowProduct((prevShowProduct) => !prevShowProduct);
+  };
 
   return (
     <div className="bg-yellow-400 p-8 text-center">
@@ -43,13 +50,18 @@ const WRSolar = () => {
         data-aos-delay="800"
         className="flex flex-col items-center"
       >
-        <a href="#more" className="text-black text-5xl font-bold mt-10">
-          Show more
+        <a
+          href="#more"
+          className="text-black text-5xl font-bold mt-10"
+          onClick={toggleProduct}
+        >
+          {showProduct ? "Hide section" : "Show more"}
         </a>
-        <span className="mt-10">
-          <img src="/images/arrow.svg" />
+        <span className="mt-10 cursor-pointer" onClick={toggleProduct}>
+          <img src="/images/arrow.svg" alt="Toggle Product Visibility" />
         </span>
       </div>
+      {showProduct && <Product />}
     </div>
   );
 };

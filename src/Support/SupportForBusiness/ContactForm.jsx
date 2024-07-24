@@ -19,6 +19,10 @@ const ContactForm = () => {
     hearAboutUs: "",
   });
 
+  const [formErrors, setFormErrors] = useState({});
+  const [submissionStatus, setSubmissionStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -29,39 +33,63 @@ const ContactForm = () => {
       ...formData,
       [name]: value,
     });
+    setFormErrors({ ...formErrors, [name]: "" }); // Clear error on change
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validation
+    let errors = {};
+    Object.keys(formData).forEach((key) => {
+      if (formData[key].trim() === "" && key !== "city") {
+        // Assume city is optional
+        errors[key] = "This field is required.";
+      }
+    });
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmissionStatus("Please wait...");
 
     emailjs
       .send(
         "service_yc9r8to", // Replace with your EmailJS service ID
         "template_g1m4nmr", // Replace with your EmailJS template ID
         formData,
-        "0nQcDotTo-9_-pFPG" // Replace with your EmailJS user ID (optional if required)
+        "0nQcDotTo-9_-pFPG" // Replace with your EmailJS user ID
       )
-      .then((result) => {
-        console.log("Email successfully sent!", result.text);
-      })
-      .catch((error) => {
-        console.error("There was an error sending the email", error);
-      });
-
-    setFormData({
-      name: "",
-      companyName: "",
-      contactNo: "",
-      email: "",
-      city: "",
-      state: "",
-      interestedAs: "",
-      businessType: "",
-      interestedIn: "",
-      gstNumber: "",
-      panNumber: "",
-      hearAboutUs: "",
-    });
+      .then(
+        (result) => {
+          setSubmissionStatus("Message sent successfully");
+          setFormData({
+            name: "",
+            companyName: "",
+            contactNo: "",
+            email: "",
+            city: "",
+            state: "",
+            interestedAs: "",
+            businessType: "",
+            interestedIn: "",
+            gstNumber: "",
+            panNumber: "",
+            hearAboutUs: "",
+          });
+          setIsSubmitting(false);
+          setTimeout(() => {
+            setSubmissionStatus("");
+          }, 2000);
+        },
+        (error) => {
+          setSubmissionStatus("There was an error submitting the form.");
+          setIsSubmitting(false);
+        }
+      );
   };
 
   return (
@@ -85,191 +113,252 @@ const ContactForm = () => {
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name*"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="companyName"
-            placeholder="Company Name*"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.companyName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="contactNo"
-            placeholder="Contact No.*"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.contactNo}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email id *"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="city"
-            placeholder="City"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.city}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="state"
-            placeholder="State *"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.state}
-            onChange={handleChange}
-            required
-          />
+          <div className="relative">
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name*"
+              className="form-input rounded-lg h-10 w-full pl-2"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {formErrors.name && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.name}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="companyName"
+              placeholder="Company Name*"
+              className="form-input rounded-lg h-10 w-full pl-2"
+              value={formData.companyName}
+              onChange={handleChange}
+            />
+            {formErrors.companyName && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.companyName}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="contactNo"
+              placeholder="Contact No.*"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.contactNo}
+              onChange={handleChange}
+            />
+            {formErrors.contactNo && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.contactNo}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email id *"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {formErrors.email && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.email}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.city}
+              onChange={handleChange}
+            />
+            {formErrors.city && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.city}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="state"
+              placeholder="State *"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.state}
+              onChange={handleChange}
+            />
+            {formErrors.state && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.state}
+              </p>
+            )}
+          </div>
         </div>
-        <div>
+        <div className="relative">
           <label className="block mb-2 font-bold">
             Interested to work as *
           </label>
-          <div className="relative">
-            <select
-              name="interestedAs"
-              className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
-              value={formData.interestedAs}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select an option</option>
-              {[
-                "Distributor",
-                "Retailer",
-                "C&S",
-                "System Integrator",
-                "Supplier",
-                "Channel Partner for Projects",
-                "Partner for Exports",
-              ].map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            name="interestedAs"
+            className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
+            value={formData.interestedAs}
+            onChange={handleChange}
+          >
+            <option value="">Select an option</option>
+            {[
+              "Distributor",
+              "Retailer",
+              "C&S",
+              "System Integrator",
+              "Supplier",
+              "Channel Partner for Projects",
+              "Partner for Exports",
+            ].map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          {formErrors.interestedAs && (
+            <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+              {formErrors.interestedAs}
+            </p>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label className="block mb-2 font-bold">
             Business Organization Type *
           </label>
-          <div className="relative">
-            <select
-              name="interestedAs"
-              className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
-              value={formData.interestedAs}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select an option</option>
-              {["Proprietorship", "Partnership", "Corporation"].map(
-                (option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
+          <select
+            name="businessType"
+            className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
+            value={formData.businessType}
+            onChange={handleChange}
+          >
+            <option value="">Select an option</option>
+            {["Proprietorship", "Partnership", "Corporation"].map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          {formErrors.businessType && (
+            <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+              {formErrors.businessType}
+            </p>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label className="block mb-2 font-bold">Interested in</label>
-          <div className="relative">
-            <select
-              name="interestedAs"
-              className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
-              value={formData.interestedAs}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select an option</option>
-              {["Products", "EPC Services", "Both"].map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            name="interestedIn"
+            className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
+            value={formData.interestedIn}
+            onChange={handleChange}
+          >
+            <option value="">Select an option</option>
+            {["Products", "EPC Services", "Both"].map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          {formErrors.interestedIn && (
+            <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+              {formErrors.interestedIn}
+            </p>
+          )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input
-            type="text"
-            name="gstNumber"
-            placeholder="GST Number *"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.gstNumber}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="panNumber"
-            placeholder="Pan Number *"
-            className="form-input rounded-lg h-10 pl-2"
-            value={formData.panNumber}
-            onChange={handleChange}
-            required
-          />
+          <div className="relative">
+            <input
+              type="text"
+              name="gstNumber"
+              placeholder="GST Number *"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.gstNumber}
+              onChange={handleChange}
+            />
+            {formErrors.gstNumber && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.gstNumber}
+              </p>
+            )}
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              name="panNumber"
+              placeholder="Pan Number *"
+              className="form-input rounded-lg w-full h-10 pl-2"
+              value={formData.panNumber}
+              onChange={handleChange}
+            />
+            {formErrors.panNumber && (
+              <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+                {formErrors.panNumber}
+              </p>
+            )}
+          </div>
         </div>
-        <div>
+        <div className="relative">
           <label className="block mb-2 font-bold">
             Where did you hear about us?
           </label>
-          <div className="relative">
-            <select
-              name="hearAboutUs"
-              className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
-              value={formData.hearAboutUs}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select an option</option>
-              {[
-                "Print Media",
-                "Social Media",
-                "Search Engine",
-                "Employee Referral",
-                "External Referral",
-                "Trade Shows",
-                "Web Advertisements",
-                "Conference OR Meet",
-                "Others",
-              ].map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            name="hearAboutUs"
+            className="form-select rounded-lg block w-full pl-3 pr-10 py-2 text-base leading-normal"
+            value={formData.hearAboutUs}
+            onChange={handleChange}
+          >
+            <option value="">Select an option</option>
+            {[
+              "Print Media",
+              "Social Media",
+              "Search Engine",
+              "Employee Referral",
+              "External Referral",
+              "Trade Shows",
+              "Web Advertisements",
+              "Conference OR Meet",
+              "Others",
+            ].map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          {formErrors.hearAboutUs && (
+            <p className="text-red-500 text-sm absolute left-0 top-full mt-1">
+              {formErrors.hearAboutUs}
+            </p>
+          )}
         </div>
 
         <div className="text-center mt-6">
           <button
             type="submit"
             className="w-full p-4 bg-black text-yellow-400 font-bold rounded-md hover:bg-gray-800 transition duration-300"
+            disabled={isSubmitting}
           >
             Send Message
           </button>
         </div>
+        {submissionStatus && (
+          <div className="mt-4 text-center text-xl font-bold">
+            {submissionStatus}
+          </div>
+        )}
       </form>
     </div>
   );
