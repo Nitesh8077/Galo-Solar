@@ -10,15 +10,7 @@ const TrustSection = () => {
   }, []);
 
   return (
-    <div
-      className="bg-black text-white p-8 md:p-16"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover", // Ensures the image covers the whole area
-        backgroundRepeat: "no-repeat", // Prevents the image from repeating
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="bg-black text-white p-8 md:p-16">
       <h2
         className="text-yellow-500 text-3xl md:text-4xl font-bold mb-4"
         data-aos="fade-up"
