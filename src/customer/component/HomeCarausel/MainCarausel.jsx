@@ -10,7 +10,7 @@ const items = [
     data-value="1"
   />,
   <img
-    src="/images/c2.svg"
+    src="/images/b2.png"
     alt="Image 3"
     className="item w-full h-auto object-contain"
     data-value="3"

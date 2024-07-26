@@ -6,7 +6,7 @@ import background from "/images/blackbg2.png"; // Adjust the path if necessary
 
 const TrustSection = () => {
   useEffect(() => {
-    AOS.init({ duration: 1500 });
+    AOS.init({ duration: 2000 });
   }, []);
 
   return (
@@ -73,7 +73,7 @@ const TrustSection = () => {
             className={`flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full ${
               index % 2 === 0 ? "md:ml-auto" : "md:mr-auto"
             }`}
-            data-aos="fade-left"
+            data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
           >
             <img
               src={item.image}
