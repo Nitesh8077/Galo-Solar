@@ -33,18 +33,24 @@ const TrustSection = () => {
       </p>
       <div className="space-y-10 text-black">
         <div
-          className="flex items-start w-3/4 space-x-4 p-3 bg-yellow-500 rounded-full"
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-6 bg-yellow-500 rounded-2xl md:rounded-full"
           data-aos="fade-right"
         >
-          <img src="/images/1.svg" className="h-16 w-16" />
-          <div>
-            <h4 className="text-xl font-bold pt-1">Established Expertise</h4>
-            <p>
+          <img
+            src="/images/1.svg"
+            className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
+          />
+          <div className="flex-1 text-center md:text-left">
+            <h4 className="text-sm md:text-xl font-bold">
+              Established Expertise
+            </h4>
+            <p className="text-xs md:text-base">
               Trusted solar company with over 25 years of experience in the
               industry.
             </p>
           </div>
         </div>
+
         <div
           className="flex items-start space-x-4 justify-between p-3 ml-60 w-3/4 bg-yellow-500 rounded-full"
           data-aos="fade-left"
