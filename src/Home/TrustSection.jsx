@@ -33,14 +33,14 @@ const TrustSection = () => {
       </p>
       <div className="space-y-10 text-black">
         <div
-          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-6 bg-yellow-500 rounded-2xl md:rounded-full"
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full"
           data-aos="fade-right"
         >
           <img
             src="/images/1.svg"
             className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
           />
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex-1 text-center md:text-left md:pt-1">
             <h4 className="text-sm md:text-xl font-bold">
               Established Expertise
             </h4>
@@ -52,48 +52,75 @@ const TrustSection = () => {
         </div>
 
         <div
-          className="flex items-start space-x-4 justify-between p-3 ml-60 w-3/4 bg-yellow-500 rounded-full"
-          data-aos="fade-left"
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full ml-0 md:ml-60"
+          data-aos="fade-right"
         >
-          <div className="pl-5">
-            <h4 className="text-xl font-bold pt-1">Superior Manufacturing</h4>
-            <p>
+          <img
+            src="/images/2.svg"
+            className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
+          />
+          <div className="flex-1 text-center md:text-left md:pt-1">
+            <h4 className="text-sm md:text-xl font-bold">
+              Superior Manufacturing
+            </h4>
+            <p className="text-xs md:text-base">
               In-house manufacturing ensuring top-quality control of all
               components.
             </p>
           </div>
-          <img src="/images/2.svg" className="h-16 w-16" />
         </div>
+
         <div
-          className="flex items-start w-3/4 space-x-4 p-3 bg-yellow-500 rounded-full"
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full"
           data-aos="fade-right"
         >
-          <img src="/images/3.svg" className="h-16 w-16" />
-          <div>
-            <h4 className="text-xl font-bold pt-1">Comprehensive Warranty</h4>
-            <p>One-stop solution for all warranty-related issues.</p>
+          <img
+            src="/images/3.svg"
+            className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
+          />
+          <div className="flex-1 text-center md:text-left md:pt-1">
+            <h4 className="text-sm md:text-xl font-bold">
+              Comprehensive Warranty
+            </h4>
+            <p className="text-xs md:text-base">
+              One-stop solution for all warranty-related issues.
+            </p>
           </div>
         </div>
+
         <div
-          className="flex items-start w-3/4 justify-between space-x-4 p-3 ml-60 bg-yellow-500 rounded-full"
-          data-aos="fade-left"
-        >
-          <div className="pl-5">
-            <h4 className="text-xl font-bold pt-1">Local Service Support</h4>
-            <p>Dedicated service technicians available in your city.</p>
-          </div>
-          <img src="/images/4.svg" className="h-16 w-16" />
-        </div>
-        <div
-          className="flex items-start space-x-4 p-3 w-3/4 bg-yellow-500 rounded-full"
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full ml-0 md:ml-60"
           data-aos="fade-right"
         >
-          <img src="/images/5.svg" className="h-16 w-16" />
-          <div>
-            <h4 className="text-xl font-bold pt-1">Financial Strength</h4>
-            <p>
+          <img
+            src="/images/4.svg"
+            className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
+          />
+          <div className="flex-1 text-center md:text-left md:pt-1">
+            <h4 className="text-sm md:text-xl font-bold">
+              Local Service Support
+            </h4>
+            <p className="text-xs md:text-base">
+              Dedicated service technicians available in your city.{" "}
+            </p>
+          </div>
+        </div>
+
+        <div
+          className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full"
+          data-aos="fade-right"
+        >
+          <img
+            src="/images/5.svg"
+            className="h-12 w-12 md:h-16 md:w-16 flex-shrink-0"
+          />
+          <div className="flex-1 text-center md:text-left md:pt-1">
+            <h4 className="text-sm md:text-xl font-bold">
+              Financial Strength{" "}
+            </h4>
+            <p className="text-xs md:text-base">
               Robust financial backing, ensuring long-term support for all solar
-              projects.
+              projects.{" "}
             </p>
           </div>
         </div>
