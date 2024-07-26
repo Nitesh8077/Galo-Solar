@@ -26,8 +26,7 @@ const navigation = {
   pages: [
     { name: "Home", default: true },
     { name: "About Us", href: "#" },
-    { name: "Solar Panel", href: "#" },
-    { name: "Support", href: "#" },
+    { name: "Enquiry", href: "#" },
     { name: "Contact Us", href: "#" },
   ],
 };

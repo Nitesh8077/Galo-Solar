@@ -53,7 +53,7 @@ const TrustSection = () => {
 
         <div
           className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full ml-0 md:ml-60"
-          data-aos="fade-right"
+          data-aos="fade-left"
         >
           <img
             src="/images/2.svg"
@@ -90,7 +90,7 @@ const TrustSection = () => {
 
         <div
           className="flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-500 rounded-2xl md:rounded-full ml-0 md:ml-60"
-          data-aos="fade-right"
+          data-aos="fade-left"
         >
           <img
             src="/images/4.svg"

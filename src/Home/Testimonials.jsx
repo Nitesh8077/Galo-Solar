@@ -25,7 +25,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white p-8">
+    <div className="bg-black text-white p-8 max-w-screen-full mx-auto overflow-hidden">
       <h1 className="text-4xl font-bold text-center mb-4">
         What Our Customers Are Saying
       </h1>
@@ -45,7 +45,7 @@ const Testimonials = () => {
           return (
             <div
               key={testimonial.id}
-              className={`p-6 rounded-3xl w-full md:w-3/4 shadow-lg flex flex-col md:flex-row ${
+              className={`p-6 rounded-3xl w-full max-w-full md:w-3/4 shadow-lg flex flex-col md:flex-row ${
                 isEven ? "md:ml-auto" : "md:mr-auto"
               } bg-yellow-500 text-black`}
               data-aos={isEven ? "fade-left" : "fade-right"}
