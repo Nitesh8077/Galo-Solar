@@ -9,12 +9,12 @@ const Form = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row items-center h-screen bg-yellow-500 p-4">
+    <div className="flex flex-col md:flex-row items-center bg-yellow-500 p-4">
       <div
         className="text-center md:text-left mb-6 md:mb-0 md:w-1/2"
         data-aos="fade-right"
       >
-        <h1 className="text-black text-4xl md:text-5xl font-bold">
+        <h1 className="text-black text-2xl md:text-5xl font-bold">
           Schedule Your FREE Solar Consultation Today!
         </h1>
         <p className="text-black text-lg md:text-xl mt-4">
