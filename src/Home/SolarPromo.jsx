@@ -8,17 +8,14 @@ const SolarPromo = () => {
   }, []);
 
   return (
-    <div className="bg-yellow-400 min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div className="bg-yellow-400 flex flex-col items-center p-4 md:p-8">
       <h1
-        className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-center"
+        className="text-2xl md:text-5xl font-bold mb-4 text-center"
         data-aos="fade-down"
       >
         Learn More with Our YouTube Channel
       </h1>
-      <p
-        className="text-base md:text-lg lg:text-xl mb-6 text-center"
-        data-aos="fade-up"
-      >
+      <p className="text-base md:text-2xl  mb-6 text-center" data-aos="fade-up">
         Get All Your Solar Questions Answered
       </p>
       <div
@@ -41,15 +38,11 @@ const SolarPromo = () => {
         </div>
         <div className="w-full p-4">
           <p className="text-black text-base md:text-lg lg:text-xl flex items-center justify-center space-x-2">
-            <span className="font-bold flex items-center space-x-2">
-              Subscribe to our
-              <img
-                src="/images/youtube.svg"
-                alt="YouTube"
-                className="w-12 h-12 mt-1 ml-2 md:w-16 md:h-16 lg:w-20 lg:h-20 inline-block"
-              />
-              <span>channel to explore more videos.</span>
-            </span>
+            <img
+              src="/images/ytup.svg"
+              alt="YouTube"
+              className="w-80 md:w-full mt-1 ml-2 inline-block"
+            />
           </p>
         </div>
       </div>

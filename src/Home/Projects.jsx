@@ -18,7 +18,7 @@ const Projects = () => {
         Explore the diverse range of solar energy solutions we have implemented
         for our clients.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {projects.map((project, index) => (
           <div key={index} data-aos="fade-up">
             <img
