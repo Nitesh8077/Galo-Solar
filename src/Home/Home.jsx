@@ -14,7 +14,6 @@ const Home = () => {
       <MainCarausel />
       <Banner />
       <Form />
-      <TrustSection />
       <Projects />
       <SolarPromo />
       <Footer />
