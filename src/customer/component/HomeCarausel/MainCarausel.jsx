@@ -4,19 +4,13 @@ import "react-alice-carousel/lib/alice-carousel.css";
 
 const items = [
   <img
-    src="/images/web.jpg"
+    src="/images/c1.svg"
     alt="Image 1"
     className="item w-full h-auto object-contain"
     data-value="1"
   />,
   <img
-    src="/images/two.jpg"
-    alt="Image 2"
-    className="item w-full h-auto object-contain"
-    data-value="2"
-  />,
-  <img
-    src="/images/three.svg"
+    src="/images/c2.svg"
     alt="Image 3"
     className="item w-full h-auto object-contain"
     data-value="3"

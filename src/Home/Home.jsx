@@ -1,12 +1,23 @@
 import React from "react";
-import HomePage from "../customer/pages/HomePage/HomePage";
-import Footer from "../customer/component/Footer/Footer";
-import WRSolar from "./WRSolar";
+import Banner from "./Banner";
+import MainCarausel from "../customer/component/HomeCarausel/MainCarausel";
+import Form from "./Form";
+import TrustSection from "./TrustSection";
+import Projects from "./Projects";
+import Testimonials from "./Testimonials";
+import SolarPromo from "./SolarPromo";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
     <div>
-      <HomePage />
+      <MainCarausel />
+      <Banner />
+      <Form />
+      <TrustSection />
+      <Projects />
+      <Testimonials />
+      <SolarPromo />
       <Footer />
     </div>
   );
