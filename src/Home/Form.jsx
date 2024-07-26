@@ -17,7 +17,7 @@ const Form = () => {
         <h1 className="text-black text-2xl md:text-5xl font-bold">
           Schedule Your FREE Solar Consultation Today!
         </h1>
-        <p className="text-black text-lg md:text-xl mt-4">
+        <p className="text-black text-sm md:text-xl mt-4">
           Get expert advice from our solar professionals. No obligation, only
           book if you're satisfied!
         </p>
