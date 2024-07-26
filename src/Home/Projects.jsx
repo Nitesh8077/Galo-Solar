@@ -3,10 +3,10 @@ import "aos/dist/aos.css";
 
 const projects = [
   { title: "Har Ki Paudi, Haridwar", image: "/images/pro1.svg" },
-  { title: "Chandi Mata Mandir, Haridwar", image: "/images/pr2.svg" },
+  { title: "Chandi Mata Mandir, Haridwar", image: "/images/pro2.svg" },
   { title: "Medical College, Kanpur, UP", image: "/images/pro3.svg" },
   { title: "German Embassy, Delhi", image: "/images/pro4.svg" },
-  { title: "Jantar Mantar, Delhi", image: "/images/p5.svg" },
+  { title: "Jantar Mantar, Delhi", image: "/images/pro5.svg" },
   { title: "GGIC, Banda, UP", image: "/images/pro6.svg" },
 ];
 
@@ -24,9 +24,8 @@ const Projects = () => {
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-48 object-cover mb-4 rounded"
+              className="w-full h-full mb-4 rounded"
             />
-            <h2 className="text-xl font-bold text-center">{project.title}</h2>
           </div>
         ))}
       </div>
