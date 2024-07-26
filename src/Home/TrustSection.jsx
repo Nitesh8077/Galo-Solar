@@ -10,7 +10,7 @@ const TrustSection = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white p-8 md:p-16">
+    <div className="bg-black text-white p-8 md:p-16 w-full">
       <h2
         className="text-yellow-500 text-3xl md:text-4xl font-bold mb-4"
         data-aos="fade-up"
