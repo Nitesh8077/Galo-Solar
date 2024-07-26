@@ -15,6 +15,7 @@ const Home = () => {
       <Banner />
       <Form />
       <Projects />
+      <Testimonials />
       <SolarPromo />
       <Footer />
     </div>
