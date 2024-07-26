@@ -9,7 +9,7 @@ const Form = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center h-screen bg-yellow-500 p-4">
+    <div className="flex flex-col md:flex-row items-center h-screen bg-yellow-500 p-4">
       <div
         className="text-center md:text-left mb-6 md:mb-0 md:w-1/2"
         data-aos="fade-right"
