@@ -9,12 +9,6 @@ const items = [
     className="item w-full h-auto object-contain"
     data-value="1"
   />,
-  <img
-    src="/images/newb.svg"
-    alt="Image 3"
-    className="item w-full h-auto object-contain"
-    data-value="3"
-  />,
 ];
 
 const MainCarausel = () => (
@@ -22,9 +16,6 @@ const MainCarausel = () => (
     <AliceCarousel
       items={items}
       controlsStrategy="alternate"
-      autoPlay
-      autoPlayInterval={1000}
-      infinite
       disableButtonsControls
       disableDotsControls
     />

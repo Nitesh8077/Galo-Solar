@@ -136,13 +136,6 @@ export default function Navigation() {
       </Dialog>
 
       <header className="relative bg-black">
-        <p className="flex h-10 items-center justify-center bg-yellow-400 overflow-hidden relative">
-          <span className="absolute whitespace-nowrap animate-marquee">
-            SAVE UPTO 100% MONTHLY ON ELECTRICITY BILLS.{" "}
-            <span className="italic font-bold ml-1">ENQUIRE NOW!</span>
-          </span>
-        </p>
-
         <nav
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
