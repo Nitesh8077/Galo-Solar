@@ -10,7 +10,7 @@ const ContactForm = () => {
   return (
     <div className="bg-black text-white p-10">
       <h2
-        className="text-6xl font-bold text-yellow-500 mb-8"
+        className="text-6xl font-bold text-yellow-400 mb-8"
         data-aos="fade-down"
       >
         Send us a message
@@ -51,7 +51,7 @@ const ContactForm = () => {
         />
         <button
           type="submit"
-          className="bg-yellow-500 text-black p-4 rounded w-full font-bold"
+          className="bg-yellow-400 text-black p-4 rounded w-full font-bold"
         >
           Send Message
         </button>

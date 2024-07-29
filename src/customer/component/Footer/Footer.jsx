@@ -11,7 +11,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className="bg-black text-yellow-500 p-4 md:p-8 flex flex-wrap justify-center md:justify-around">
+    <div className="bg-black text-yellow-400 p-4 md:p-8 flex flex-wrap justify-center md:justify-around">
       <div className="m-2" data-aos="fade-up" data-aos-once="true">
         <h3 className="mb-2 font-bold text-xl md:text-2xl">HELP AND SUPPORT</h3>
         <a href="#" className="block mb-1">

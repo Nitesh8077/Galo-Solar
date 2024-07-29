@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   Dialog,
@@ -85,6 +83,13 @@ export default function Navigation() {
                   {page.name}
                 </button>
               ))}
+              {/* Sign Up Button */}
+              <button
+                className="mt-4 text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none"
+                onClick={() => handleNavigation("Sign Up for Solar Savings")}
+              >
+                Sign Up for Solar Savings
+              </button>
             </div>
           </DialogPanel>
         </div>
