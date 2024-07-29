@@ -202,7 +202,7 @@ export default function Navigation() {
 
             <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
               <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none">
-                ENQUIRE NOW
+                Sign Up for Solar Savings
               </button>
             </div>
           </div>

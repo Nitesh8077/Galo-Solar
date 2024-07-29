@@ -7,6 +7,8 @@ import Projects from "./Projects";
 import Testimonials from "./Testimonials";
 import SolarPromo from "./SolarPromo";
 import Footer from "./Footer";
+import SolarSolution from "./SolarSolution";
+import Line from "./Line";
 
 const Home = () => {
   return (
@@ -15,6 +17,8 @@ const Home = () => {
       <Banner />
       <Form />
       <TrustSection />
+      <SolarSolution />
+      <Line />
       <Projects />
       <Testimonials />
       <SolarPromo />
