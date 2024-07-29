@@ -37,7 +37,7 @@ const SolarSolution = () => {
             image: "/images/industry.png",
           },
           {
-            image: "/images/home.png",
+            image: "/images/society.png",
           },
           {
             image: "/images/kusum.png",

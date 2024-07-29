@@ -110,7 +110,7 @@ const ContactForm = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <img className="-mt-12" src="/images/verctor.svg" alt="Vector" />
+        <img className="-mt-12 " src="/images/verctor.svg" alt="Vector" />
         <h2 className="text-6xl font-bold">Send us a message</h2>
         <p className="mt-2 text-2xl">
           Write us now. Our team will be more than happy to assist you with all
@@ -162,32 +162,18 @@ const ContactForm = () => {
             <p className="text-red-500">{formErrors.phone}</p>
           )}
         </div>
-        <div className="sm:col-span-1">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="p-4 border border-gray-300 rounded-md w-full"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {formErrors.email && (
-            <p className="text-red-500">{formErrors.email}</p>
-          )}
+        <div className="w-full">
+          <select
+            className=" block w-full border h-[58px] border-gray-300 rounded-md p-2 "
+            required
+          >
+            <option value="">Want solar rooftop for? *</option>
+            <option value="home">Home</option>
+            <option value="business">Office</option>
+            <option value="other">Other</option>
+          </select>
         </div>
-        <div className="sm:col-span-2">
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            className="p-4 border border-gray-300 rounded-md w-full"
-            value={formData.subject}
-            onChange={handleChange}
-          />
-          {formErrors.subject && (
-            <p className="text-red-500">{formErrors.subject}</p>
-          )}
-        </div>
+
         <div className="sm:col-span-2">
           <textarea
             name="message"
