@@ -8,14 +8,14 @@ const testimonials = [
     name: "Shriram Kumar Mehta",
     image: "/images/csxnew.svg",
     feedback:
-      "Galo Energy transformed their energy needs with a seamless solar installation process. They found the team to be professional and efficient, ensuring every detail was taken care of. The high-performance solar panels have significantly reduced their electricity costs, and they are delighted with the eco-friendly benefits. The 5-year warranty and 25-year support gave them peace of mind about their investment.",
+      "Shriram Kumar Mehta expressed his satisfaction with the Galo Solar System, noting its superior efficiency and seamless integration into his existing setup. He commended the robust build quality and advanced technology of the solar panels, which have significantly enhanced his energy independence. Mehta highlighted the ease of installation and the ongoing support from Galo Energy’s team, describing their assistance as both professional and prompt. He also appreciated the substantial savings on his energy bills, attributing this to the system’s high performance.",
   },
   {
     id: "2",
     name: "Dr. Omkar Singh",
     image: "/images/cmr2.svg",
     feedback:
-      "Galo Energy transformed their energy needs with a seamless solar installation process. They found the team to be professional and efficient, ensuring every detail was taken care of. The high-performance solar panels have significantly reduced their electricity costs, and they are delighted with the eco-friendly benefits. The 5-year warranty and 25-year support gave them peace of mind about their investment.",
+      "Dr. Omkar Singh shared his experience with the Galo Solar System, highlighting the exceptional performance and efficiency of the product. He praised the solar system system for its reliability and the significant reduction in his energy costs. According to Dr. Singh, the installation process was smooth, and the support team was professional and responsive. Dr. Singh appreciated the innovative technology and robust design of the solar panels, which he found to be highly durable and effective even in adverse weather conditions.",
   },
 ];
 
@@ -52,7 +52,7 @@ const Testimonials = () => {
                   className="w-full h-auto object-contain rounded"
                 />
               </div>
-              <div className="w-full md:w-2/3 md:pl-4 pt-3">
+              <div className="w-full md:w-2/3 md:pl-4 pt-0">
                 <h2 className="text-xl font-bold mb-4">{testimonial.name}</h2>
                 <p className="italic">{testimonial.feedback}</p>
               </div>
