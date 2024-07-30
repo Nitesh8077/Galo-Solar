@@ -1,4 +1,5 @@
-import { useState } from "react";
+// Navigation.js
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -29,6 +30,17 @@ export default function Navigation() {
     setActiveComponent(pageName);
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (activeComponent === "Sign Up for Solar Savings") {
+      setActiveComponent("Home");
+      setTimeout(() => {
+        document
+          .getElementById("form-section")
+          .scrollIntoView({ behavior: "smooth" });
+      }, 100); // Adjust timeout as needed
+    }
+  }, [activeComponent]);
 
   return (
     <div className="bg-white">
@@ -139,7 +151,10 @@ export default function Navigation() {
             </div>
 
             <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-              <button className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none">
+              <button
+                className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none"
+                onClick={() => handleNavigation("Sign Up for Solar Savings")}
+              >
                 Sign Up for Solar Savings
               </button>
             </div>

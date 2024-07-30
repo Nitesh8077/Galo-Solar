@@ -15,7 +15,10 @@ const Home = () => {
     <div>
       <MainCarausel />
       <Banner />
-      <Form />
+      <div id="form-section">
+        <Form />
+      </div>
+
       <TrustSection />
       <SolarSolution />
       <Line />
