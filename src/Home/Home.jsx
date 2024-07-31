@@ -10,11 +10,12 @@ import Footer from "./Footer";
 import SolarSolution from "./SolarSolution";
 import Line from "./Line";
 import HappyCustomersCarousel from "./HappyCustomersCarousel";
+import SunrisesBanner from "./SunrisesBanner";
 
 const Home = () => {
   return (
     <div>
-      <MainCarausel />
+      <SunrisesBanner />
       <Banner />
       <div id="form-section">
         <Form />
