@@ -8,10 +8,10 @@ import {
   PopoverButton,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import About from "../../../About/About";
-import Home from "../../../Home/Home";
-import ContactUs from "../../../ContactUs/ContactUs";
-import Enquiry from "../../../Enquiry/Enquiry";
+import About from "../About/About";
+import Home from "../Home/Home";
+import ContactUs from "../ContactUs/ContactUs";
+import Enquiry from "../Enquiry/Enquiry";
 
 const navigation = {
   pages: [
