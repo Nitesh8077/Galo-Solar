@@ -63,13 +63,16 @@ const Footer = () => {
         </div>
         <div data-aos="fade-up">
           <p className="font-bold">CORP OFFICE</p>
-          <p>D-120/121, Okhla Phase 1, New Delhi-110020</p>
+          <p>
+            D-120/121, Okhla Phase 1,
+            <br /> New Delhi-110020
+          </p>
         </div>
         <div data-aos="fade-up">
           <p className="font-bold">Facility 1:</p>
           <p>
-            Galo Energy Private Limited, 7KM Milestone, Tosham Road, Dist.
-            Bhiwani, Bawani Khera, Bhiwani, Haryana, 127032
+            7KM Milestone, Tosham Road, Block Bawani Khera, District Bhiwani,
+            Haryana. INDIA
           </p>
           <p>GSTIN: 06AAHCG2480N1ZA</p>
         </div>
