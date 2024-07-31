@@ -1,5 +1,5 @@
 // src/Form.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -7,6 +7,62 @@ const Form = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const [formData, setFormData] = useState({
+    Name: "",
+    Phone: "",
+    SolarFor: "",
+    Pincode: "",
+    City: "",
+    Remark: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbx7EVqE_Zr93xS0kAVMoMoPyFflg38NTAEgw-x6blFk9jK0nqceI9FF65Vf7sRNEOcN0g/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            Name: formData.Name,
+            Phone: formData.Phone,
+            SolarFor: formData.SolarFor,
+            Pincode: formData.Pincode,
+            City: formData.City, // Assuming Phone is equivalent to Email for this example
+            Remark: formData.Remark, // Assuming Remark is equivalent to Message for this example
+          }).toString(),
+        }
+      );
+
+      if (response.ok) {
+        alert("Form submitted successfully!");
+        setFormData({
+          Name: "",
+          Phone: "",
+          SolarFor: "",
+          Pincode: "",
+          City: "",
+          Remark: "",
+        });
+      } else {
+        alert("Form submission failed. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row items-center bg-yellow-500 p-4">
@@ -27,13 +83,16 @@ const Form = () => {
         className="bg-white p-4 md:p-6 rounded-lg shadow-lg md:w-1/2"
         data-aos="fade-left"
       >
-        <form className="space-y-2 md:space-y-3">
+        <form className="space-y-2 md:space-y-3" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Name *
             </label>
             <input
               type="text"
+              name="Name"
+              value={formData.Name}
+              onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
               required
             />
@@ -44,6 +103,9 @@ const Form = () => {
             </label>
             <input
               type="text"
+              name="Phone"
+              value={formData.Phone}
+              onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
               required
             />
@@ -53,6 +115,9 @@ const Form = () => {
               Want solar rooftop for? *
             </label>
             <select
+              name="SolarFor"
+              value={formData.SolarFor}
+              onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
               required
             >
@@ -70,6 +135,9 @@ const Form = () => {
               </label>
               <input
                 type="text"
+                name="Pincode"
+                value={formData.Pincode}
+                onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
                 required
               />
@@ -80,6 +148,9 @@ const Form = () => {
               </label>
               <input
                 type="text"
+                name="City"
+                value={formData.City}
+                onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
                 required
               />
@@ -91,8 +162,10 @@ const Form = () => {
             </label>
             <input
               type="text"
+              name="Remark"
+              value={formData.Remark}
+              onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
-              required
             />
           </div>
           <button

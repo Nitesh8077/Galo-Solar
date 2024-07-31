@@ -9,6 +9,7 @@ import SolarPromo from "./SolarPromo";
 import Footer from "./Footer";
 import SolarSolution from "./SolarSolution";
 import Line from "./Line";
+import HappyCustomersCarousel from "./HappyCustomersCarousel";
 
 const Home = () => {
   return (
@@ -23,7 +24,7 @@ const Home = () => {
       <SolarSolution />
       <Line />
       <Projects />
-      <Testimonials />
+      <HappyCustomersCarousel />
       <SolarPromo />
       <Footer />
     </div>
