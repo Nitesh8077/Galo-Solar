@@ -1,12 +1,20 @@
-// src/Form.js
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+} from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
 
 const Form = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const [countryId, setCountryId] = useState(0);
+  const [stateId, setStateId] = useState(0);
 
   const [formData, setFormData] = useState({
     Name: "",
@@ -17,16 +25,91 @@ const Form = () => {
     Remark: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "Name" && !/^[a-zA-Z\s]*$/.test(value)) {
+      setErrors({
+        ...errors,
+        [name]: "Name must contain only letters and spaces",
+      });
+    } else if (name === "Phone" && !/^[\d\s]*$/.test(value)) {
+      setErrors({
+        ...errors,
+        [name]: "Phone Number must contain only digits",
+      });
+    } else {
+      setErrors({
+        ...errors,
+        [name]: "",
+      });
+    }
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
+
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
+      valid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.Name)) {
+      newErrors.Name = "Name must contain only letters and spaces";
+      valid = false;
+    }
+
+    if (!formData.Phone.trim()) {
+      newErrors.Phone = "Phone Number is required";
+      valid = false;
+    } else if (!/^[\d\s]*$/.test(formData.Phone)) {
+      newErrors.Phone = "Phone Number must contain only digits";
+      valid = false;
+    }
+
+    if (!formData.SolarFor.trim()) {
+      newErrors.SolarFor = "Please select an option for Solar For";
+      valid = false;
+    }
+
+    if (!formData.Pincode.trim()) {
+      newErrors.Pincode = "Pincode is required";
+      valid = false;
+    }
+
+    if (!formData.City.trim()) {
+      newErrors.City = "City is required";
+      valid = false;
+    }
+
+    if (countryId === 0) {
+      newErrors.Country = "Please select a country";
+      valid = false;
+    } else if (stateId === 0) {
+      newErrors.State = "Please select a state after selecting a country";
+      valid = false;
+    } else if (stateId !== 0 && formData.City === "") {
+      newErrors.City = "Please select a city after selecting a state";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbx7EVqE_Zr93xS0kAVMoMoPyFflg38NTAEgw-x6blFk9jK0nqceI9FF65Vf7sRNEOcN0g/exec",
@@ -40,8 +123,8 @@ const Form = () => {
             Phone: formData.Phone,
             SolarFor: formData.SolarFor,
             Pincode: formData.Pincode,
-            City: formData.City, // Assuming Phone is equivalent to Email for this example
-            Remark: formData.Remark, // Assuming Remark is equivalent to Message for this example
+            City: formData.City,
+            Remark: formData.Remark,
           }).toString(),
         }
       );
@@ -56,6 +139,8 @@ const Form = () => {
           City: "",
           Remark: "",
         });
+        setCountryId(0);
+        setStateId(0);
       } else {
         alert("Form submission failed. Please try again.");
       }
@@ -86,39 +171,70 @@ const Form = () => {
         <form className="space-y-2 md:space-y-3" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Name *
+              Country
+            </label>
+            <CountrySelect
+              onChange={(e) => {
+                setCountryId(e.id);
+                setStateId(0); // Reset state and city when country changes
+                setFormData({
+                  ...formData,
+                  City: "", // Clear city selection
+                });
+              }}
+              placeHolder="Select Country"
+            />
+            {errors.Country && (
+              <p className="text-red-500 text-xs">{errors.Country}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Name
             </label>
             <input
               type="text"
               name="Name"
               value={formData.Name}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
+              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                errors.Name ? "border-red-500" : ""
+              }`}
               required
             />
+            {errors.Name && (
+              <p className="text-red-500 text-xs">{errors.Name}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Phone Number*
+              Phone Number
             </label>
             <input
               type="text"
               name="Phone"
               value={formData.Phone}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
+              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                errors.Phone ? "border-red-500" : ""
+              }`}
               required
             />
+            {errors.Phone && (
+              <p className="text-red-500 text-xs">{errors.Phone}</p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Want solar rooftop for? *
+              Want solar rooftop for?
             </label>
             <select
               name="SolarFor"
               value={formData.SolarFor}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
+              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                errors.SolarFor ? "border-red-500" : ""
+              }`}
               required
             >
               <option value="">Select an option</option>
@@ -126,34 +242,49 @@ const Form = () => {
               <option value="business">Office</option>
               <option value="other">Other</option>
             </select>
+            {errors.SolarFor && (
+              <p className="text-red-500 text-xs">{errors.SolarFor}</p>
+            )}
           </div>
 
           <div className="flex gap-2 md:gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                Pincode *
+                State
               </label>
-              <input
-                type="text"
-                name="Pincode"
-                value={formData.Pincode}
-                onChange={handleChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
-                required
+              <StateSelect
+                countryid={countryId}
+                onChange={(e) => {
+                  setStateId(e.id);
+                  setFormData({
+                    ...formData,
+                    City: "", // Clear city selection when state changes
+                  });
+                }}
+                placeHolder="Select State"
               />
+              {errors.State && (
+                <p className="text-red-500 text-xs">{errors.State}</p>
+              )}
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                City *
+                City
               </label>
-              <input
-                type="text"
-                name="City"
-                value={formData.City}
-                onChange={handleChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
-                required
+              <CitySelect
+                countryid={countryId}
+                stateid={stateId}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    City: e.name,
+                  });
+                }}
+                placeHolder="Select City"
               />
+              {errors.City && (
+                <p className="text-red-500 text-xs">{errors.City}</p>
+              )}
             </div>
           </div>
           <div>
