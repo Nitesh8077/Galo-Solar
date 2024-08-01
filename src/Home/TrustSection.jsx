@@ -70,7 +70,7 @@ const TrustSection = () => {
         ].map((item, index) => (
           <div
             key={item.id}
-            className={`flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3 bg-yellow-400 rounded-2xl md:rounded-full ${
+            className={`flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-4 bg-yellow-400 rounded-2xl md:rounded-full ${
               index % 2 === 0 ? "md:ml-auto" : "md:mr-auto"
             }`}
             data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}

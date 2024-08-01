@@ -13,7 +13,7 @@ const FloatingButton = () => {
   return (
     <div className="fixed right-0 bottom-0 mb-4 mr-4 z-50">
       <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-        <img src={whatsappIcon} alt="Reach us Out" className="h-5 md:h-10" />
+        <img src={whatsappIcon} alt="Reach us Out" className="h-7 md:h-10" />
       </a>
     </div>
   );

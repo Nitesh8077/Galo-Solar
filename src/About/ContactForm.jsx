@@ -110,7 +110,12 @@ const ContactForm = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <img className="-mt-12 " src="/images/verctor.svg" alt="Vector" />
+        <img
+          className="hidden md:block -mt-12"
+          src="/images/verctor.svg"
+          alt="Vector"
+        />
+
         <h2 className="text-6xl font-bold">Send us a message</h2>
         <p className="mt-2 text-2xl">
           Write us now. Our team will be more than happy to assist you with all
