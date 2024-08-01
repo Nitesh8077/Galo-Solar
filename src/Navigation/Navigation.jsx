@@ -1,4 +1,3 @@
-// Navigation.js
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -6,18 +5,33 @@ import {
   DialogPanel,
   Popover,
   PopoverButton,
+  PopoverPanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import About from "../About/About";
 import Home from "../Home/Home";
 import ContactUs from "../ContactUs/ContactUs";
 import Enquiry from "../Enquiry/Enquiry";
+import SolarForHomes from "./SolarFor/SolarForHomes";
+import SolarForIndustrial from "./SolarFor/SolarForIndustrial";
+import SolarForResidential from "./SolarFor/SolarForResidential";
+import SolarForKusum from "./SolarFor/SolarForKusum";
 
 const navigation = {
   pages: [
     { name: "Home", default: true },
     { name: "About Us", href: "#" },
     { name: "Enquiry", href: "#" },
+    { name: "Blogs", href: "#" },
+    {
+      name: "Solar for",
+      subpages: [
+        { name: "Homes", component: SolarForHomes },
+        { name: "Industrial", component: SolarForIndustrial },
+        { name: "Residential", component: SolarForResidential },
+        { name: "Kusum", component: SolarForKusum },
+      ],
+    },
     { name: "Contact Us", href: "#" },
   ],
 };
@@ -26,8 +40,12 @@ export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState("Home");
 
-  const handleNavigation = (pageName) => {
-    setActiveComponent(pageName);
+  const handleNavigation = (pageName, subpageName) => {
+    if (subpageName) {
+      setActiveComponent(subpageName);
+    } else {
+      setActiveComponent(pageName);
+    }
     setOpen(false);
   };
 
@@ -87,13 +105,39 @@ export default function Navigation() {
             {/* Links */}
             <div className="flex flex-col space-y-2 px-4">
               {navigation.pages.map((page) => (
-                <button
-                  key={page.name}
-                  className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
-                  onClick={() => handleNavigation(page.name)}
-                >
-                  {page.name}
-                </button>
+                <div key={page.name}>
+                  {page.subpages ? (
+                    <div>
+                      <button
+                        className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
+                        onClick={() => handleNavigation(page.name)}
+                      >
+                        {page.name}
+                      </button>
+                      <div className="flex flex-col space-y-2 px-4 pl-4">
+                        {page.subpages.map((subpage) => (
+                          <button
+                            key={subpage.name}
+                            className="text-base font-medium text-black focus:outline-none"
+                            onClick={() =>
+                              handleNavigation(page.name, subpage.name)
+                            }
+                          >
+                            {subpage.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      key={page.name}
+                      className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
+                      onClick={() => handleNavigation(page.name)}
+                    >
+                      {page.name}
+                    </button>
+                  )}
+                </div>
               ))}
               {/* Sign Up Button */}
               <button
@@ -145,6 +189,21 @@ export default function Navigation() {
                     >
                       {page.name}
                     </PopoverButton>
+                    {page.subpages && (
+                      <PopoverPanel className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg">
+                        {page.subpages.map((subpage) => (
+                          <button
+                            key={subpage.name}
+                            className="block px-4 py-2 text-black text-left w-full"
+                            onClick={() =>
+                              handleNavigation(page.name, subpage.name)
+                            }
+                          >
+                            {subpage.name}
+                          </button>
+                        ))}
+                      </PopoverPanel>
+                    )}
                   </Popover>
                 ))}
               </div>
@@ -167,6 +226,10 @@ export default function Navigation() {
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Enquiry" && <Enquiry />}
         {activeComponent === "Contact Us" && <ContactUs />}
+        {activeComponent === "Homes" && <SolarForHomes />}
+        {activeComponent === "Industrial" && <SolarForIndustrial />}
+        {activeComponent === "Residential" && <SolarForResidential />}
+        {activeComponent === "Kusum" && <SolarForKusum />}
       </main>
     </div>
   );
