@@ -16,22 +16,17 @@ import SolarForHomes from "./SolarFor/SolarForHomes";
 import SolarForIndustrial from "./SolarFor/SolarForIndustrial";
 import SolarForResidential from "./SolarFor/SolarForResidential";
 import SolarForKusum from "./SolarFor/SolarForKusum";
+import Homes from "../Homes/Homes";
 
 const navigation = {
   pages: [
-    { name: "Home", default: true },
+    { name: "Homes", default: "#" },
+    { name: "Commercial/Industrial", href: "#" },
+    { name: "Residential", href: "#" },
+    { name: "PM KUSUM", href: "#" },
     { name: "About Us", href: "#" },
-    { name: "Enquiry", href: "#" },
     { name: "Blogs", href: "#" },
-    {
-      name: "Solar for",
-      subpages: [
-        { name: "Homes", component: SolarForHomes },
-        { name: "Industrial", component: SolarForIndustrial },
-        { name: "Residential", component: SolarForResidential },
-        { name: "Kusum", component: SolarForKusum },
-      ],
-    },
+
     { name: "Contact Us", href: "#" },
   ],
 };
@@ -139,13 +134,7 @@ export default function Navigation() {
                   )}
                 </div>
               ))}
-              {/* Sign Up Button */}
-              <button
-                className="mt-4 text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none"
-                onClick={() => handleNavigation("Sign Up for Solar Savings")}
-              >
-                Sign Up for Solar Savings
-              </button>
+              {/* Sign Up Button */}s
             </div>
           </DialogPanel>
         </div>
@@ -208,28 +197,16 @@ export default function Navigation() {
                 ))}
               </div>
             </div>
-
-            <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-              <button
-                className="text-sm rounded-lg font-medium bg-yellow-400 text-black px-4 py-2 transition-transform duration-300 ease-in-out transform hover:bg-yellow-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none"
-                onClick={() => handleNavigation("Sign Up for Solar Savings")}
-              >
-                Sign Up for Solar Savings
-              </button>
-            </div>
           </div>
         </nav>
       </header>
 
       <main>
         {activeComponent === "Home" && <Home />}
+        {activeComponent === "Homes" && <Homes />}
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Enquiry" && <Enquiry />}
         {activeComponent === "Contact Us" && <ContactUs />}
-        {activeComponent === "Homes" && <SolarForHomes />}
-        {activeComponent === "Industrial" && <SolarForIndustrial />}
-        {activeComponent === "Residential" && <SolarForResidential />}
-        {activeComponent === "Kusum" && <SolarForKusum />}
       </main>
     </div>
   );

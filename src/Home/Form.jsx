@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import {
-  CitySelect,
-  CountrySelect,
-  StateSelect,
-} from "react-country-state-city";
-import "react-country-state-city/dist/react-country-state-city.css";
 
 const Form = () => {
   useEffect(() => {
@@ -24,6 +18,7 @@ const Form = () => {
     SolarFor: "",
     Pincode: "",
     City: "",
+    State: "",
     Remark: "",
   });
 
@@ -36,6 +31,7 @@ const Form = () => {
     setFormData((prev) => ({
       ...prev,
       City: "", // Clear city selection
+      State: "", // Clear state selection
     }));
   }, [indiaCountryId]);
 
@@ -81,6 +77,20 @@ const Form = () => {
       newErrors.Name = "Name must contain only letters and spaces";
       valid = false;
     }
+    if (!formData.State.trim()) {
+      newErrors.State = "State is required";
+      valid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.State)) {
+      newErrors.State = "State must contain only letters and spaces";
+      valid = false;
+    }
+    if (!formData.City.trim()) {
+      newErrors.City = "City is required";
+      valid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.City)) {
+      newErrors.City = "City must contain only letters and spaces";
+      valid = false;
+    }
 
     if (!formData.Phone.trim()) {
       newErrors.Phone = "Phone Number is required";
@@ -98,22 +108,6 @@ const Form = () => {
     // Pincode validation is now optional
     if (formData.Pincode && !/^\d*$/.test(formData.Pincode)) {
       newErrors.Pincode = "Pincode must contain only numbers";
-      valid = false;
-    }
-
-    if (!formData.City.trim()) {
-      newErrors.City = "City is required";
-      valid = false;
-    }
-
-    if (countryId === 0) {
-      newErrors.Country = "Please select a country";
-      valid = false;
-    } else if (stateId === 0) {
-      newErrors.State = "Please select a state after selecting a country";
-      valid = false;
-    } else if (stateId !== 0 && formData.City === "") {
-      newErrors.City = "Please select a city after selecting a state";
       valid = false;
     }
 
@@ -141,6 +135,7 @@ const Form = () => {
             Phone: formData.Phone,
             SolarFor: formData.SolarFor,
             Pincode: formData.Pincode,
+            State: formData.State,
             City: formData.City,
             Remark: formData.Remark,
           }).toString(),
@@ -155,6 +150,7 @@ const Form = () => {
           SolarFor: "",
           Pincode: "",
           City: "",
+          State: "",
           Remark: "",
         });
         setCountryId(indiaCountryId); // Reset country to India
@@ -168,7 +164,7 @@ const Form = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center bg-yellow-500 p-4">
+    <div className="flex flex-col md:flex-row items-center bg-yellow-400 p-4">
       <div
         className="text-center md:text-left mb-6 md:mb-0 md:w-1/2"
         data-aos="fade-right"
@@ -189,46 +185,26 @@ const Form = () => {
         <form className="space-y-2 md:space-y-3" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Country
+              Country<span className="text-red-500">*</span>
             </label>
-            <CountrySelect
-              defaultValue={{
-                id: 101,
-                name: "India",
-                iso3: "IND",
-                iso2: "IN",
-                numeric_code: "356",
-                phone_code: 91,
-                capital: "New Delhi",
-                currency: "INR",
-                currency_name: "Indian rupee",
-                currency_symbol: "₹",
-                tld: ".in",
-                native: "भारत",
-                region: "Asia",
-                subregion: "Southern Asia",
-                latitude: "20.00000000",
-                longitude: "77.00000000",
-                emoji: "🇮🇳",
-              }}
-              //value={countryId} // Set default value
-              onChange={(e) => {
-                setCountryId(e.id);
-                setStateId(0); // Reset state and city when country changes
-                setFormData((prev) => ({
-                  ...prev,
-                  City: "", // Clear city selection
-                }));
-              }}
-              placeHolder="Select Country"
-            />
+            <select
+              name="Country"
+              value={countryId}
+              onChange={(e) => setCountryId(parseInt(e.target.value, 10))}
+              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                errors.Country ? "border-red-500" : ""
+              }`}
+              required
+            >
+              <option value={indiaCountryId}>India</option>
+            </select>
             {errors.Country && (
               <p className="text-red-500 text-xs">{errors.Country}</p>
             )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Name<span className="text-red-500">*</span>
+              Fullname<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -290,16 +266,14 @@ const Form = () => {
               <label className="block text-sm font-medium text-gray-700">
                 State<span className="text-red-500">*</span>
               </label>
-              <StateSelect
-                countryid={countryId}
-                onChange={(e) => {
-                  setStateId(e.id);
-                  setFormData((prev) => ({
-                    ...prev,
-                    City: "", // Clear city selection when state changes
-                  }));
-                }}
-                placeHolder="Select State"
+              <input
+                type="text"
+                name="State"
+                value={formData.State}
+                onChange={handleChange}
+                className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                  errors.State ? "border-red-500" : ""
+                }`}
               />
               {errors.State && (
                 <p className="text-red-500 text-xs">{errors.State}</p>
@@ -307,18 +281,16 @@ const Form = () => {
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                City<span className="text-red-500">*</span>
+                City/District<span className="text-red-500">*</span>
               </label>
-              <CitySelect
-                countryid={countryId}
-                stateid={stateId}
-                onChange={(e) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    City: e.name,
-                  }));
-                }}
-                placeHolder="Select City"
+              <input
+                type="text"
+                name="City"
+                value={formData.City}
+                onChange={handleChange}
+                className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                  errors.City ? "border-red-500" : ""
+                }`}
               />
               {errors.City && (
                 <p className="text-red-500 text-xs">{errors.City}</p>
