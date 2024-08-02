@@ -13,7 +13,9 @@ const Form = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const [countryId, setCountryId] = useState(0);
+  const indiaCountryId = 101; // Ensure this is the correct ID for India
+
+  const [countryId, setCountryId] = useState(indiaCountryId);
   const [stateId, setStateId] = useState(0);
 
   const [formData, setFormData] = useState({
@@ -27,6 +29,16 @@ const Form = () => {
 
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    // Reset state and city when country changes
+    setCountryId(indiaCountryId);
+    setStateId(0);
+    setFormData((prev) => ({
+      ...prev,
+      City: "", // Clear city selection
+    }));
+  }, [indiaCountryId]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -39,6 +51,11 @@ const Form = () => {
       setErrors({
         ...errors,
         [name]: "Phone Number must contain only digits",
+      });
+    } else if (name === "Pincode" && !/^\d*$/.test(value)) {
+      setErrors({
+        ...errors,
+        [name]: "Pincode must contain only numbers",
       });
     } else {
       setErrors({
@@ -78,8 +95,9 @@ const Form = () => {
       valid = false;
     }
 
-    if (!formData.Pincode.trim()) {
-      newErrors.Pincode = "Pincode is required";
+    // Pincode validation is now optional
+    if (formData.Pincode && !/^\d*$/.test(formData.Pincode)) {
+      newErrors.Pincode = "Pincode must contain only numbers";
       valid = false;
     }
 
@@ -139,7 +157,7 @@ const Form = () => {
           City: "",
           Remark: "",
         });
-        setCountryId(0);
+        setCountryId(indiaCountryId); // Reset country to India
         setStateId(0);
       } else {
         alert("Form submission failed. Please try again.");
@@ -174,13 +192,33 @@ const Form = () => {
               Country
             </label>
             <CountrySelect
+              defaultValue={{
+                id: 101,
+                name: "India",
+                iso3: "IND",
+                iso2: "IN",
+                numeric_code: "356",
+                phone_code: 91,
+                capital: "New Delhi",
+                currency: "INR",
+                currency_name: "Indian rupee",
+                currency_symbol: "₹",
+                tld: ".in",
+                native: "भारत",
+                region: "Asia",
+                subregion: "Southern Asia",
+                latitude: "20.00000000",
+                longitude: "77.00000000",
+                emoji: "🇮🇳",
+              }}
+              //value={countryId} // Set default value
               onChange={(e) => {
                 setCountryId(e.id);
                 setStateId(0); // Reset state and city when country changes
-                setFormData({
-                  ...formData,
+                setFormData((prev) => ({
+                  ...prev,
                   City: "", // Clear city selection
-                });
+                }));
               }}
               placeHolder="Select Country"
             />
@@ -190,7 +228,7 @@ const Form = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Name
+              Name<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -208,7 +246,7 @@ const Form = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Phone Number
+              Phone Number<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -226,7 +264,7 @@ const Form = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Want solar rooftop for?
+              Want solar rooftop for?<span className="text-red-500">*</span>
             </label>
             <select
               name="SolarFor"
@@ -250,16 +288,16 @@ const Form = () => {
           <div className="flex gap-2 md:gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                State
+                State<span className="text-red-500">*</span>
               </label>
               <StateSelect
                 countryid={countryId}
                 onChange={(e) => {
                   setStateId(e.id);
-                  setFormData({
-                    ...formData,
+                  setFormData((prev) => ({
+                    ...prev,
                     City: "", // Clear city selection when state changes
-                  });
+                  }));
                 }}
                 placeHolder="Select State"
               />
@@ -269,21 +307,38 @@ const Form = () => {
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
-                City
+                City<span className="text-red-500">*</span>
               </label>
               <CitySelect
                 countryid={countryId}
                 stateid={stateId}
                 onChange={(e) => {
-                  setFormData({
-                    ...formData,
+                  setFormData((prev) => ({
+                    ...prev,
                     City: e.name,
-                  });
+                  }));
                 }}
                 placeHolder="Select City"
               />
               {errors.City && (
                 <p className="text-red-500 text-xs">{errors.City}</p>
+              )}
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Pincode
+              </label>
+              <input
+                type="text"
+                name="Pincode"
+                value={formData.Pincode}
+                onChange={handleChange}
+                className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
+                  errors.Pincode ? "border-red-500" : ""
+                }`}
+              />
+              {errors.Pincode && (
+                <p className="text-red-500 text-xs">{errors.Pincode}</p>
               )}
             </div>
           </div>
