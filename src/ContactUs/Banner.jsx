@@ -3,7 +3,7 @@ import React from "react";
 const Banner = () => {
   return (
     <div>
-      <img src="/images/CT.png" />
+      <img src="/images/CTU.png" />
     </div>
   );
 };

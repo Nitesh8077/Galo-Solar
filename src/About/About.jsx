@@ -5,6 +5,7 @@ import CompanyInfo from "./CompanyInfo";
 import InstallationShowcase from "./InstallationShowcase";
 import ContactSection from "./ContactSection";
 import ContactForm from "./ContactForm";
+import Footer from "../Home/Footer";
 
 const About = () => {
   return (
@@ -15,6 +16,7 @@ const About = () => {
       <InstallationShowcase />
       <ContactSection />
       <ContactForm />
+      <Footer />
     </div>
   );
 };

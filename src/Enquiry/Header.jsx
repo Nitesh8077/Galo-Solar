@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
   return (
     <div>
-      <img src="/images/enq.png" />
+      <img src="/images/ESP.png" />
     </div>
   );
 };
