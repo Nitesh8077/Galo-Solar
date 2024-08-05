@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import image1 from "/images/cust3.svg"; // Update the path accordingly
 import image2 from "/images/cust4.svg"; // Update the path accordingly
 import image3 from "/images/cust2.svg"; // Update the path accordingly
+import backgroundImg from "/images/CIRCUIT6.png";
 
 const HappyCustomersCarousel = () => {
   const responsive = {
@@ -32,7 +33,10 @@ const HappyCustomersCarousel = () => {
   ];
 
   return (
-    <div className="bg-black text-yellow-400 py-8">
+    <div
+      className="bg-black text-yellow-400 py-8"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <h2 className="text-3xl font-bold text-center mb-8">
         Our Happy Customers
       </h2>

@@ -1,5 +1,6 @@
 import React from "react";
 import "aos/dist/aos.css";
+import backgroundImg from "/images/CIRCUIT5.png";
 
 const projects = [
   { image: "/images/pro5.svg" },
@@ -10,7 +11,10 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="bg-yellow-400 p-8 md:p-12 lg:p-16">
+    <div
+      className="bg-yellow-400 p-8 md:p-12 lg:p-16"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 md:mb-8">
         Some of our Prestigious Projects
       </h1>

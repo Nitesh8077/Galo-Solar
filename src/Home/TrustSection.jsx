@@ -42,7 +42,7 @@ const TrustSection = () => {
           },
           {
             id: 2,
-            title: "Superior Manufacturing",
+            title: "Superior in-House Manufacturing",
             description:
               "In-house manufacturing ensuring top-quality control of all components.",
             image: "/images/2.svg",

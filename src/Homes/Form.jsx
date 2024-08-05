@@ -197,12 +197,13 @@ const Form = () => {
         data-aos="fade-right"
       >
         <h1 className="text-black text-2xl md:text-5xl font-bold">
-          Unlock the Benefits of Solar Energy with a No-Cost Consultation!
+          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
         </h1>
         <p className="text-black text-sm md:text-xl mt-4">
-          Connect with our team for a comprehensive review of your solar
-          options. Just valuable insights to help you make an informed decision.
-          Reach out today!
+          Ready to brighten your home with solar energy? Begin with a
+          complimentary consultation from our expert team.
+          <br className="pb-10" /> Connect with us today to explore how solar
+          can transform your energy use and savings!
         </p>
       </div>
       <div

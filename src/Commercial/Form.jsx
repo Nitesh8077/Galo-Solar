@@ -198,12 +198,12 @@ const Form = () => {
         data-aos="fade-right"
       >
         <h1 className="text-yellow-400 text-2xl md:text-5xl font-bold">
-          Unlock the Benefits of Solar Energy with a No-Cost Consultation!
+          Power Up Your Business with Solar Energy – Start with a Free
+          Assessment!
         </h1>
         <p className="text-white text-sm md:text-xl mt-4">
-          Connect with our team for a comprehensive review of your solar
-          options. Just valuable insights to help you make an informed decision.
-          Reach out today!
+          Ready to optimize your commercial or industrial operations with solar
+          energy? Schedule a complimentary consultation with our experts today.
         </p>
       </div>
       <div
@@ -304,9 +304,11 @@ const Form = () => {
               required
             >
               <option value="">Select an option</option>
-              <option value="home">Home</option>
-              <option value="other">Residential Society</option>
-              <option value="other">Other</option>
+              <option value="home">Factory</option>
+              <option value="other">Warehouse</option>
+              <option value="other">Hotels/Resorts</option>
+              <option value="other">Educational Institutions</option>
+              <option value="other">Hospitals</option>
             </select>
             {errors.SolarFor && (
               <p className="text-red-500 text-xs">{errors.SolarFor}</p>

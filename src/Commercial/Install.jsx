@@ -44,7 +44,7 @@ function Install() {
                   experienced solar consultants.
                 </p>
 
-                <p className="mt-2 font-semibold text-lg text-black">
+                <p className="mt-2 font-bold text-lg text-black">
                   During this visit, we:
                 </p>
                 <ul className="list-disc list-inside text-lg md:text-xl text-black ml-4 mt-2 space-y-1">
@@ -66,7 +66,7 @@ function Install() {
                 </ul>
               </div>
               <img
-                src="/images/sp1.png"
+                src="/images/F1.png"
                 alt="Solar Installation 1"
                 className="w-full md:w-1/2 rounded-md shadow-lg mt-4 md:mt-0"
                 data-aos="fade-up"
@@ -86,7 +86,7 @@ function Install() {
                   comprehensive service, guiding you through every step of the
                   installation process.
                 </p>
-                <p className="mt-2 font-semibold text-black">This includes:</p>
+                <p className="mt-2 font-bold text-black">This includes:</p>
                 <ul className="list-disc list-inside text-lg md:text-xl text-black ml-4 mt-2 space-y-1">
                   <li>
                     Coordinating with your DISCOM (Distribution Company) or
@@ -119,7 +119,7 @@ function Install() {
                 </ul>
               </div>
               <img
-                src="/images/sp2.png"
+                src="/images/F2.png"
                 alt="Solar Installation 2"
                 className="w-full md:w-1/2 rounded-md shadow-lg mt-4 md:mt-0"
                 data-aos="fade-up"

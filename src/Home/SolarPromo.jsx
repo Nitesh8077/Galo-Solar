@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import backgroundImg from "/images/CIRCUIT5.png";
 
 const SolarPromo = () => {
   useEffect(() => {
@@ -8,7 +9,10 @@ const SolarPromo = () => {
   }, []);
 
   return (
-    <div className="bg-yellow-400 flex flex-col items-center p-4 md:p-8">
+    <div
+      className="bg-yellow-400 flex flex-col items-center p-4 md:p-8"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <h1
         className="text-2xl md:text-5xl font-bold mb-4 text-center"
         data-aos="fade-down"

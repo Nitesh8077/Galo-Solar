@@ -50,10 +50,6 @@ function Illuminate() {
             text: "Products are either manufactured by Galo Solar or custom-designed to meet high standards, ensuring superior quality control.",
           },
           {
-            title: "Family Safety",
-            text: "Galo Solar’s systems are 100% safe for families, with a focus on secure and reliable installations.",
-          },
-          {
             title: "Durable Structure",
             text: "The systems feature hot-dipped galvanized structures with no rust, factory-fitted components, and double zinc coating for added durability.",
           },

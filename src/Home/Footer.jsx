@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import backgroundImg from "/images/CIRCUIT6.png";
 
 const Footer = () => {
   useEffect(() => {
@@ -8,7 +9,10 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-black text-yellow-500 p-8">
+    <footer
+      className="bg-black text-yellow-500 p-8"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div data-aos="fade-up">
           <img

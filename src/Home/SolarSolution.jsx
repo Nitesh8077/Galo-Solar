@@ -20,12 +20,12 @@ const SolarSolution = () => {
       }}
     >
       <h2
-        className="text-black text-3xl md:text-8xl font-bold mb-4"
+        className="text-black text-3xl md:text-6xl font-bold mb-4"
         data-aos="fade-up"
       >
         We provide
       </h2>
-      <h3 className="text-2xl md:text-8xl font-bold mb-4" data-aos="fade-up">
+      <h3 className="text-2xl md:text-6xl font-bold mb-4" data-aos="fade-up">
         Solar Solutions for
       </h3>
       <div className="space-y-10 text-black">
