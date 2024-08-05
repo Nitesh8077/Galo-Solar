@@ -132,7 +132,7 @@ export default function Navigation() {
                   )}
                 </div>
               ))}
-              {/* Sign Up Button */}s
+              {/* Sign Up Button */}
             </div>
           </DialogPanel>
         </div>
