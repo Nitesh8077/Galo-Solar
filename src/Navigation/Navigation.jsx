@@ -12,12 +12,9 @@ import About from "../About/About";
 import Home from "../Home/Home";
 import ContactUs from "../ContactUs/ContactUs";
 import Enquiry from "../Enquiry/Enquiry";
-import SolarForHomes from "./SolarFor/SolarForHomes";
-import SolarForIndustrial from "./SolarFor/SolarForIndustrial";
-import SolarForResidential from "./SolarFor/SolarForResidential";
-import SolarForKusum from "./SolarFor/SolarForKusum";
 import Homes from "../Homes/Homes";
 import Commercial from "../Commercial/Commercial";
+import backgroundImg from "/images/Vector.png";
 
 const navigation = {
   pages: [
@@ -141,7 +138,10 @@ export default function Navigation() {
         </div>
       </Dialog>
 
-      <header className="relative bg-black">
+      <header
+        className="relative bg-black"
+        style={{ backgroundImage: `url(${backgroundImg})` }}
+      >
         <nav
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
