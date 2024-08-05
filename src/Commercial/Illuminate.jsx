@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "aos/dist/aos.css";
 import AOS from "aos";
-import backgroundImg from "/images/CURCUIT4.png";
+import backgroundImg from "/images/CIRCUIT2.png";
 
 function Illuminate() {
   useEffect(() => {
@@ -10,13 +10,20 @@ function Illuminate() {
 
   return (
     <div
-      className="min-h-screen bg-yellow-400 p-8 flex flex-col items-center justify-center text-center"
+      className="min-h-screen bg-yellow-400 text-yellow-700 p-8 flex flex-col items-center justify-center text-center"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <h1 className="text-4xl font-bold mb-4" data-aos="fade-up">
-        Illuminate Your Home with Galo Solar:
+      <h1
+        className="text-4xl font-bold text-yellow-400 mb-4"
+        data-aos="fade-up"
+      >
+        Illuminate Your Business with Galo Solar:
       </h1>
-      <h2 className="text-2xl mb-8" data-aos="fade-up" data-aos-delay="200">
+      <h2
+        className="text-2xl text-yellow-400 mb-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
         Discover the Benefits of Solar Energy
       </h2>
 

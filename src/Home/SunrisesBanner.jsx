@@ -3,7 +3,7 @@ import React from "react";
 const SunrisesBanner = () => {
   return (
     <div>
-      <img src="/images/newb2.svg" alt="Sunrise Banner" />
+      <img src="/images/newb3.png" alt="Sunrise Banner" />
     </div>
   );
 };

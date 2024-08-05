@@ -17,6 +17,7 @@ import SolarForIndustrial from "./SolarFor/SolarForIndustrial";
 import SolarForResidential from "./SolarFor/SolarForResidential";
 import SolarForKusum from "./SolarFor/SolarForKusum";
 import Homes from "../Homes/Homes";
+import Commercial from "../Commercial/Commercial";
 
 const navigation = {
   pages: [
@@ -204,6 +205,7 @@ export default function Navigation() {
       <main>
         {activeComponent === "Home" && <Home />}
         {activeComponent === "Homes" && <Homes />}
+        {activeComponent === "Commercial/Industrial" && <Commercial />}
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Enquiry" && <Enquiry />}
         {activeComponent === "Contact Us" && <ContactUs />}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import countrydata from "./Countrydata.json";
+import countrydata from "../Data/Countrydata.json";
+import backgroundImg from "/images/CURCUIT3.png";
 
 const Form = () => {
   useEffect(() => {
@@ -187,7 +188,10 @@ const Form = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center bg-yellow-400 p-4">
+    <div
+      className="flex flex-col md:flex-row items-center bg-yellow-400 p-4"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <div
         className="text-center md:text-left mb-6 md:mb-0 md:w-1/2"
         data-aos="fade-right"
