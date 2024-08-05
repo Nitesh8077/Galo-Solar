@@ -10,11 +10,11 @@ function Install() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center text-white p-8"
+      className="min-h-screen bg-cover bg-center text-white p-4 md:p-8"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <div className="max-w-full mx-auto">
-        <p className="mb-4 text-xl text-black" data-aos="fade-up">
+      <div className="max-w-7xl mx-auto px-4">
+        <p className="mb-4 text-lg md:text-xl text-black" data-aos="fade-up">
           Upgrade your business's energy efficiency with Galo Solar's innovative
           solar solutions. Leveraging significant government subsidies, the
           commercial and industrial sectors can enjoy a seamless transition to
@@ -24,7 +24,7 @@ function Install() {
         </p>
 
         <h2
-          className="text-4xl font-bold mb-4 text-black"
+          className="text-2xl md:text-4xl font-bold mb-4 text-black"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -34,12 +34,12 @@ function Install() {
 
         <div className="space-y-6">
           <div data-aos="fade-up" data-aos-delay="200">
-            <div className="flex justify-center">
-              <div className="w-1/2">
-                <h3 className="text-3xl font-semibold text-black">
+            <div className="flex flex-col md:flex-row items-center md:items-start">
+              <div className="w-full md:w-1/2 md:pr-4">
+                <h3 className="text-2xl md:text-3xl font-semibold text-black">
                   1. Site Visit by Trained Solar Consultants:
                 </h3>
-                <p className="mt-2 text-xl text-black">
+                <p className="mt-2 text-lg md:text-xl text-black">
                   Our process begins with a comprehensive site visit by our
                   experienced solar consultants.
                 </p>
@@ -47,7 +47,7 @@ function Install() {
                 <p className="mt-2 font-semibold text-lg text-black">
                   During this visit, we:
                 </p>
-                <ul className="list-disc list-inside text-xl text-black ml-4 mt-2 space-y-1">
+                <ul className="list-disc list-inside text-lg md:text-xl text-black ml-4 mt-2 space-y-1">
                   <li>
                     Analyze your electricity bill to understand your energy
                     consumption.
@@ -68,7 +68,7 @@ function Install() {
               <img
                 src="/images/sp1.png"
                 alt="Solar Installation 1"
-                className="rounded-md shadow-lg"
+                className="w-full md:w-1/2 rounded-md shadow-lg mt-4 md:mt-0"
                 data-aos="fade-up"
                 data-aos-delay="500"
               />
@@ -76,18 +76,18 @@ function Install() {
           </div>
 
           <div data-aos="fade-up" data-aos-delay="300">
-            <div className="flex justify-center">
-              <div className="w-1/2">
-                <h3 className="text-3xl font-semibold text-black">
+            <div className="flex flex-col md:flex-row items-center md:items-start">
+              <div className="w-full md:w-1/2 md:pl-4">
+                <h3 className="text-2xl md:text-3xl font-semibold text-black">
                   2. End-to-End Support:
                 </h3>
-                <p className="mt-2 text-xl text-black">
+                <p className="mt-2 text-lg md:text-xl text-black">
                   At Galo Solar, we pride ourselves on providing a seamless and
                   comprehensive service, guiding you through every step of the
                   installation process.
                 </p>
                 <p className="mt-2 font-semibold text-black">This includes:</p>
-                <ul className="list-disc list-inside text-xl text-black ml-4 mt-2 space-y-1">
+                <ul className="list-disc list-inside text-lg md:text-xl text-black ml-4 mt-2 space-y-1">
                   <li>
                     Coordinating with your DISCOM (Distribution Company) or
                     State Electricity Board (SEB).
@@ -121,7 +121,7 @@ function Install() {
               <img
                 src="/images/sp2.png"
                 alt="Solar Installation 2"
-                className="rounded-md shadow-lg"
+                className="w-full md:w-1/2 rounded-md shadow-lg mt-4 md:mt-0"
                 data-aos="fade-up"
                 data-aos-delay="600"
               />
@@ -130,7 +130,7 @@ function Install() {
         </div>
 
         <p
-          className="mt-8 text-black text-xl"
+          className="mt-8 text-black text-lg md:text-xl"
           data-aos="fade-up"
           data-aos-delay="400"
         >
