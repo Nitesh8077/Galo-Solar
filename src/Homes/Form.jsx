@@ -281,10 +281,7 @@ const Form = () => {
             >
               <option value="">Select an option</option>
               <option value="home">Home</option>
-              <option value="business">Office</option>
               <option value="other">Residential Society</option>
-              <option value="other">Commercial</option>
-              <option value="other">Industrial</option>
               <option value="other">Other</option>
             </select>
             {errors.SolarFor && (

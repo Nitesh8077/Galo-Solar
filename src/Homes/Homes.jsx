@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import Form from "../Home/Form";
+import Form from "./Form";
 import Illuminate from "./Illuminate";
 import Footer from "../Home/Footer";
 import Install from "./Install";
