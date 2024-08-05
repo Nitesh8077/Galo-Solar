@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "tailwindcss/tailwind.css";
 import "./SolarAnimations.css"; // Ensure this file contains the necessary animation definitions
+import backgroundImg from "/images/CIRCUIT5.png";
 
 const SolarEnergy = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +34,11 @@ const SolarEnergy = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="bg-yellow-300 p-10">
+    <div
+      ref={sectionRef}
+      className="bg-yellow-300 p-10"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <h2
         className={`text-4xl font-bold mb-4 transition-opacity duration-1000 ${
           isVisible ? "opacity-100 animate-fade-in" : "opacity-0"

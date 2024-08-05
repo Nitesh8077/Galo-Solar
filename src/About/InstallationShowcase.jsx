@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "tailwindcss/tailwind.css";
+import backgroundImg from "/images/CIRCUIT5.png";
 
 // Sample images (replace with actual paths)
 import lucknowImage from "/images/lucknow.svg";
@@ -37,7 +38,11 @@ const InstallationShowcase = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="bg-yellow-400 text-black p-8 space-y-8">
+    <div
+      ref={sectionRef}
+      className="bg-yellow-400 text-black p-8 space-y-8"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <div className="text-center">
         <h2
           className={`text-3xl font-bold transition-opacity duration-1000 ${

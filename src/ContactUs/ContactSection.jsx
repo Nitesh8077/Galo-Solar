@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import backgroundImg from "/images/CIRCUIT5.png";
 
 const ContactSection = () => {
   useEffect(() => {
@@ -8,7 +9,10 @@ const ContactSection = () => {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row justify-around items-center bg-yellow-500 p-10">
+    <div
+      className="flex flex-col md:flex-row justify-around items-center bg-yellow-500 p-10"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <div data-aos="fade-up" className="text-center m-4 w-64">
         <img src="/images/reach.svg" alt="Reach Us" className="mx-auto mb-4" />
         <h2 className="text-2xl font-bold">Reach Us</h2>

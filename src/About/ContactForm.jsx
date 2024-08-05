@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import "tailwindcss/tailwind.css";
+import backgroundImg from "/images/CIRCUIT5.png";
 
 const ContactForm = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -104,6 +105,7 @@ const ContactForm = () => {
     <div
       ref={containerRef}
       className="bg-yellow-400 text-black p-8 space-y-8 text-center"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
     >
       <div
         className={`transform transition-transform duration-1000 ${

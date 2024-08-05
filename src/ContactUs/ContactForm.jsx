@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import backgroundImg from "/images/CIRCUIT.png";
 
 const ContactForm = () => {
   useEffect(() => {
@@ -8,7 +9,10 @@ const ContactForm = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white p-10">
+    <div
+      className="bg-black text-white p-10"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <h2
         className="text-6xl font-bold text-yellow-400 mb-8"
         data-aos="fade-down"

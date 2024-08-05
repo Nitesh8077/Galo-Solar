@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css";
+import backgroundImg from "/images/CIRCUIT.png";
 const CompanyInfo = () => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
@@ -28,7 +29,11 @@ const CompanyInfo = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="bg-black text-yellow-400 p-8 space-y-8">
+    <div
+      ref={containerRef}
+      className="bg-black text-yellow-400 p-8 space-y-8"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
       <div
         className={`transition-opacity duration-1000 ${
           isVisible ? "opacity-100 delay-100" : "opacity-0"
