@@ -205,9 +205,9 @@ export default function Navigation() {
       <main>
         {activeComponent === "Home" && <Home />}
         {activeComponent === "Homes" && <Homes />}
+        {activeComponent === "Residential" && <Homes />}
         {activeComponent === "Commercial/Industrial" && <Commercial />}
         {activeComponent === "About Us" && <About />}
-        {activeComponent === "Enquiry" && <Enquiry />}
         {activeComponent === "Contact Us" && <ContactUs />}
       </main>
     </div>
