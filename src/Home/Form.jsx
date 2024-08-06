@@ -384,7 +384,9 @@ const Form = () => {
                 Select
               </option>
               <option value="Home">Home</option>
+              <option value="Business">Residential</option>
               <option value="Business">Business</option>
+              <option value="Business">Others</option>
             </select>
             {errors.SolarFor && (
               <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
