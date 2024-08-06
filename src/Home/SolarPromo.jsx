@@ -35,6 +35,7 @@ const SolarPromo = () => {
             className="absolute top-0 left-0 w-full h-full"
             src="https://www.youtube.com/embed/Nh_KJDPNWOk"
             title="YouTube video player"
+            loading="lazy"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

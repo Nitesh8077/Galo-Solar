@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
@@ -9,12 +9,10 @@ const Form = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const indiaCountryId = "101"; // Ensure this is the correct ID for India
-
-  const [countryId, setCountryId] = useState(indiaCountryId);
-  const [state, setState] = useState([]);
-  const [stateId, setStateId] = useState("");
-
+  const [locationType, setLocationType] = useState("india");
+  const [selectedCountryId, setSelectedCountryId] = useState("");
+  const [states, setStates] = useState([]);
+  const [selectedStateId, setSelectedStateId] = useState("");
   const [formData, setFormData] = useState({
     Name: "",
     Phone: "",
@@ -24,119 +22,157 @@ const Form = () => {
     State: "",
     Remark: "",
   });
-
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    // Find the country based on the countryId
-    const selectedCountry = countrydata.find(
-      (country) => country.country_id === countryId
-    );
-    if (selectedCountry) {
-      setState(selectedCountry.states);
-    }
-  }, [countryId]);
+    const getStates = () => {
+      if (locationType === "outside" && selectedCountryId) {
+        const country = countrydata.find(
+          (country) => country.country_id === selectedCountryId
+        );
+        return country ? country.states : [];
+      } else if (locationType === "india") {
+        const india = countrydata.find(
+          (country) => country.country_name === "India"
+        );
+        return india ? india.states : [];
+      }
+      return [];
+    };
 
-  useEffect(() => {
-    // Reset state and city when country changes
-    setStateId("");
-    setFormData((prev) => ({
-      ...prev,
-      City: "", // Clear city selection
-      State: "", // Clear state selection
-    }));
-  }, [countryId]);
+    setStates(getStates());
+  }, [locationType, selectedCountryId]);
 
   const handleCountryChange = (e) => {
-    const selectedCountryId = e.target.value;
-    setCountryId(selectedCountryId);
+    setSelectedCountryId(e.target.value);
+    setFormData((prev) => ({
+      ...prev,
+      Country: e.target.value,
+      State: "",
+      City: "",
+    }));
+    setSelectedStateId("");
   };
 
   const handleStateChange = (e) => {
-    setStateId(e.target.value);
-    const selectedState = state.find(
-      (state) => state.state_id === e.target.value
-    );
-    if (selectedState) {
-      setFormData((prev) => ({ ...prev, State: selectedState.state_name }));
+    const stateId = e.target.value;
+    setSelectedStateId(stateId);
+    const state = states.find((state) => state.state_id === stateId);
+    if (state) {
+      setFormData((prev) => ({ ...prev, State: state.state_name }));
     }
+  };
+
+  const handleLocationTypeChange = (e) => {
+    const newLocationType = e.target.value;
+    setLocationType(newLocationType);
+    setSelectedCountryId("");
+    setSelectedStateId("");
+    setStates([]);
+    setFormData((prev) => ({ ...prev, State: "", City: "", Country: "" }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Validation logic
+    let errorMessage = "";
     if (name === "Name" && !/^[a-zA-Z\s]*$/.test(value)) {
-      setErrors({
-        ...errors,
-        [name]: "Name must contain only letters and spaces",
-      });
-    } else if (name === "Phone" && !/^[\d\s]*$/.test(value)) {
-      setErrors({
-        ...errors,
-        [name]: "Phone Number must contain only digits",
-      });
-    } else if (name === "Pincode" && !/^\d*$/.test(value)) {
-      setErrors({
-        ...errors,
-        [name]: "Pincode must contain only numbers",
-      });
-    } else {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
+      errorMessage = "Name must contain only letters and spaces";
+    } else if (name === "Phone") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Phone Number must contain only digits";
+      } else if (locationType === "india") {
+        if (value.length < 10) {
+          errorMessage = "Phone number must be at least 10 digits long";
+        } else if (value.length > 10) {
+          errorMessage = "Phone Number must be up to 10 digits long";
+        }
+      } else if (locationType === "outside") {
+        if (value.length < 5) {
+          errorMessage = "Phone Number must be at least 5 digits long";
+        } else if (value.length > 15) {
+          errorMessage = "Phone Number must be up to 15 digits long";
+        }
+      }
+    } else if (name === "Pincode") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Pincode must contain only numbers";
+      } else if (locationType === "india" && value.length !== 6) {
+        errorMessage = "Pincode Number must be exactly 6 digits long";
+      } else if (locationType === "outside" && value.length > 10) {
+        errorMessage = "Pincode must be up to 10 digits long";
+      }
     }
+
+    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
   };
 
   const validateForm = () => {
-    let valid = true;
-    let newErrors = {};
+    let isValid = true;
+    const newErrors = {};
 
     if (!formData.Name.trim()) {
       newErrors.Name = "Name is required";
-      valid = false;
+      isValid = false;
     } else if (!/^[a-zA-Z\s]*$/.test(formData.Name)) {
       newErrors.Name = "Name must contain only letters and spaces";
-      valid = false;
+      isValid = false;
     }
     if (!formData.State.trim()) {
       newErrors.State = "State is required";
-      valid = false;
+      isValid = false;
     }
     if (!formData.City.trim()) {
       newErrors.City = "City is required";
-      valid = false;
+      isValid = false;
     } else if (!/^[a-zA-Z\s]*$/.test(formData.City)) {
       newErrors.City = "City must contain only letters and spaces";
-      valid = false;
+      isValid = false;
     }
-
     if (!formData.Phone.trim()) {
       newErrors.Phone = "Phone Number is required";
-      valid = false;
-    } else if (!/^[\d\s]*$/.test(formData.Phone)) {
+      isValid = false;
+    } else if (!/^\d*$/.test(formData.Phone)) {
       newErrors.Phone = "Phone Number must contain only digits";
-      valid = false;
+      isValid = false;
+    } else if (locationType === "india") {
+      if (formData.Phone.length < 10) {
+        newErrors.Phone = "Phone number must be at least 10 digits long";
+        isValid = false;
+      } else if (formData.Phone.length > 10) {
+        newErrors.Phone = "Phone Number must be up to 10 digits long";
+        isValid = false;
+      }
+    } else if (locationType === "outside") {
+      if (formData.Phone.length < 5) {
+        newErrors.Phone = "Phone Number must be at least 5 digits long";
+        isValid = false;
+      } else if (formData.Phone.length > 15) {
+        newErrors.Phone = "Phone Number must be up to 15 digits long";
+        isValid = false;
+      }
     }
-
     if (!formData.SolarFor.trim()) {
       newErrors.SolarFor = "Please select an option for Solar For";
-      valid = false;
+      isValid = false;
     }
-
-    // Pincode validation is now optional
-    if (formData.Pincode && !/^\d*$/.test(formData.Pincode)) {
-      newErrors.Pincode = "Pincode must contain only numbers";
-      valid = false;
+    if (formData.Pincode.trim() !== "") {
+      // Only validate if Pincode is not empty
+      if (!/^\d*$/.test(formData.Pincode)) {
+        newErrors.Pincode = "Pincode must contain only numbers";
+        isValid = false;
+      } else if (locationType === "india" && formData.Pincode.length !== 6) {
+        newErrors.Pincode = "Pincode Number must be exactly 6 digits long";
+        isValid = false;
+      } else if (locationType === "outside" && formData.Pincode.length > 10) {
+        newErrors.Pincode = "Pincode must be up to 10 digits long";
+        isValid = false;
+      }
     }
 
     setErrors(newErrors);
-    return valid;
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
@@ -154,15 +190,7 @@ const Form = () => {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: new URLSearchParams({
-            Name: formData.Name,
-            Phone: formData.Phone,
-            SolarFor: formData.SolarFor,
-            Pincode: formData.Pincode,
-            State: formData.State,
-            City: formData.City,
-            Remark: formData.Remark,
-          }).toString(),
+          body: new URLSearchParams(formData).toString(),
         }
       );
 
@@ -177,8 +205,9 @@ const Form = () => {
           State: "",
           Remark: "",
         });
-        setCountryId(indiaCountryId); // Reset country to India
-        setStateId("");
+        setSelectedCountryId("");
+        setSelectedStateId("");
+        setStates([]);
       } else {
         alert("Form submission failed. Please try again.");
       }
@@ -197,7 +226,7 @@ const Form = () => {
         data-aos="fade-right"
       >
         <h1 className="text-black text-2xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+          Illuminate Your Future with Solar Energy - Start with a Free Check-Up!
         </h1>
         <p className="text-black text-sm md:text-xl mt-4">
           Ready to brighten your home with solar energy? Begin with a
@@ -211,176 +240,223 @@ const Form = () => {
         data-aos="fade-left"
       >
         <form className="space-y-2 md:space-y-3" onSubmit={handleSubmit}>
-          {/* Country */}
-          <label className="block text-sm font-medium text-gray-700">
-            Country<span className="text-red-500">*</span>
-          </label>
-          <select
-            name="country"
-            className="form-control"
-            onChange={handleCountryChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 "
-            value={countryId}
-          >
-            <option value="">--Select Country--</option>
-            {countrydata.map((country, index) => (
-              <option value={country.country_id} key={index}>
-                {country.country_name}
-              </option>
-            ))}
-          </select>
+          {/* Location Type */}
+          <div className="flex items-center mb-4">
+            <label className="mr-4">
+              <input
+                type="radio"
+                name="locationType"
+                value="india"
+                checked={locationType === "india"}
+                onChange={handleLocationTypeChange}
+                className="mr-2"
+              />
+              India
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="locationType"
+                value="outside"
+                checked={locationType === "outside"}
+                onChange={handleLocationTypeChange}
+                className="mr-2"
+              />
+              Outside India
+            </label>
+          </div>
 
-          {/* Name */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Name<span className="text-red-500">*</span>
+          {/* Country Dropdown */}
+          {locationType === "outside" && (
+            <div className="mb-4">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Country
+              </label>
+              <select
+                id="country"
+                name="country"
+                value={selectedCountryId}
+                onChange={handleCountryChange}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="" disabled>
+                  Select Country
+                </option>
+                {countrydata
+                  .filter((country) => country.country_name !== "India")
+                  .map((country) => (
+                    <option key={country.country_id} value={country.country_id}>
+                      {country.country_name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
+
+          {/* State Dropdown */}
+          {(locationType === "india" || selectedCountryId) && (
+            <div className="mb-4">
+              <label
+                htmlFor="state"
+                className="block text-sm font-medium text-gray-700"
+              >
+                State
+              </label>
+              <select
+                id="state"
+                name="state"
+                value={selectedStateId}
+                onChange={handleStateChange}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="" disabled>
+                  Select State
+                </option>
+                {states.map((state) => (
+                  <option key={state.state_id} value={state.state_id}>
+                    {state.state_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Form Fields */}
+          <div className="mb-4">
+            <label
+              htmlFor="Name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
             </label>
             <input
               type="text"
+              id="Name"
               name="Name"
               value={formData.Name}
               onChange={handleChange}
-              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
-                errors.Name ? "border-red-500" : ""
-              }`}
-              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {errors.Name && (
-              <p className="text-red-500 text-xs">{errors.Name}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.Name}</p>
             )}
           </div>
 
-          {/* Phone Number */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phone Number<span className="text-red-500">*</span>
+          <div className="mb-4">
+            <label
+              htmlFor="Phone"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Phone Number
             </label>
             <input
               type="text"
+              id="Phone"
               name="Phone"
               value={formData.Phone}
               onChange={handleChange}
-              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
-                errors.Phone ? "border-red-500" : ""
-              }`}
-              required
+              maxLength={locationType === "india" ? "10" : "15"} // Set max length based on location type
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {errors.Phone && (
-              <p className="text-red-500 text-xs">{errors.Phone}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.Phone}</p>
             )}
           </div>
 
-          {/* Solar For */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Want solar rooftop for?<span className="text-red-500">*</span>
+          <div className="mb-4">
+            <label
+              htmlFor="SolarFor"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Solar For
             </label>
             <select
+              id="SolarFor"
               name="SolarFor"
               value={formData.SolarFor}
               onChange={handleChange}
-              className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
-                errors.SolarFor ? "border-red-500" : ""
-              }`}
-              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="">Select an option</option>
-              <option value="home">Home</option>
-              <option value="business">Office</option>
-              <option value="other">Residential Society</option>
-              <option value="other">Commercial</option>
-              <option value="other">Industrial</option>
-              <option value="other">Other</option>
+              <option value="" disabled>
+                Select
+              </option>
+              <option value="Home">Home</option>
+              <option value="Business">Business</option>
             </select>
             {errors.SolarFor && (
-              <p className="text-red-500 text-xs">{errors.SolarFor}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
             )}
           </div>
 
-          <div className="flex gap-2 md:gap-4">
-            {/* State */}
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
-                State<span className="text-red-500">*</span>
-              </label>
-              <select
-                name="states"
-                className="form-control"
-                onChange={handleStateChange}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 "
-                value={stateId}
-              >
-                <option value="">--Select State--</option>
-                {state.map((stateItem, index) => (
-                  <option value={stateItem.state_id} key={index}>
-                    {stateItem.state_name}
-                  </option>
-                ))}
-              </select>{" "}
-              {errors.State && (
-                <p className="text-red-500 text-xs">{errors.State}</p>
-              )}
-            </div>
-
-            {/* City/District */}
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
-                City/District<span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="City"
-                value={formData.City}
-                onChange={handleChange}
-                className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
-                  errors.City ? "border-red-500" : ""
-                }`}
-              />
-              {errors.City && (
-                <p className="text-red-500 text-xs">{errors.City}</p>
-              )}
-            </div>
-
-            {/* Pincode */}
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
-                Pincode
-              </label>
-              <input
-                type="text"
-                name="Pincode"
-                value={formData.Pincode}
-                onChange={handleChange}
-                className={`mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2 ${
-                  errors.Pincode ? "border-red-500" : ""
-                }`}
-              />
-              {errors.Pincode && (
-                <p className="text-red-500 text-xs">{errors.Pincode}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Remark */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Remark
+          <div className="mb-4">
+            <label
+              htmlFor="Pincode"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Pincode
             </label>
             <input
               type="text"
+              id="Pincode"
+              name="Pincode"
+              value={formData.Pincode}
+              maxLength={locationType === "india" ? 6 : 10}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            {errors.Pincode && (
+              <p className="text-red-500 text-xs mt-1">{errors.Pincode}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="City"
+              className="block text-sm font-medium text-gray-700"
+            >
+              City
+            </label>
+            <input
+              type="text"
+              id="City"
+              name="City"
+              value={formData.City}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            {errors.City && (
+              <p className="text-red-500 text-xs mt-1">{errors.City}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="Remark"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Remark (Optional)
+            </label>
+            <textarea
+              id="Remark"
               name="Remark"
               value={formData.Remark}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md p-1 md:p-2"
+              rows="3"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-black text-yellow-400 py-2 rounded-md font-bold"
-          >
-            Go Solar!
-          </button>
+          <div className="mb-4">
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -83,14 +83,10 @@ export default function Navigation() {
               </button>
 
               {/* Logo */}
-              <div className="flex justify-center flex-grow">
+              <div className="flex justify-center flex-grow object-fill">
                 <a href="#">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    alt="Galo Solar"
-                    src="./images/galo.png"
-                    className="h-12 w-auto md:h-20"
-                  />
+                  <img alt="Galo Solar" src="./images/galo.png" />
                 </a>
               </div>
             </div>

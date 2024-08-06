@@ -2,7 +2,7 @@ import React from "react";
 
 const SunrisesBanner = () => {
   return (
-    <div>
+    <div className="">
       <img src="/images/newb3.jpg" alt="Sunrise Banner" />
     </div>
   );
