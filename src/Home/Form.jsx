@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
 import backgroundImg from "/images/CURCUIT3.png";
+import axios from "axios";
 
 const Form = () => {
   useEffect(() => {
@@ -13,7 +14,9 @@ const Form = () => {
   const [selectedCountryId, setSelectedCountryId] = useState("");
   const [states, setStates] = useState([]);
   const [selectedStateId, setSelectedStateId] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const [formData, setFormData] = useState({
+    Country: "",
     Name: "",
     Phone: "",
     SolarFor: "",
@@ -23,6 +26,12 @@ const Form = () => {
     Remark: "",
   });
   const [errors, setErrors] = useState({});
+
+  // Create a mapping of country_id to country_name
+  const countryMapping = countrydata.reduce((acc, country) => {
+    acc[country.country_id] = country.country_name;
+    return acc;
+  }, {});
 
   useEffect(() => {
     const getStates = () => {
@@ -44,10 +53,11 @@ const Form = () => {
   }, [locationType, selectedCountryId]);
 
   const handleCountryChange = (e) => {
-    setSelectedCountryId(e.target.value);
+    const countryId = e.target.value;
+    setSelectedCountryId(countryId);
     setFormData((prev) => ({
       ...prev,
-      Country: e.target.value,
+      Country: countryId,
       State: "",
       City: "",
     }));
@@ -69,7 +79,12 @@ const Form = () => {
     setSelectedCountryId("");
     setSelectedStateId("");
     setStates([]);
-    setFormData((prev) => ({ ...prev, State: "", City: "", Country: "" }));
+    setFormData((prev) => ({
+      ...prev,
+      State: "",
+      City: "",
+      Country: newLocationType === "india" ? "India" : "",
+    }));
   };
 
   const handleChange = (e) => {
@@ -119,8 +134,16 @@ const Form = () => {
       newErrors.Name = "Name must contain only letters and spaces";
       isValid = false;
     }
+    if (locationType === "outside" && !formData.Country.trim()) {
+      newErrors.Country = "Country is required";
+      isValid = false;
+    }
     if (!formData.State.trim()) {
       newErrors.State = "State is required";
+      isValid = false;
+    }
+    if (!formData.SolarFor.trim()) {
+      newErrors.SolarFor = "SolarFor is required";
       isValid = false;
     }
     if (!formData.City.trim()) {
@@ -153,12 +176,7 @@ const Form = () => {
         isValid = false;
       }
     }
-    if (!formData.SolarFor.trim()) {
-      newErrors.SolarFor = "Please select an option for Solar For";
-      isValid = false;
-    }
     if (formData.Pincode.trim() !== "") {
-      // Only validate if Pincode is not empty
       if (!/^\d*$/.test(formData.Pincode)) {
         newErrors.Pincode = "Pincode must contain only numbers";
         isValid = false;
@@ -177,42 +195,38 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
-    if (!validateForm()) {
-      return;
-    }
+    // Map country_id to country_name
+    const data = {
+      ...formData,
+      Country:
+        locationType === "india"
+          ? "India"
+          : countryMapping[formData.Country] || formData.Country,
+    };
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbx7EVqE_Zr93xS0kAVMoMoPyFflg38NTAEgw-x6blFk9jK0nqceI9FF65Vf7sRNEOcN0g/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams(formData).toString(),
-        }
+      const response = await axios.post(
+        "https://sheet.best/api/sheets/872878f6-121d-454d-a7c6-2c096dd817e4",
+        data
       );
-
-      if (response.ok) {
-        alert("Form submitted successfully!");
-        setFormData({
-          Name: "",
-          Phone: "",
-          SolarFor: "",
-          Pincode: "",
-          City: "",
-          State: "",
-          Remark: "",
-        });
-        setSelectedCountryId("");
-        setSelectedStateId("");
-        setStates([]);
-      } else {
-        alert("Form submission failed. Please try again.");
-      }
+      console.log(response);
+      // Clear form data
+      setFormData({
+        Country: "",
+        Name: "",
+        Phone: "",
+        SolarFor: "",
+        Pincode: "",
+        City: "",
+        State: "",
+        Remark: "",
+      });
+      setSelectedCountryId("");
+      setSelectedStateId("");
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      console.error("Error submitting form:", error);
     }
   };
 
@@ -221,70 +235,64 @@ const Form = () => {
       className="flex flex-col md:flex-row items-center bg-yellow-400 p-4"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <div
-        className="text-center md:text-left mb-6 md:mb-0 md:w-1/2"
-        data-aos="fade-right"
-      >
-        <h1 className="text-black text-2xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy - Start with a Free Check-Up!
-        </h1>
-        <p className="text-black text-sm md:text-xl mt-4">
+      <div className="w-1/2">
+        <p className="text-5xl font-bold">
+          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+        </p>
+        <p className="text-xl mt-4">
           Ready to brighten your home with solar energy? Begin with a
-          complimentary consultation from our expert team.
-          <br className="pb-10" /> Connect with us today to explore how solar
-          can transform your energy use and savings!
+          complimentary consultation from our expert team.{" "}
+          <br className="mt-4" />
+          Connect with us today to explore how solar can transform
+          <br /> your energy use and savings!
         </p>
       </div>
       <div
-        className="bg-white p-4 md:p-6 rounded-lg shadow-lg md:w-1/2"
-        data-aos="fade-left"
+        className="p-8 w-1/2 mx-auto bg-white rounded-xl shadow-lg"
+        data-aos="fade-up"
       >
-        <form className="space-y-2 md:space-y-3" onSubmit={handleSubmit}>
-          {/* Location Type */}
-          <div className="flex items-center mb-4">
-            <label className="mr-4">
-              <input
-                type="radio"
-                name="locationType"
-                value="india"
-                checked={locationType === "india"}
-                onChange={handleLocationTypeChange}
-                className="mr-2"
-              />
-              India
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Location For<span className="text-red-600 ml-1">*</span>
             </label>
-            <label>
-              <input
-                type="radio"
-                name="locationType"
-                value="outside"
-                checked={locationType === "outside"}
-                onChange={handleLocationTypeChange}
-                className="mr-2"
-              />
-              Outside India
-            </label>
+            <div className="flex space-x-4">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="locationType"
+                  value="india"
+                  checked={locationType === "india"}
+                  onChange={handleLocationTypeChange}
+                  className="mr-2"
+                />
+                <span>India</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="locationType"
+                  value="outside"
+                  checked={locationType === "outside"}
+                  onChange={handleLocationTypeChange}
+                  className="mr-2"
+                />
+                <span>Outside India</span>
+              </label>
+            </div>
           </div>
-
-          {/* Country Dropdown */}
           {locationType === "outside" && (
-            <div className="mb-4">
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Country
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Country<span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                id="country"
-                name="country"
+                name="Country"
                 value={selectedCountryId}
                 onChange={handleCountryChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full border border-gray-300 rounded-md p-2"
               >
-                <option value="" disabled>
-                  Select Country
-                </option>
+                <option value="">Select Country</option>
                 {countrydata
                   .filter((country) => country.country_name !== "India")
                   .map((country) => (
@@ -293,172 +301,138 @@ const Form = () => {
                     </option>
                   ))}
               </select>
+              {errors.Country && (
+                <p className="text-red-500 text-xs mt-1">{errors.Country}</p>
+              )}
             </div>
           )}
-
-          {/* State Dropdown */}
-          {(locationType === "india" || selectedCountryId) && (
-            <div className="mb-4">
-              <label
-                htmlFor="state"
-                className="block text-sm font-medium text-gray-700"
-              >
-                State
-              </label>
-              <select
-                id="state"
-                name="state"
-                value={selectedStateId}
-                onChange={handleStateChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option value="" disabled>
-                  Select State
-                </option>
-                {states.map((state) => (
-                  <option key={state.state_id} value={state.state_id}>
-                    {state.state_name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* Form Fields */}
-          <div className="mb-4">
-            <label
-              htmlFor="Name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="Name"
-              name="Name"
-              value={formData.Name}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.Name && (
-              <p className="text-red-500 text-xs mt-1">{errors.Name}</p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="Phone"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Phone Number
-            </label>
-            <input
-              type="text"
-              id="Phone"
-              name="Phone"
-              value={formData.Phone}
-              onChange={handleChange}
-              maxLength={locationType === "india" ? "10" : "15"} // Set max length based on location type
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.Phone && (
-              <p className="text-red-500 text-xs mt-1">{errors.Phone}</p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="SolarFor"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Solar For
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              State<span className="text-red-600 ml-1">*</span>
             </label>
             <select
-              id="SolarFor"
-              name="SolarFor"
-              value={formData.SolarFor}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="State"
+              value={selectedStateId}
+              onChange={handleStateChange}
+              className="block w-full border border-gray-300 rounded-md p-2"
             >
-              <option value="" disabled>
-                Select
-              </option>
-              <option value="Home">Home</option>
-              <option value="Business">Residential</option>
-              <option value="Business">Business</option>
-              <option value="Business">Others</option>
+              <option value="">Select State</option>
+              {states.map((state) => (
+                <option key={state.state_id} value={state.state_id}>
+                  {state.state_name}
+                </option>
+              ))}
             </select>
-            {errors.SolarFor && (
-              <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+            {errors.State && (
+              <p className="text-red-500 text-xs mt-1">{errors.State}</p>
             )}
           </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="Pincode"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Pincode
-            </label>
-            <input
-              type="text"
-              id="Pincode"
-              name="Pincode"
-              value={formData.Pincode}
-              maxLength={locationType === "india" ? 6 : 10}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.Pincode && (
-              <p className="text-red-500 text-xs mt-1">{errors.Pincode}</p>
-            )}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Name<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="Name"
+                value={formData.Name}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.Name && (
+                <p className="text-red-500 text-xs mt-1">{errors.Name}</p>
+              )}
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="Phone"
+                value={formData.Phone}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.Phone && (
+                <p className="text-red-500 text-xs mt-1">{errors.Phone}</p>
+              )}
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="City"
-              className="block text-sm font-medium text-gray-700"
-            >
-              City
-            </label>
-            <input
-              type="text"
-              id="City"
-              name="City"
-              value={formData.City}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            {errors.City && (
-              <p className="text-red-500 text-xs mt-1">{errors.City}</p>
-            )}
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                City/District/Region<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="City"
+                value={formData.City}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.City && (
+                <p className="text-red-500 text-xs mt-1">{errors.City}</p>
+              )}
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Pincode
+              </label>
+              <input
+                type="text"
+                name="Pincode"
+                value={formData.Pincode}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.Pincode && (
+                <p className="text-red-500 text-xs mt-1">{errors.Pincode}</p>
+              )}
+            </div>
           </div>
+          <div className="flex space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Solar For<span className="text-red-600 ml-1">*</span>
+              </label>
+              <select
+                type="text"
+                name="SolarFor"
+                value={formData.SolarFor}
+                onChange={handleChange}
+                className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+              >
+                <option value="">Select...</option>
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Agricultural">Agricultural</option>
+              </select>
+              {errors.SolarFor && (
+                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="Remark"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Remark (Optional)
-            </label>
-            <textarea
-              id="Remark"
-              name="Remark"
-              value={formData.Remark}
-              onChange={handleChange}
-              rows="3"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">
+                Remark
+              </label>
+              <input
+                name="Remark"
+                value={formData.Remark}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
           </div>
-
-          <div className="mb-4">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
