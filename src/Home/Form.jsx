@@ -232,14 +232,14 @@ const Form = () => {
 
   return (
     <div
-      className="flex flex-col md:flex-row items-center bg-yellow-400 p-4"
+      className="flex flex-col md:flex-row items-center bg-yellow-400 p-4 bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <div className="w-1/2">
-        <p className="text-5xl font-bold">
+      <div className="w-full md:w-1/2 p-4">
+        <p className="text-3xl md:text-5xl font-bold">
           Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
         </p>
-        <p className="text-xl mt-4">
+        <p className="text-lg md:text-xl mt-4">
           Ready to brighten your home with solar energy? Begin with a
           complimentary consultation from our expert team.{" "}
           <br className="mt-4" />
@@ -248,39 +248,44 @@ const Form = () => {
         </p>
       </div>
       <div
-        className="p-8 w-1/2 mx-auto bg-white rounded-xl shadow-lg"
+        className="p-4 md:p-8 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg"
         data-aos="fade-up"
       >
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black ">
               Location For<span className="text-red-600 ml-1">*</span>
             </label>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="locationType"
-                  value="india"
-                  checked={locationType === "india"}
-                  onChange={handleLocationTypeChange}
-                  className="mr-2"
-                />
-                <span>India</span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="locationType"
-                  value="outside"
-                  checked={locationType === "outside"}
-                  onChange={handleLocationTypeChange}
-                  className="mr-2"
-                />
-                <span>Outside India</span>
-              </label>
+            <div className="flex space-x-1 md:space-x-4">
+              <button
+                type="button"
+                onClick={() =>
+                  handleLocationTypeChange({ target: { value: "india" } })
+                }
+                className={`px-4 py-2 w-1/2 border rounded-md ${
+                  locationType === "india"
+                    ? "bg-yellow-400 text-black border-yellow-400"
+                    : "bg-white text-black border-gray-300"
+                }`}
+              >
+                India
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  handleLocationTypeChange({ target: { value: "outside" } })
+                }
+                className={`px-4 py-2 w-1/2 border rounded-md ${
+                  locationType === "outside"
+                    ? "bg-yellow-400 text-black border-yellow-400"
+                    : "bg-white text-black border-gray-300"
+                }`}
+              >
+                Outside India
+              </button>
             </div>
           </div>
+
           {locationType === "outside" && (
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -307,7 +312,7 @@ const Form = () => {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               State<span className="text-red-600 ml-1">*</span>
             </label>
             <select
@@ -327,9 +332,9 @@ const Form = () => {
               <p className="text-red-500 text-xs mt-1">{errors.State}</p>
             )}
           </div>
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Name<span className="text-red-600 ml-1">*</span>
               </label>
               <input
@@ -344,7 +349,7 @@ const Form = () => {
               )}
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Phone Number<span className="text-red-600 ml-1">*</span>
               </label>
               <input
@@ -360,9 +365,9 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 City/District/Region<span className="text-red-600 ml-1">*</span>
               </label>
               <input
@@ -377,7 +382,7 @@ const Form = () => {
               )}
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Pincode
               </label>
               <input
@@ -392,13 +397,12 @@ const Form = () => {
               )}
             </div>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Solar For<span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                type="text"
                 name="SolarFor"
                 value={formData.SolarFor}
                 onChange={handleChange}
@@ -416,7 +420,7 @@ const Form = () => {
             </div>
 
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Remark
               </label>
               <input
