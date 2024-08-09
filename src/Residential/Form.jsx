@@ -243,6 +243,19 @@ const Form = () => {
     } finally {
       setLoading(false); // Stop loading
     }
+    event.preventDefault();
+    setLoading(true);
+
+    // Simulate form submission
+    setTimeout(() => {
+      setSuccessMessage("Form submitted successfully!");
+      setLoading(false);
+
+      // Hide success message after 2 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 2000);
+    }, 1000); // Simulate network delay
   };
 
   return (
