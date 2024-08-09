@@ -19,8 +19,9 @@ import backgroundImg from "/images/Vector.png";
 const navigation = {
   pages: [
     { name: "Homes", default: "#" },
-    { name: "Commercial/Industrial", href: "#" },
     { name: "Residential", href: "#" },
+    { name: "Commercial/Industrial", href: "#" },
+
     { name: "PM KUSUM", href: "#" },
     { name: "About Us", href: "#" },
     { name: "Blogs", href: "#" },

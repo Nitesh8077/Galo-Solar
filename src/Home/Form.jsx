@@ -26,6 +26,8 @@ const Form = () => {
     Remark: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   // Create a mapping of country_id to country_name
   const countryMapping = countrydata.reduce((acc, country) => {
@@ -197,6 +199,8 @@ const Form = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    setLoading(true); // Start loading
+
     // Map country_id to country_name
     const data = {
       ...formData,
@@ -212,6 +216,7 @@ const Form = () => {
         data
       );
       console.log(response);
+      setSuccessMessage("Form submitted successfully!"); // Set success message
       // Clear form data
       setFormData({
         Country: "",
@@ -227,6 +232,8 @@ const Form = () => {
       setSelectedStateId("");
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -431,12 +438,40 @@ const Form = () => {
               />
             </div>
           </div>
+          <div className="flex items-center space-x-2 mt-4">
+            <input
+              type="checkbox"
+              id="terms"
+              className="custom-checkbox accent-yellow-500 form-checkbox h-5 w-5"
+              checked
+              disabled
+            />
+            <label htmlFor="terms" className="text-lg text-gray-700">
+              I agree to
+              <a
+                href="/terms-of-service"
+                className="text-yellow-500 ml-1 underline"
+              >
+                Galo Solar’s terms of service
+              </a>
+              &nbsp;and&nbsp;
+              <a href="/privacy-policy" className="text-yellow-500 underline">
+                privacy policy
+              </a>
+            </label>
+          </div>
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
+            disabled={loading} // Disable button while loading
           >
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
+          {successMessage && (
+            <div className="mt-4 text-green-500 flex justify-center font-bold">
+              {successMessage}
+            </div>
+          )}
         </form>
       </div>
     </div>
