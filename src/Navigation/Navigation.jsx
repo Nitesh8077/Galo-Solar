@@ -11,19 +11,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import About from "../About/About";
 import Home from "../Home/Home";
 import ContactUs from "../ContactUs/ContactUs";
-import Enquiry from "../Enquiry/Enquiry";
 import Homes from "../Homes/Homes";
 import Commercial from "../Commercial/Commercial";
 import backgroundImg from "/images/Vector.png";
+import Residential from "../Residential/Residential";
 
 const navigation = {
   pages: [
     { name: "Homes", default: "#" },
     { name: "Residential", href: "#" },
     { name: "Commercial/Industrial", href: "#" },
-
     { name: "PM KUSUM", href: "#" },
-    { name: "About Us", href: "#" },
     { name: "Blogs", href: "#" },
 
     { name: "Contact Us", href: "#" },
@@ -202,7 +200,7 @@ export default function Navigation() {
       <main>
         {activeComponent === "Home" && <Home />}
         {activeComponent === "Homes" && <Homes />}
-        {activeComponent === "Residential" && <Homes />}
+        {activeComponent === "Residential" && <Residential />}
         {activeComponent === "Commercial/Industrial" && <Commercial />}
         {activeComponent === "About Us" && <About />}
         {activeComponent === "Contact Us" && <ContactUs />}
