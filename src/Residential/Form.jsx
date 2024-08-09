@@ -19,7 +19,9 @@ const Form = () => {
     Country: "",
     Name: "",
     Phone: "",
-    SolarFor: "",
+    AGM: "",
+    Designation: "",
+    SolarFor: "Residential",
     Pincode: "",
     City: "",
     State: "",
@@ -144,8 +146,12 @@ const Form = () => {
       newErrors.State = "State is required";
       isValid = false;
     }
-    if (!formData.SolarFor.trim()) {
-      newErrors.SolarFor = "SolarFor is required";
+    if (!formData.AGM.trim()) {
+      newErrors.AGM = "AGM approval status is required";
+      isValid = false;
+    }
+    if (!formData.Designation.trim()) {
+      newErrors.Designation = "Designation is required";
       isValid = false;
     }
     if (!formData.City.trim()) {
@@ -222,6 +228,8 @@ const Form = () => {
         Country: "",
         Name: "",
         Phone: "",
+        AGM: "",
+        Designation: "",
         SolarFor: "",
         Pincode: "",
         City: "",
@@ -413,8 +421,8 @@ const Form = () => {
                 <span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                name="SolarFor"
-                value={formData.SolarFor}
+                name="AGM"
+                value={formData.AGM}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
@@ -426,8 +434,8 @@ const Form = () => {
                   We don’t have AGM approval yet
                 </option>
               </select>
-              {errors.SolarFor && (
-                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              {errors.AGM && (
+                <p className="text-red-500 text-xs mt-1">{errors.AGM}</p>
               )}
             </div>
           </div>
@@ -437,8 +445,8 @@ const Form = () => {
                 Designation<span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                name="SolarFor"
-                value={formData.SolarFor}
+                name="Designation"
+                value={formData.Designation}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
@@ -448,8 +456,10 @@ const Form = () => {
                 <option value="Industrial">Builder</option>
                 <option value="Agricultural">Facility Manager</option>
               </select>
-              {errors.SolarFor && (
-                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              {errors.Designation && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.Designation}
+                </p>
               )}
             </div>
 
