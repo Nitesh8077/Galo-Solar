@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
   return (
     <div>
-      <img src="images/newb5.jpg" />
+      <img src="images/newb5.jpg" className="w-full" />
     </div>
   );
 };

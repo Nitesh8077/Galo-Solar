@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import AOS from "aos";
 import "aos/dist/aos.css";
 import backgroundImg from "/images/CIRCUIT6.png";
@@ -25,24 +26,29 @@ const Footer = () => {
           <p className="font-bold">HELP AND SUPPORT</p>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:underline">
-                Request a site visit
-              </a>
+              <Link to="/homes" className="hover:underline">
+                Homes
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                About us
-              </a>
+              <Link to="/residential" className="hover:underline">
+                Residential
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Support
-              </a>
+              <Link to="/commercial" className="hover:underline">
+                Commercial/Industrial
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link to="/pmkusum" className="hover:underline">
+                PM KUSUM
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:underline">
                 Contact us
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

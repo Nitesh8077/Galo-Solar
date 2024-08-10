@@ -86,7 +86,7 @@ export default function Navigation() {
       </Dialog>
 
       <header
-        className="relative bg-black"
+        className="relative bg-black "
         style={{ backgroundImage: `url(${backgroundImg})` }}
       >
         <nav
