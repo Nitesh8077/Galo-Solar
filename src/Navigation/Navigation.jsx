@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogBackdrop,
@@ -8,49 +9,27 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import About from "../About/About";
-import Home from "../Home/Home";
-import ContactUs from "../ContactUs/ContactUs";
-import Homes from "../Homes/Homes";
-import Commercial from "../Commercial/Commercial";
 import backgroundImg from "/images/Vector.png";
-import Residential from "../Residential/Residential";
 
 const navigation = {
   pages: [
-    { name: "Homes", default: "#" },
-    { name: "Residential", href: "#" },
-    { name: "Commercial/Industrial", href: "#" },
-    { name: "PM KUSUM", href: "#" },
-    { name: "Blogs", href: "#" },
-
-    { name: "Contact Us", href: "#" },
+    { name: "Homes", href: "/homes" },
+    { name: "Residential", href: "/residential" },
+    { name: "Commercial/Industrial", href: "/commercial" },
+    { name: "PM KUSUM", href: "/pmkusum" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact Us", href: "/contact" },
   ],
 };
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("Home");
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const handleNavigation = (pageName, subpageName) => {
-    if (subpageName) {
-      setActiveComponent(subpageName);
-    } else {
-      setActiveComponent(pageName);
-    }
+  const handleNavigation = (href) => {
+    navigate(href); // Use navigate function to redirect
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (activeComponent === "Sign Up for Solar Savings") {
-      setActiveComponent("Home");
-      setTimeout(() => {
-        document
-          .getElementById("form-section")
-          .scrollIntoView({ behavior: "smooth" });
-      }, 100); // Adjust timeout as needed
-    }
-  }, [activeComponent]);
 
   return (
     <div className="bg-white">
@@ -93,41 +72,14 @@ export default function Navigation() {
             {/* Links */}
             <div className="flex flex-col space-y-2 px-4">
               {navigation.pages.map((page) => (
-                <div key={page.name}>
-                  {page.subpages ? (
-                    <div>
-                      <button
-                        className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
-                        onClick={() => handleNavigation(page.name)}
-                      >
-                        {page.name}
-                      </button>
-                      <div className="flex flex-col space-y-2 px-4 pl-4">
-                        {page.subpages.map((subpage) => (
-                          <button
-                            key={subpage.name}
-                            className="text-base font-medium text-black focus:outline-none"
-                            onClick={() =>
-                              handleNavigation(page.name, subpage.name)
-                            }
-                          >
-                            {subpage.name}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      key={page.name}
-                      className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
-                      onClick={() => handleNavigation(page.name)}
-                    >
-                      {page.name}
-                    </button>
-                  )}
-                </div>
+                <button
+                  key={page.name}
+                  className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
+                  onClick={() => handleNavigation(page.href)}
+                >
+                  {page.name}
+                </button>
               ))}
-              {/* Sign Up Button */}
             </div>
           </DialogPanel>
         </div>
@@ -170,25 +122,10 @@ export default function Navigation() {
                   <Popover key={page.name} className="relative flex">
                     <PopoverButton
                       className="relative z-10 -mb-px flex items-center pt-px text-sm font-medium text-white transition-colors duration-200 ease-out hover:text-yellow-400 focus:outline-none focus:ring-0 active:outline-none"
-                      onClick={() => handleNavigation(page.name)}
+                      onClick={() => handleNavigation(page.href)}
                     >
                       {page.name}
                     </PopoverButton>
-                    {page.subpages && (
-                      <PopoverPanel className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg">
-                        {page.subpages.map((subpage) => (
-                          <button
-                            key={subpage.name}
-                            className="block px-4 py-2 text-black text-left w-full"
-                            onClick={() =>
-                              handleNavigation(page.name, subpage.name)
-                            }
-                          >
-                            {subpage.name}
-                          </button>
-                        ))}
-                      </PopoverPanel>
-                    )}
                   </Popover>
                 ))}
               </div>
@@ -196,15 +133,6 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
-
-      <main>
-        {activeComponent === "Home" && <Home />}
-        {activeComponent === "Homes" && <Homes />}
-        {activeComponent === "Residential" && <Residential />}
-        {activeComponent === "Commercial/Industrial" && <Commercial />}
-        {activeComponent === "About Us" && <About />}
-        {activeComponent === "Contact Us" && <ContactUs />}
-      </main>
     </div>
   );
 }

@@ -136,10 +136,6 @@ const Form = () => {
       newErrors.Name = "Name must contain only letters and spaces";
       isValid = false;
     }
-    if (!formData.CompanyName.trim()) {
-      newErrors.CompanyName = "Company Name is required";
-      isValid = false;
-    }
     if (locationType === "outside" && !formData.Country.trim()) {
       newErrors.Country = "Country is required";
       isValid = false;
@@ -261,14 +257,17 @@ const Form = () => {
     >
       <div className="w-full md:w-1/2 p-4">
         <p className="text-3xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+          Harness the Sun, Empower Your Farm– Get a Free Solar Consultation
+          Today!
         </p>
         <p className="text-lg md:text-xl mt-4">
-          Ready to brighten your home with solar energy? Begin with a
-          complimentary consultation from our expert team.{" "}
-          <br className="mt-4" />
-          Connect with us today to explore how solar can transform
-          <br /> your energy use and savings!
+          Ready to revolutionize your agricultural energy use with solar power?
+          Start with a complimentary expert consultation. Discover how the
+          PM-KUSUM scheme can transform your farm’s energy efficiency and
+          savings –
+          <p className="mt-4 font-bold" />
+          Connect with us today!
+          <p />
         </p>
       </div>
       <div
@@ -276,106 +275,6 @@ const Form = () => {
         data-aos="fade-up"
       >
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-sm font-medium text-black ">
-              Location For<span className="text-red-600 ml-1">*</span>
-            </label>
-            <div className="flex space-x-1 md:space-x-4">
-              <button
-                type="button"
-                onClick={() =>
-                  handleLocationTypeChange({ target: { value: "india" } })
-                }
-                className={`px-4 py-2 w-1/2 border rounded-md ${
-                  locationType === "india"
-                    ? "bg-yellow-400 text-black border-yellow-400"
-                    : "bg-white text-black border-gray-300"
-                }`}
-              >
-                India
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  handleLocationTypeChange({ target: { value: "outside" } })
-                }
-                className={`px-4 py-2 w-1/2 border rounded-md ${
-                  locationType === "outside"
-                    ? "bg-yellow-400 text-black border-yellow-400"
-                    : "bg-white text-black border-gray-300"
-                }`}
-              >
-                Outside India
-              </button>
-            </div>
-          </div>
-
-          {locationType === "outside" && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Country<span className="text-red-600 ml-1">*</span>
-              </label>
-              <select
-                name="Country"
-                value={selectedCountryId}
-                onChange={handleCountryChange}
-                className="block w-full border border-gray-300 rounded-md p-2"
-              >
-                <option value="">Select Country</option>
-                {countrydata
-                  .filter((country) => country.country_name !== "India")
-                  .map((country) => (
-                    <option key={country.country_id} value={country.country_id}>
-                      {country.country_name}
-                    </option>
-                  ))}
-              </select>
-              {errors.Country && (
-                <p className="text-red-500 text-xs mt-1">{errors.Country}</p>
-              )}
-            </div>
-          )}
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-black">
-                State<span className="text-red-600 ml-1">*</span>
-              </label>
-              <select
-                name="State"
-                value={selectedStateId}
-                onChange={handleStateChange}
-                className="block w-full border border-gray-300 rounded-md p-2"
-              >
-                <option value="">Select State</option>
-                {states.map((state) => (
-                  <option key={state.state_id} value={state.state_id}>
-                    {state.state_name}
-                  </option>
-                ))}
-              </select>
-              {errors.State && (
-                <p className="text-red-500 text-xs mt-1">{errors.State}</p>
-              )}
-            </div>
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-black">
-                Company's Name<span className="text-red-600 ml-1">*</span>
-              </label>
-              <input
-                type="text"
-                name="CompanyName"
-                value={formData.CompanyName}
-                onChange={handleChange}
-                className="block w-full border border-gray-300 rounded-md p-2"
-              />
-              {errors.CompanyName && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.CompanyName}
-                </p>
-              )}
-            </div>
-          </div>
-
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
@@ -444,7 +343,7 @@ const Form = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
-                Type of Property<span className="text-red-600 ml-1">*</span>
+                PM-KUSUM Options<span className="text-red-600 ml-1">*</span>
               </label>
               <select
                 name="SolarFor"
@@ -453,11 +352,12 @@ const Form = () => {
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
                 <option value="">Select...</option>
-                <option value="Residential">Factory</option>
-                <option value="Commercial">Warehouse</option>
-                <option value="Industrial">Hotels/Resorts</option>
-                <option value="Agricultural">Educational Institutions</option>
-                <option value="Agricultural">Hospitals</option>
+                <option value="I have been selected for the PM-KUSUM scheme. ">
+                  I have been selected for the PM-KUSUM scheme.{" "}
+                </option>
+                <option value="I want to participate in future PM-KUSUM tenders.">
+                  I want to participate in future PM-KUSUM tenders.
+                </option>
               </select>
               {errors.SolarFor && (
                 <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
@@ -466,7 +366,7 @@ const Form = () => {
 
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
-                Remark
+                Project Size<span className="text-red-600 ml-1">*</span>
               </label>
               <input
                 name="Remark"
@@ -476,28 +376,7 @@ const Form = () => {
               />
             </div>
           </div>
-          <div className="flex items-center space-x-2 mt-4">
-            <input
-              type="checkbox"
-              id="terms"
-              className="custom-checkbox accent-yellow-500 form-checkbox h-5 w-5"
-              checked
-              disabled
-            />
-            <label htmlFor="terms" className="text-lg text-gray-700">
-              I agree to
-              <a
-                href="/terms-of-service"
-                className="text-yellow-500 ml-1 underline"
-              >
-                Galo Solar’s terms of service
-              </a>
-              &nbsp;and&nbsp;
-              <a href="/privacy-policy" className="text-yellow-500 underline">
-                privacy policy
-              </a>
-            </label>
-          </div>
+
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
