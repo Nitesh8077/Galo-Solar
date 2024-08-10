@@ -13,8 +13,9 @@ import Residential from "./Residential/Residential";
 import Commercial from "./Commercial/Commercial";
 import PMKUSUM from "./PMKUSUM/PMKUSUM";
 import ContactUs from "./ContactUs/ContactUs";
-import Delhi from "./Delhi/Delhi"; // Import Delhi component
+import Delhi from "./Delhi/Delhi";
 import UP from "./UP/UP";
+import DelhiFloatingButton from "./DelhiFloatingButton/DelhiFloatingButton";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,9 +27,11 @@ function ScrollToTop() {
   return null;
 }
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <Navigation />
       <Routes>
@@ -38,10 +41,22 @@ export default function App() {
         <Route path="/commercial" element={<Commercial />} />
         <Route path="/pmkusum" element={<PMKUSUM />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/delhi" element={<Delhi />} /> {/* Add this line */}
-        <Route path="/UP" element={<UP />} /> {/* Add this line */}
+        <Route path="/delhi" element={<Delhi />} />
+        <Route path="/UP" element={<UP />} />
       </Routes>
-      <FloatingButton />
+      {location.pathname === "/delhi" ? (
+        <DelhiFloatingButton />
+      ) : (
+        <FloatingButton />
+      )}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
