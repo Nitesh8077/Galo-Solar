@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
-import backgroundImg from "/images/CURCUIT3.png";
+import backgroundImg from "/images/CIRCUIT2.png";
 import axios from "axios";
 
 const Form = () => {
@@ -260,15 +260,16 @@ const Form = () => {
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
       <div className="w-full md:w-1/2 p-4">
-        <p className="text-3xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+        <p className="text-3xl md:text-5xl text-yellow-400 font-bold">
+          Power Up Your Business with Solar Energy – Start with a Free
+          Assessment!
         </p>
-        <p className="text-lg md:text-xl mt-4">
-          Ready to brighten your home with solar energy? Begin with a
-          complimentary consultation from our expert team.{" "}
+        <p className="text-lg text-white md:text-xl mt-4">
+          Ready to optimize your commercial or industrial operations with solar
+          energy?
           <br className="mt-4" />
-          Connect with us today to explore how solar can transform
-          <br /> your energy use and savings!
+          Schedule a complimentary consultation with our experts today.
+          <br />
         </p>
       </div>
       <div

@@ -144,7 +144,12 @@ function Install() {
           Surya Ghar Scheme subsidies.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8"></div>
+        <div className="text-center bg-black mt-16" data-aos="fade-up">
+          <p className="font-semibold text-yellow-400  text-xl inline-block py-3 w-full px-6 rounded-lg shadow-lg">
+            Single Manufacturing Brand of Solar Panel + Inverter + Structure =
+            <span className="text-white">No Service Issues</span>
+          </p>
+        </div>
       </div>
     </div>
   );

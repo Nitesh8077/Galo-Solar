@@ -265,7 +265,7 @@ const Form = () => {
     >
       <div className="w-full md:w-1/2 p-4">
         <p className="text-3xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+          Power Your Residential Society with Solar Energy
         </p>
         <p className="text-lg md:text-xl mt-4">
           Ready to brighten your home with solar energy? Begin with a
