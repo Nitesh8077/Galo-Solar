@@ -13,6 +13,8 @@ import Residential from "./Residential/Residential";
 import Commercial from "./Commercial/Commercial";
 import PMKUSUM from "./PMKUSUM/PMKUSUM";
 import ContactUs from "./ContactUs/ContactUs";
+import Delhi from "./Delhi/Delhi"; // Import Delhi component
+import UP from "./UP/UP";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,6 +38,8 @@ export default function App() {
         <Route path="/commercial" element={<Commercial />} />
         <Route path="/pmkusum" element={<PMKUSUM />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/delhi" element={<Delhi />} /> {/* Add this line */}
+        <Route path="/UP" element={<UP />} /> {/* Add this line */}
       </Routes>
       <FloatingButton />
     </Router>
