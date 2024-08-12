@@ -50,7 +50,8 @@ const Form = () => {
         if (!value) {
           newErrors.Phone = "Whatsapp Number is required.";
         } else if (!/^\d{10}$/.test(value)) {
-          newErrors.Phone = "Whatsapp Number must be exactly 10 digits.";
+          newErrors.Phone =
+            "Whatsapp Number can only Numbers and must be exactly 10 digits.";
         } else {
           delete newErrors.Phone;
         }
@@ -58,7 +59,7 @@ const Form = () => {
 
       case "Pincode":
         if (value && !/^\d{6}$/.test(value)) {
-          newErrors.Pincode = "Pincode must be exactly 6 digits.";
+          newErrors.Pincode = "Pincode can only Numbers and exactly 6 digits.";
         } else {
           delete newErrors.Pincode;
         }
