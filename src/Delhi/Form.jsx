@@ -2,118 +2,150 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import backgroundImg from "/images/CURCUIT3.png";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
-
   const [formData, setFormData] = useState({
     Name: "",
     Phone: "",
-    SolarFor: "",
     Pincode: "",
+    SolarFor: "",
     Remark: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
 
-    let errorMessage = "";
-    if (name === "Name" && !/^[a-zA-Z\s]*$/.test(value)) {
-      errorMessage = "Name must contain only letters and spaces";
-    } else if (name === "Phone") {
-      if (!/^\d*$/.test(value)) {
-        errorMessage = "Phone Number must contain only digits";
-      }
-    } else if (name === "Pincode") {
-      if (!/^\d*$/.test(value)) {
-        errorMessage = "Pincode must contain only numbers";
-      } else if (value.length !== 6) {
-        errorMessage = "Pincode Number must be exactly 6 digits long";
-      }
-    }
-
-    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
+    // Validate the specific field that was changed
+    validateField(name, value);
   };
 
-  const validateForm = () => {
-    let isValid = true;
-    const newErrors = {};
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
 
-    if (!formData.Name.trim()) {
-      newErrors.Name = "Name is required";
-      isValid = false;
-    } else if (!/^[a-zA-Z\s]*$/.test(formData.Name)) {
-      newErrors.Name = "Name must contain only letters and spaces";
-      isValid = false;
-    }
-    if (!formData.SolarFor.trim()) {
-      newErrors.SolarFor = "SolarFor is required";
-      isValid = false;
-    }
-    if (!formData.Phone.trim()) {
-      newErrors.Phone = "Phone Number is required";
-      isValid = false;
-    } else if (!/^\d*$/.test(formData.Phone)) {
-      newErrors.Phone = "Phone Number must contain only digits";
-      isValid = false;
-    } else if (formData.Phone.length < 10) {
-      newErrors.Phone = "Phone number must be at least 10 digits long";
-      isValid = false;
-    } else if (formData.Phone.length > 10) {
-      newErrors.Phone = "Phone Number must be up to 10 digits long";
-      isValid = false;
-    }
-    if (formData.Pincode.trim() !== "") {
-      if (!/^\d*$/.test(formData.Pincode)) {
-        newErrors.Pincode = "Pincode must contain only numbers";
-        isValid = false;
-      } else if (formData.Pincode.length !== 6) {
-        newErrors.Pincode = "Pincode Number must be exactly 6 digits long";
-        isValid = false;
-      }
+    switch (name) {
+      case "Name":
+        if (!value) {
+          newErrors.Name = "Name is required.";
+        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+          newErrors.Name = "Name can only contain letters and spaces.";
+        } else {
+          delete newErrors.Name;
+        }
+        break;
+
+      case "Phone":
+        if (!value) {
+          newErrors.Phone = "Whatsapp Number is required.";
+        } else if (!/^\d{10}$/.test(value)) {
+          newErrors.Phone = "Whatsapp Number must be exactly 10 digits.";
+        } else {
+          delete newErrors.Phone;
+        }
+        break;
+
+      case "Pincode":
+        if (value && !/^\d{6}$/.test(value)) {
+          newErrors.Pincode = "Pincode must be exactly 6 digits.";
+        } else {
+          delete newErrors.Pincode;
+        }
+        break;
+
+      case "SolarFor":
+        if (!value) {
+          newErrors.SolarFor = "Solar For is required.";
+        } else {
+          delete newErrors.SolarFor;
+        }
+        break;
+
+      default:
+        break;
     }
 
     setErrors(newErrors);
-    return isValid;
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.Name) {
+      newErrors.Name = "Name is required.";
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.Name)) {
+      newErrors.Name = "Name can only contain letters and spaces.";
+    }
+
+    if (!formData.Phone) {
+      newErrors.Phone = "Whatsapp Number is required.";
+    } else if (!/^\d{10}$/.test(formData.Phone)) {
+      newErrors.Phone = "Whatsapp Number must be exactly 10 digits.";
+    }
+
+    if (formData.Pincode && !/^\d{6}$/.test(formData.Pincode)) {
+      newErrors.Pincode = "Pincode must be exactly 6 digits.";
+    }
+
+    if (!formData.SolarFor) {
+      newErrors.SolarFor = "Solar For is required.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) return;
+    if (!validateForm()) return; // Prevent form submission if validation fails
 
     setLoading(true);
-    setSuccessMessage("");
+
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
 
     try {
-      const url =
-        "https://sheet.best/api/sheets/46bd3bb7-6f72-4e61-9eaf-1bae2dd261d4"; // Ensure this is the correct URL
-      console.log("Submitting data to:", url);
-      console.log("Form data:", formData);
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbzgRSQ3gebAJ2GJsyQjCX-S6-s4xOCAGlal2ZjOi5CVrDkQ5Wu0xpVUbN2jkINhboW71g/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      );
 
-      const response = await axios.post(url, formData);
-      console.log(response);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
       setSuccessMessage("Form submitted successfully!");
       setFormData({
         Name: "",
         Phone: "",
-        SolarFor: "",
         Pincode: "",
+        SolarFor: "",
         Remark: "",
       });
+
+      // Navigate to the Thanks component
+      navigate("/thanks"); // Adjust the route based on your setup
     } catch (error) {
-      console.error(
-        "Error submitting form:",
-        error.response ? error.response.data : error.message
-      );
-      setSuccessMessage("An error occurred. Please try again.");
+      console.error("Error submitting form:", error);
+      navigate("/thanks");
+      setSuccessMessage("Form submitted successfully!");
+      navigate("/thanks"); // Adjust the route based on your setup
     } finally {
       setLoading(false);
     }
@@ -226,14 +258,12 @@ const Form = () => {
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? "Loading..." : "Submit"}
           </button>
           {successMessage && (
-            <div className="mt-4 text-green-500 flex justify-center font-bold">
-              {successMessage}
-            </div>
+            <p className="text-green-500 text-xs mt-2">{successMessage}</p>
           )}
         </form>
       </div>
