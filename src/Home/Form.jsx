@@ -455,28 +455,7 @@ const Form = () => {
               />
             </div>
           </div>
-          <div className="flex items-center space-x-2 mt-4">
-            <input
-              type="checkbox"
-              id="terms"
-              className="custom-checkbox accent-yellow-500 form-checkbox h-5 w-5"
-              checked
-              disabled
-            />
-            <label htmlFor="terms" className="text-lg text-gray-700">
-              I agree to
-              <a
-                href="/terms-of-service"
-                className="text-yellow-500 ml-1 underline"
-              >
-                Galo Solar’s terms of service
-              </a>
-              &nbsp;and&nbsp;
-              <a href="/privacy-policy" className="text-yellow-500 underline">
-                privacy policy
-              </a>
-            </label>
-          </div>
+
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"

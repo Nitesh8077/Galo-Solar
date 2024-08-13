@@ -3,9 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
 import backgroundImg from "/images/CURCUIT3.png";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -205,57 +206,58 @@ const Form = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true); // Start loading
+    setLoading(true);
 
-    // Map country_id to country_name
-    const data = {
-      ...formData,
-      Country:
-        locationType === "india"
-          ? "India"
-          : countryMapping[formData.Country] || formData.Country,
-    };
+    // Create a FormData object from the form
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
+
+    // Ensure Country field is included
+    if (locationType === "india") {
+      formDatab.set("Country", "India");
+    } else if (locationType === "outside") {
+      formDatab.set("Country", formData.Country || ""); // Default or existing value
+    }
+
+    // Include other fields as needed
+    formDatab.set("State", formData.State);
 
     try {
-      const response = await axios.post(
-        "https://sheet.best/api/sheets/872878f6-121d-454d-a7c6-2c096dd817e4",
-        data
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbx0_XoLq_tc4yla-ZtWbahkWNSHH844RQ3ejsQ4tBcqX-oaZ7Qup0w6BkUf4lw8p9Y/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
       );
-      console.log(response);
-      setSuccessMessage("Form submitted successfully!"); // Set success message
-      // Clear form data
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage("Form submitted successfully!");
       setFormData({
         Country: "",
         Name: "",
         Phone: "",
         AGM: "",
         Designation: "",
-        SolarFor: "",
         Pincode: "",
         City: "",
         State: "",
         Remark: "",
       });
-      setSelectedCountryId("");
-      setSelectedStateId("");
+
+      navigate("/thanks");
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
     } finally {
-      setLoading(false); // Stop loading
-    }
-    event.preventDefault();
-    setLoading(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      setSuccessMessage("Form submitted successfully!");
       setLoading(false);
-
-      // Hide success message after 2 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
-    }, 1000); // Simulate network delay
+    }
   };
 
   return (
@@ -440,10 +442,10 @@ const Form = () => {
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
                 <option value="">Select...</option>
-                <option value="Residential">
+                <option value="We already have AGM approval">
                   We already have AGM approval
                 </option>
-                <option value="Commercial">
+                <option value="We don’t have AGM approval yet">
                   We don’t have AGM approval yet
                 </option>
               </select>
@@ -464,10 +466,12 @@ const Form = () => {
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
                 <option value="">Select...</option>
-                <option value="Residential">Management committee member</option>
-                <option value="Commercial">Resident</option>
-                <option value="Industrial">Builder</option>
-                <option value="Agricultural">Facility Manager</option>
+                <option value="Management committee member">
+                  Management committee member
+                </option>
+                <option value="Resident">Resident</option>
+                <option value="Builder">Builder</option>
+                <option value="Facility Manager">Facility Manager</option>
               </select>
               {errors.Designation && (
                 <p className="text-red-500 text-xs mt-1">
@@ -488,28 +492,7 @@ const Form = () => {
               />
             </div>
           </div>
-          <div className="flex items-center space-x-2 mt-4">
-            <input
-              type="checkbox"
-              id="terms"
-              className="custom-checkbox accent-yellow-500 form-checkbox h-5 w-5"
-              checked
-              disabled
-            />
-            <label htmlFor="terms" className="text-lg text-gray-700">
-              I agree to
-              <a
-                href="/terms-of-service"
-                className="text-yellow-500 ml-1 underline"
-              >
-                Galo Solar’s terms of service
-              </a>
-              &nbsp;and&nbsp;
-              <a href="/privacy-policy" className="text-yellow-500 underline">
-                privacy policy
-              </a>
-            </label>
-          </div>
+
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"

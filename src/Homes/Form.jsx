@@ -3,9 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
 import backgroundImg from "/images/CURCUIT3.png";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -199,55 +200,56 @@ const Form = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true); // Start loading
-
-    // Map country_id to country_name
-    const data = {
-      ...formData,
-      Country:
-        locationType === "india"
-          ? "India"
-          : countryMapping[formData.Country] || formData.Country,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://sheet.best/api/sheets/872878f6-121d-454d-a7c6-2c096dd817e4",
-        data
-      );
-      console.log(response);
-      setSuccessMessage("Form submitted successfully!"); // Set success message
-      // Clear form data
-      setFormData({
-        Country: "",
-        Name: "",
-        Phone: "",
-        SolarFor: "",
-        Pincode: "",
-        City: "",
-        State: "",
-        Remark: "",
-      });
-      setSelectedCountryId("");
-      setSelectedStateId("");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false); // Stop loading
-    }
-    event.preventDefault();
     setLoading(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSuccessMessage("Form submitted successfully!");
-      setLoading(false);
+    // Create a FormData object from the form
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
 
-      // Hide success message after 2 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
-    }, 1000); // Simulate network delay
+    // Ensure Country field is included
+    if (locationType === "india") {
+      formDatab.set("Country", "India");
+    } else if (locationType === "outside") {
+      formDatab.set("Country", formData.Country || ""); // Default or existing value
+    }
+
+    // Include other fields as needed
+    formDatab.set("State", formData.State);
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyXSRKeM6R6gxIpKL6wnOPr9bYh8q4LNgZpiYGkeIyfxm15jFIWFYJg1yXvWzj77wKX6Q/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage("Form submitted successfully!");
+      setFormData({
+        Country: "",
+        State: "",
+        Name: "",
+        Phone: "",
+        City: "",
+        Pincode: "",
+        Remark: "",
+      });
+
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -429,28 +431,6 @@ const Form = () => {
                 className="block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
-          </div>
-          <div className="flex items-center space-x-2 mt-4">
-            <input
-              type="checkbox"
-              id="terms"
-              className="custom-checkbox accent-yellow-500 form-checkbox h-5 w-5"
-              checked
-              disabled
-            />
-            <label htmlFor="terms" className="text-lg text-gray-700">
-              I agree to
-              <a
-                href="/terms-of-service"
-                className="text-yellow-500 ml-1 underline"
-              >
-                Galo Solar’s terms of service
-              </a>
-              &nbsp;and&nbsp;
-              <a href="/privacy-policy" className="text-yellow-500 underline">
-                privacy policy
-              </a>
-            </label>
           </div>
 
           <button
