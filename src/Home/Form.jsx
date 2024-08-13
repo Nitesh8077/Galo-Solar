@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
+import { useNavigate } from "react-router-dom";
 import backgroundImg from "/images/CURCUIT3.png";
 import axios from "axios";
 
 const Form = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -199,55 +201,57 @@ const Form = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true); // Start loading
-
-    // Map country_id to country_name
-    const data = {
-      ...formData,
-      Country:
-        locationType === "india"
-          ? "India"
-          : countryMapping[formData.Country] || formData.Country,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://sheet.best/api/sheets/872878f6-121d-454d-a7c6-2c096dd817e4",
-        data
-      );
-      console.log(response);
-      setSuccessMessage("Form submitted successfully!"); // Set success message
-      // Clear form data
-      setFormData({
-        Country: "",
-        Name: "",
-        Phone: "",
-        SolarFor: "",
-        Pincode: "",
-        City: "",
-        State: "",
-        Remark: "",
-      });
-      setSelectedCountryId("");
-      setSelectedStateId("");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false); // Stop loading
-    }
-    event.preventDefault();
     setLoading(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSuccessMessage("Form submitted successfully!");
-      setLoading(false);
+    // Create a FormData object from the form
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
 
-      // Hide success message after 2 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
-    }, 1000); // Simulate network delay
+    // Ensure Country field is included
+    if (locationType === "india") {
+      formDatab.set("Country", "India");
+    } else if (locationType === "outside") {
+      formDatab.set("Country", formData.Country || ""); // Default or existing value
+    }
+
+    // Include other fields as needed
+    formDatab.set("State", formData.State);
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyLqh6P99bQ0X45V5A9QASzFcxFsWXtDoZONe3aLCK-ZAUE4ERTRt5kNWsYfM75ow4/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage("Form submitted successfully!");
+      setFormData({
+        Country: "",
+        State: "",
+        Name: "",
+        Phone: "",
+        City: "",
+        Pincode: "",
+        SolarFor: "",
+        Remark: "",
+      });
+
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -476,14 +480,12 @@ const Form = () => {
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? "Loading..." : "Submit"}
           </button>
           {successMessage && (
-            <div className="mt-4 text-green-500 flex justify-center font-bold">
-              {successMessage}
-            </div>
+            <p className="text-green-500 text-xs mt-2">{successMessage}</p>
           )}
         </form>
       </div>
