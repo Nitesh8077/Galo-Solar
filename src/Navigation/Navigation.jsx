@@ -1,139 +1,263 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  Popover,
-  PopoverButton,
-  PopoverPanel,
-} from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import backgroundImg from "/images/Vector.png";
 
-const navigation = {
-  pages: [
-    { name: "Homes", href: "/homes" },
-    { name: "Residential", href: "/residential" },
-    { name: "Commercial/Industrial", href: "/commercial" },
-    { name: "PM KUSUM", href: "/pmkusum" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Dstributor", href: "/distributor" },
-    { name: "Contact Us", href: "/contact" },
-  ],
-};
+import backgroundImg from "/images/CURCUIT3.png";
 
-export default function Navigation() {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+const Form = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
-  const handleNavigation = (href) => {
-    navigate(href); // Use navigate function to redirect
-    setOpen(false);
+  const [formData, setFormData] = useState({
+    Name: "",
+    Phone: "",
+    City: "",
+    Pincode: "",
+    SolarFor: "",
+    Remark: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    let errorMessage = "";
+    if (name === "Name" && !/^[a-zA-Z\s]*$/.test(value)) {
+      errorMessage = "Name must contain only letters and spaces";
+    } else if (name === "Phone") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Phone Number must contain only digits";
+      } else if (value.length < 10 || value.length > 10) {
+        errorMessage = "Phone Number must be exactly 10 digits long";
+      }
+    } else if (name === "Pincode") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Pincode must contain only numbers";
+      } else if (value.length !== 6) {
+        errorMessage = "Pincode must be exactly 6 digits long";
+      }
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.Name)) {
+      newErrors.Name = "Name must contain only letters and spaces";
+      isValid = false;
+    }
+    if (!formData.Phone.trim()) {
+      newErrors.Phone = "Phone Number is required";
+      isValid = false;
+    } else if (!/^\d*$/.test(formData.Phone)) {
+      newErrors.Phone = "Phone Number must contain only digits";
+      isValid = false;
+    } else if (formData.Phone.length !== 10) {
+      newErrors.Phone = "Phone Number must be exactly 10 digits long";
+      isValid = false;
+    }
+    if (!formData.City.trim()) {
+      newErrors.City = "City is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.City)) {
+      newErrors.City = "City must contain only letters and spaces";
+      isValid = false;
+    }
+    if (!formData.SolarFor.trim()) {
+      newErrors.SolarFor = "SolarFor is required";
+      isValid = false;
+    }
+    if (
+      formData.Pincode.trim() !== "" &&
+      (formData.Pincode.length !== 6 || !/^\d*$/.test(formData.Pincode))
+    ) {
+      newErrors.Pincode = "Pincode must be exactly 6 digits long";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setLoading(true);
+
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwm5guFuuWKA7GLbl3DL3551CYLZuBr3GqaLFgt6JICgunynMy98hszv9uz2KhrEztFgQ/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage("Form submitted successfully!");
+      setFormData({
+        Name: "",
+        Phone: "",
+        City: "",
+        Pincode: "",
+        SolarFor: "",
+        Remark: "",
+      });
+
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white">
-      {/* Mobile menu */}
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        className="relative z-40 lg:hidden"
+    <div
+      className="flex flex-col md:flex-row items-center bg-yellow-400 p-4 bg-cover bg-center"
+      style={{ backgroundImage: `url(${backgroundImg})` }}
+    >
+      <div className="w-full md:w-1/2 p-4">
+        <p className="text-3xl md:text-5xl font-bold">
+          Empower Your Business with Solar Energy – Start Your Dealership
+          Journey!
+        </p>
+        <p className="text-lg md:text-xl mt-4">
+          Ready to expand your business with a thriving solar energy
+          partnership? Begin with a personalized consultation from our
+          experienced team.
+          <br className="mt-4" />
+          Connect with us today to explore how a Galo Solar dealership can
+          transform your business growth and profitability!
+        </p>
+      </div>
+      <div
+        className="p-4 md:p-8 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg"
+        data-aos="fade-up"
       >
-        <DialogBackdrop
-          transition
-          className="fixed inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-linear"
-        />
-
-        <div className="fixed inset-0 z-40 flex">
-          <DialogPanel
-            transition
-            className="relative flex w-full max-w-xs transform flex-col overflow-y-auto bg-white pb-12 shadow-xl transition duration-300 ease-in-out"
-          >
-            <div className="flex px-4 pb-2 pt-5 justify-between">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
-              >
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-              </button>
-
-              {/* Logo */}
-              <div className="flex justify-center flex-grow object-fill">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
-                  <img alt="Galo Solar" src="./images/galo.png" />
-                </a>
-              </div>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-black">
+                Name<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="Name"
+                value={formData.Name}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.Name && (
+                <p className="text-red-500 text-xs mt-1">{errors.Name}</p>
+              )}
             </div>
-
-            {/* Links */}
-            <div className="flex flex-col space-y-2 px-4">
-              {navigation.pages.map((page) => (
-                <button
-                  key={page.name}
-                  className="flex items-center justify-between w-full text-left py-4 text-base font-medium text-black focus:outline-none"
-                  onClick={() => handleNavigation(page.href)}
-                >
-                  {page.name}
-                </button>
-              ))}
-            </div>
-          </DialogPanel>
-        </div>
-      </Dialog>
-
-      <header
-        className="relative bg-black "
-        style={{ backgroundImage: `url(${backgroundImg})` }}
-      >
-        <nav
-          aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
-          <div className="flex h-24 items-center justify-between lg:justify-start">
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="relative rounded-md bg-yellow-400 p-2 lg:hidden"
-            >
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open menu</span>
-              <Bars3Icon aria-hidden="true" className="h-6 w-6" />
-            </button>
-
-            {/* Logo */}
-            <div className="flex-1 flex items-center justify-center lg:justify-start">
-              <a href="#">
-                <span className="sr-only">Your Company</span>
-                <img
-                  alt="Galo Solar"
-                  src="./images/galo.png"
-                  className="h-16 w-auto lg:h-20"
-                />
-              </a>
-            </div>
-
-            <div className="hidden lg:ml-8 lg:block lg:self-stretch">
-              <div className="flex h-full space-x-8">
-                {navigation.pages.map((page) => (
-                  <Popover key={page.name} className="relative flex">
-                    <PopoverButton
-                      className="relative z-10 -mb-px flex items-center pt-px text-sm font-medium text-white transition-colors duration-200 ease-out hover:text-yellow-400 focus:outline-none focus:ring-0 active:outline-none"
-                      onClick={() => handleNavigation(page.href)}
-                    >
-                      {page.name}
-                    </PopoverButton>
-                  </Popover>
-                ))}
-              </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-black">
+                Phone Number<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="Phone"
+                value={formData.Phone}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.Phone && (
+                <p className="text-red-500 text-xs mt-1">{errors.Phone}</p>
+              )}
             </div>
           </div>
-        </nav>
-      </header>
+
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-black">
+                City/District/Region<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="City"
+                value={formData.City}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.City && (
+                <p className="text-red-500 text-xs mt-1">{errors.City}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-black">
+                Solar For<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="SolarFor"
+                value={formData.SolarFor}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.SolarFor && (
+                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-4">
+            <label className="block text-sm font-medium text-black">
+              Remark
+            </label>
+            <textarea
+              name="Remark"
+              value={formData.Remark}
+              onChange={handleChange}
+              className="block w-full border border-gray-300 rounded-md p-2"
+              rows="4"
+            />
+          </div>
+
+          {successMessage && (
+            <p className="text-green-500 text-center">{successMessage}</p>
+          )}
+
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+            >
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
-}
+};
+
+export default Form;
