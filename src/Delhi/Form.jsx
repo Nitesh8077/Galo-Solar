@@ -51,7 +51,7 @@ const Form = () => {
           newErrors.Phone = "Whatsapp Number is required.";
         } else if (!/^\d{10}$/.test(value)) {
           newErrors.Phone =
-            "Whatsapp Number can only Numbers and must be exactly 10 digits.";
+            "Whatsapp Numbers can be only in numericals and must be exactly 10 digits.";
         } else {
           delete newErrors.Phone;
         }
