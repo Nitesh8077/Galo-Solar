@@ -18,6 +18,8 @@ import UP from "./UP/UP";
 import DelhiFloatingButton from "./DelhiFloatingButton/DelhiFloatingButton";
 import UPFB from "./UPFB/UPFB";
 import Thanks from "./Delhi/Thanks";
+import Faq from "./FAQ/Faq";
+import Distributor from "./Distributor/Distributor";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -42,10 +44,12 @@ function AppContent() {
         <Route path="/residential" element={<Residential />} />
         <Route path="/commercial" element={<Commercial />} />
         <Route path="/pmkusum" element={<PMKUSUM />} />
+        <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/delhi" element={<Delhi />} />
         <Route path="/up" element={<UP />} />
         <Route path="/thanks" element={<Thanks />} />
+        <Route path="/distributor" element={<Distributor />} />
       </Routes>
       {location.pathname === "/delhi" ? (
         <DelhiFloatingButton />

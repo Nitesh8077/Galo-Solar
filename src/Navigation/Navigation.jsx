@@ -17,7 +17,8 @@ const navigation = {
     { name: "Residential", href: "/residential" },
     { name: "Commercial/Industrial", href: "/commercial" },
     { name: "PM KUSUM", href: "/pmkusum" },
-    { name: "Blogs", href: "/blogs" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Dstributor", href: "/distributor" },
     { name: "Contact Us", href: "/contact" },
   ],
 };
