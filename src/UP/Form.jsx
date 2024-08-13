@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import countrydata from "../Data/Countrydata.json";
+import { useNavigate } from "react-router-dom";
+
 import backgroundImg from "/images/CURCUIT3.png";
-import axios from "axios";
 
 const Form = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -14,7 +16,6 @@ const Form = () => {
   const [selectedCountryId, setSelectedCountryId] = useState("");
   const [states, setStates] = useState([]);
   const [selectedStateId, setSelectedStateId] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
   const [formData, setFormData] = useState({
     Country: "",
     Name: "",
@@ -69,24 +70,17 @@ const Form = () => {
   const handleStateChange = (e) => {
     const stateId = e.target.value;
     setSelectedStateId(stateId);
-    const state = states.find((state) => state.state_id === stateId);
-    if (state) {
-      setFormData((prev) => ({ ...prev, State: state.state_name }));
-    }
-  };
 
-  const handleLocationTypeChange = (e) => {
-    const newLocationType = e.target.value;
-    setLocationType(newLocationType);
-    setSelectedCountryId("");
-    setSelectedStateId("");
-    setStates([]);
-    setFormData((prev) => ({
-      ...prev,
-      State: "",
-      City: "",
-      Country: newLocationType === "india" ? "India" : "",
-    }));
+    // Find the state object by its ID
+    const state = states.find((state) => state.state_id === stateId);
+
+    // If state is found, set the state name in the formData
+    if (state) {
+      setFormData((prev) => ({
+        ...prev,
+        State: state.state_name, // Store state name instead of ID
+      }));
+    }
   };
 
   const handleChange = (e) => {
@@ -199,55 +193,48 @@ const Form = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true); // Start loading
-
-    // Map country_id to country_name
-    const data = {
-      ...formData,
-      Country:
-        locationType === "india"
-          ? "India"
-          : countryMapping[formData.Country] || formData.Country,
-    };
-
-    try {
-      const response = await axios.post(
-        "https://sheet.best/api/sheets/872878f6-121d-454d-a7c6-2c096dd817e4",
-        data
-      );
-      console.log(response);
-      setSuccessMessage("Form submitted successfully!"); // Set success message
-      // Clear form data
-      setFormData({
-        Country: "",
-        Name: "",
-        Phone: "",
-        SolarFor: "",
-        Pincode: "",
-        City: "",
-        State: "",
-        Remark: "",
-      });
-      setSelectedCountryId("");
-      setSelectedStateId("");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false); // Stop loading
-    }
-    event.preventDefault();
     setLoading(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSuccessMessage("Form submitted successfully!");
-      setLoading(false);
+    const formEle = document.querySelector("form");
+    const formDatab = new FormData(formEle);
 
-      // Hide success message after 2 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
-    }, 1000); // Simulate network delay
+    formDatab.set("State", formData.State);
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwm5guFuuWKA7GLbl3DL3551CYLZuBr3GqaLFgt6JICgunynMy98hszv9uz2KhrEztFgQ/exec",
+        {
+          method: "POST",
+          body: formDatab,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setSuccessMessage("Form submitted successfully!");
+      setFormData({
+        State: "",
+        Name: "",
+        Phone: "",
+        City: "",
+        Pincode: "",
+        SolarFor: "",
+        Remark: "",
+      });
+
+      // Navigate to the Thanks component
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -311,7 +298,7 @@ const Form = () => {
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
-                Phone Number<span className="text-red-600 ml-1">*</span>
+                Whatsapp Number<span className="text-red-600 ml-1">*</span>
               </label>
               <input
                 type="text"
@@ -394,14 +381,12 @@ const Form = () => {
           <button
             type="submit"
             className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? "Loading..." : "Submit"}
           </button>
           {successMessage && (
-            <div className="mt-4 text-green-500 flex justify-center font-bold">
-              {successMessage}
-            </div>
+            <p className="text-green-500 text-xs mt-2">{successMessage}</p>
           )}
         </form>
       </div>
