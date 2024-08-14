@@ -373,8 +373,8 @@ const Form = () => {
                 <span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                name="SolarFor"
-                value={formData.SolarFor}
+                name="Dealership"
+                value={formData.Dealership}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
@@ -393,8 +393,8 @@ const Form = () => {
                 <span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                name="SolarFor"
-                value={formData.SolarFor}
+                name="Product"
+                value={formData.Product}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
@@ -419,8 +419,8 @@ const Form = () => {
                 <span className="text-red-600 ml-1">*</span>
               </label>
               <select
-                name="SolarFor"
-                value={formData.SolarFor}
+                name="Estimated"
+                value={formData.Estimated}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
