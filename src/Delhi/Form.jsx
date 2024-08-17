@@ -97,6 +97,30 @@ const Form = () => {
     setErrors(newErrors);
     return isValid;
   };
+  const sendEmail = async (datab) => {
+    console.log("hiiiiiiiii submit kusum");
+
+    try {
+      const response = await fetch("https://gautamsolar.us/submit-pmkusumm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: datab,
+      });
+      console.log("response", response);
+
+      if (response.ok) {
+        console.log("Form submitted successfully");
+      } else {
+        console.error("Failed to submit form");
+      }
+      setShowModal(true);
+      handleCaptchaReset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,7 +131,6 @@ const Form = () => {
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
 
-    // Convert FormData to a plain object for logging
     const formDataObject = {};
     formDatab.forEach((value, key) => {
       formDataObject[key] = value;
@@ -116,6 +139,7 @@ const Form = () => {
     console.log("Form Data:", formDataObject);
 
     try {
+      sendEmail(formDatab);
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbx1GX8y_b80C_M1-SW1-DLxpVku6_PMaPgOcMe55qsExg7RVc-uYEwPGraN97NX0xFlgg/exec",
         {
@@ -124,7 +148,6 @@ const Form = () => {
         }
       );
 
-      // Check if response status is OK, and handle text response
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -132,8 +155,9 @@ const Form = () => {
       const responseText = await response.text();
       console.log("Response Text:", responseText);
 
-      // Check if the response contains the success message you expect
       if (responseText.includes("successfully sent")) {
+        console.log("FormData", formDatab);
+
         setSuccessMessage("Form submitted successfully!");
         setFormData({
           State: "",
@@ -146,7 +170,6 @@ const Form = () => {
           Remark: "",
         });
 
-        // Navigate to the Thanks component
         navigate("/thanks");
       } else {
         throw new Error("Unexpected response");
@@ -243,7 +266,7 @@ const Form = () => {
                 required
               >
                 <option value="">Select a state</option>
-                {/* Example states */}
+
                 <option value="Andaman and Nicobar Islands">
                   Andaman and Nicobar Islands
                 </option>
@@ -284,7 +307,6 @@ const Form = () => {
                 <option value="Uttar Pradesh">Uttar Pradesh</option>
                 <option value="Uttarakhand">Uttarakhand</option>
                 <option value="West Bengal">West Bengal</option>
-                {/* Add more states as needed */}
               </select>
               {errors.State && (
                 <p className="text-red-500 text-xs mt-1">{errors.State}</p>
@@ -325,8 +347,6 @@ const Form = () => {
                 <option value="Commercial/Industrial">
                   Commercial/Industrial
                 </option>
-
-                {/* Add more options as needed */}
               </select>
               {errors.SolarFor && (
                 <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
