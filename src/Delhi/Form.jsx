@@ -1,125 +1,208 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import backgroundImg from "/images/CURCUIT3.png";
+import countrydata from "../Data/Countrydata.json";
 import { useNavigate } from "react-router-dom";
 
+import backgroundImg from "/images/CURCUIT3.png";
+
 const Form = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
+  const [locationType, setLocationType] = useState("india");
+  const [selectedCountryId, setSelectedCountryId] = useState("");
+  const [states, setStates] = useState([]);
+  const [selectedStateId, setSelectedStateId] = useState("");
   const [formData, setFormData] = useState({
+    Country: "",
     Name: "",
     Phone: "",
-    Pincode: "",
     SolarFor: "",
+    Pincode: "",
+    City: "",
+    State: "",
     Remark: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Create a mapping of country_id to country_name
+  const countryMapping = countrydata.reduce((acc, country) => {
+    acc[country.country_id] = country.country_name;
+    return acc;
+  }, {});
+
   useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
-  const navigate = useNavigate();
+    const getStates = () => {
+      if (locationType === "outside" && selectedCountryId) {
+        const country = countrydata.find(
+          (country) => country.country_id === selectedCountryId
+        );
+        return country ? country.states : [];
+      } else if (locationType === "india") {
+        const india = countrydata.find(
+          (country) => country.country_name === "India"
+        );
+        return india ? india.states : [];
+      }
+      return [];
+    };
+
+    setStates(getStates());
+  }, [locationType, selectedCountryId]);
+
+  const handleCountryChange = (e) => {
+    const countryId = e.target.value;
+    setSelectedCountryId(countryId);
+    setFormData((prev) => ({
+      ...prev,
+      Country: countryId,
+      State: "",
+      City: "",
+    }));
+    setSelectedStateId("");
+  };
+
+  const handleStateChange = (e) => {
+    const stateId = e.target.value;
+    setSelectedStateId(stateId);
+
+    // Find the state object by its ID
+    const state = states.find((state) => state.state_id === stateId);
+
+    // If state is found, set the state name in the formData
+    if (state) {
+      setFormData((prev) => ({
+        ...prev,
+        State: state.state_name, // Store state name instead of ID
+      }));
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Validate the specific field that was changed
-    validateField(name, value);
-  };
-
-  const validateField = (name, value) => {
-    const newErrors = { ...errors };
-
-    switch (name) {
-      case "Name":
-        if (!value) {
-          newErrors.Name = "Name is required.";
-        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-          newErrors.Name = "Name can only contain letters and spaces.";
-        } else {
-          delete newErrors.Name;
+    let errorMessage = "";
+    if (name === "Name" && !/^[a-zA-Z\s]*$/.test(value)) {
+      errorMessage = "Name must contain only letters and spaces";
+    } else if (name === "Phone") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Phone Number must contain only digits";
+      } else if (locationType === "india") {
+        if (value.length < 10) {
+          errorMessage = "Phone number must be at least 10 digits long";
+        } else if (value.length > 10) {
+          errorMessage = "Phone Number must be up to 10 digits long";
         }
-        break;
-
-      case "Phone":
-        if (!value) {
-          newErrors.Phone = "Whatsapp Number is required.";
-        } else if (!/^\d{10}$/.test(value)) {
-          newErrors.Phone =
-            "WhatsApp numbers must be numeric and exactly 10 digits long.";
-        } else {
-          delete newErrors.Phone;
+      } else if (locationType === "outside") {
+        if (value.length < 5) {
+          errorMessage = "Phone Number must be at least 5 digits long";
+        } else if (value.length > 15) {
+          errorMessage = "Phone Number must be up to 15 digits long";
         }
-        break;
-
-      case "Pincode":
-        if (value && !/^\d{6}$/.test(value)) {
-          newErrors.Pincode =
-            "Pincode must be numeric and exactly 6 digits long.";
-        } else {
-          delete newErrors.Pincode;
-        }
-        break;
-
-      case "SolarFor":
-        if (!value) {
-          newErrors.SolarFor = "Solar For is required.";
-        } else {
-          delete newErrors.SolarFor;
-        }
-        break;
-
-      default:
-        break;
+      }
+    } else if (name === "Pincode") {
+      if (!/^\d*$/.test(value)) {
+        errorMessage = "Pincode must contain only numbers";
+      } else if (locationType === "india" && value.length !== 6) {
+        errorMessage = "Pincode Number must be exactly 6 digits long";
+      } else if (locationType === "outside" && value.length > 10) {
+        errorMessage = "Pincode must be up to 10 digits long";
+      }
     }
 
-    setErrors(newErrors);
+    setErrors((prev) => ({ ...prev, [name]: errorMessage }));
   };
 
   const validateForm = () => {
+    let isValid = true;
     const newErrors = {};
 
-    if (!formData.Name) {
-      newErrors.Name = "Name is required.";
-    } else if (!/^[a-zA-Z\s]+$/.test(formData.Name)) {
-      newErrors.Name = "Name can only contain letters and spaces.";
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.Name)) {
+      newErrors.Name = "Name must contain only letters and spaces";
+      isValid = false;
     }
-
-    if (!formData.Phone) {
-      newErrors.Phone = "Whatsapp Number is required.";
-    } else if (!/^\d{10}$/.test(formData.Phone)) {
-      newErrors.Phone = "Whatsapp Number must be exactly 10 digits.";
+    if (locationType === "outside" && !formData.Country.trim()) {
+      newErrors.Country = "Country is required";
+      isValid = false;
     }
-
-    if (formData.Pincode && !/^\d{6}$/.test(formData.Pincode)) {
-      newErrors.Pincode = "Pincode must be exactly 6 digits.";
+    if (!formData.State.trim()) {
+      newErrors.State = "State is required";
+      isValid = false;
     }
-
-    if (!formData.SolarFor) {
-      newErrors.SolarFor = "Solar For is required.";
+    if (!formData.SolarFor.trim()) {
+      newErrors.SolarFor = "SolarFor is required";
+      isValid = false;
+    }
+    if (!formData.City.trim()) {
+      newErrors.City = "City is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.City)) {
+      newErrors.City = "City must contain only letters and spaces";
+      isValid = false;
+    }
+    if (!formData.Phone.trim()) {
+      newErrors.Phone = "Phone Number is required";
+      isValid = false;
+    } else if (!/^\d*$/.test(formData.Phone)) {
+      newErrors.Phone = "Phone Number must contain only digits";
+      isValid = false;
+    } else if (locationType === "india") {
+      if (formData.Phone.length < 10) {
+        newErrors.Phone = "Phone number must be at least 10 digits long";
+        isValid = false;
+      } else if (formData.Phone.length > 10) {
+        newErrors.Phone = "Phone Number must be up to 10 digits long";
+        isValid = false;
+      }
+    } else if (locationType === "outside") {
+      if (formData.Phone.length < 5) {
+        newErrors.Phone = "Phone Number must be at least 5 digits long";
+        isValid = false;
+      } else if (formData.Phone.length > 15) {
+        newErrors.Phone = "Phone Number must be up to 15 digits long";
+        isValid = false;
+      }
+    }
+    if (formData.Pincode.trim() !== "") {
+      if (!/^\d*$/.test(formData.Pincode)) {
+        newErrors.Pincode = "Pincode must contain only numbers";
+        isValid = false;
+      } else if (locationType === "india" && formData.Pincode.length !== 6) {
+        newErrors.Pincode = "Pincode Number must be exactly 6 digits long";
+        isValid = false;
+      } else if (locationType === "outside" && formData.Pincode.length > 10) {
+        newErrors.Pincode = "Pincode must be up to 10 digits long";
+        isValid = false;
+      }
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return; // Prevent form submission if validation fails
+    if (!validateForm()) return;
 
     setLoading(true);
 
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
 
+    formDatab.set("State", formData.State);
+
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzgRSQ3gebAJ2GJsyQjCX-S6-s4xOCAGlal2ZjOi5CVrDkQ5Wu0xpVUbN2jkINhboW71g/exec",
+        "https://script.google.com/macros/s/AKfycbx1GX8y_b80C_M1-SW1-DLxpVku6_PMaPgOcMe55qsExg7RVc-uYEwPGraN97NX0xFlgg/exec",
         {
           method: "POST",
           body: formDatab,
@@ -134,20 +217,21 @@ const Form = () => {
       console.log(data);
       setSuccessMessage("Form submitted successfully!");
       setFormData({
+        State: "",
         Name: "",
         Phone: "",
+        City: "",
         Pincode: "",
         SolarFor: "",
         Remark: "",
       });
 
       // Navigate to the Thanks component
-      navigate("/thanks"); // Adjust the route based on your setup
+      navigate("/thanks");
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
       navigate("/thanks");
-      setSuccessMessage("Form submitted successfully!");
-      navigate("/thanks"); // Adjust the route based on your setup
     } finally {
       setLoading(false);
     }
@@ -175,6 +259,27 @@ const Form = () => {
         data-aos="fade-up"
       >
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-sm font-medium text-black">
+              State<span className="text-red-600 ml-1">*</span>
+            </label>
+            <select
+              name="State"
+              value={selectedStateId}
+              onChange={handleStateChange}
+              className="block w-full border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Select State</option>
+              {states.map((state) => (
+                <option key={state.state_id} value={state.state_id}>
+                  {state.state_name}
+                </option>
+              ))}
+            </select>
+            {errors.State && (
+              <p className="text-red-500 text-xs mt-1">{errors.State}</p>
+            )}
+          </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
@@ -211,6 +316,21 @@ const Form = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
+                City/District/Region<span className="text-red-600 ml-1">*</span>
+              </label>
+              <input
+                type="text"
+                name="City"
+                value={formData.City}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-md p-2"
+              />
+              {errors.City && (
+                <p className="text-red-500 text-xs mt-1">{errors.City}</p>
+              )}
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-black">
                 Pincode
               </label>
               <input
@@ -224,6 +344,8 @@ const Form = () => {
                 <p className="text-red-500 text-xs mt-1">{errors.Pincode}</p>
               )}
             </div>
+          </div>
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
                 Solar For<span className="text-red-600 ml-1">*</span>
@@ -243,8 +365,7 @@ const Form = () => {
                 <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
               )}
             </div>
-          </div>
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+
             <div className="flex-1">
               <label className="block text-sm font-medium text-black">
                 Remark

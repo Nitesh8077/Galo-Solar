@@ -46,8 +46,8 @@ function AppContent() {
         <Route path="/pmkusum" element={<PMKUSUM />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/delhi" element={<Delhi />} />
-        <Route path="/up" element={<UP />} />
+        <Route path="/l1" element={<Delhi />} />
+        <Route path="/l2" element={<UP />} />
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/distributor" element={<Distributor />} />
       </Routes>

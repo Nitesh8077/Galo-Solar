@@ -55,17 +55,33 @@ const Footer = () => {
         <div data-aos="fade-up">
           <p className="font-bold">CONNECT WITH US</p>
           <div className="flex space-x-4">
-            <a href="#">
+            <a
+              href="https://www.facebook.com/profile.php?id=100081798261662"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src="/images/fb.svg" alt="Facebook" className="w-8 m-1" />
             </a>
-            <a href="#">
+            <a
+              href="https://www.instagram.com/galosolar/?hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src="/images/insta.svg" alt="Instagram" className="w-10" />
             </a>
-            <a href="#">
+            <a
+              href="https://www.youtube.com/@galoenergy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src="/images/yt.svg" alt="YouTube" className="w-10" />
             </a>
-            <a href="#">
-              <img src="/images/twitter.svg" alt="Icon" className="w-8 m-1" />
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <img
+                src="/images/twitter.svg"
+                alt="Twitter"
+                className="w-8 m-1"
+              />
             </a>
           </div>
           <p className="mt-4">info@galo.co.in</p>
