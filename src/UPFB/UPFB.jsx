@@ -2,7 +2,7 @@ import React from "react";
 import whatsappIcon from "/images/wp.png"; // Update this path
 
 const UPFB = () => {
-  const phoneNumber = "+919773590364";
+  const phoneNumber = "+919599298579";
   const message =
     "Hello, I came from your website :: https://www.galosolar.com/ How are you?";
 

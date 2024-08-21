@@ -4,7 +4,7 @@ import whatsappIcon from "/images/wp.png"; // Update this path
 const FloatingButton = () => {
   const phoneNumber = "+919311797244";
   const message =
-    "Hello, I came from your website :: https://galo.co.in/ How are you?";
+    "Hello, I came from your website :: https://www.galosolar.com/ How are you?";
 
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
     message

@@ -51,9 +51,9 @@ function AppContent() {
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/distributor" element={<Distributor />} />
       </Routes>
-      {location.pathname === "/delhi" ? (
+      {location.pathname === "/l1" ? (
         <DelhiFloatingButton />
-      ) : location.pathname === "/up" ? (
+      ) : location.pathname === "/l2" ? (
         <UPFB />
       ) : (
         <FloatingButton />
