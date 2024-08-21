@@ -18,6 +18,7 @@ const Form = () => {
     Pincode: "",
     City: "",
     Remark: "",
+    DateTime: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -128,20 +129,23 @@ const Form = () => {
 
     setLoading(true);
 
+    // Set the current date and time
+    const currentDateTime = new Date().toLocaleString();
+    const updatedFormData = { ...formData, DateTime: currentDateTime };
+
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
 
-    const formDataObject = {};
-    formDatab.forEach((value, key) => {
-      formDataObject[key] = value;
-    });
-
-    console.log("Form Data:", formDataObject);
+    // Append DateTime to formDatab
+    formDatab.append("DateTime", currentDateTime);
 
     try {
+      // Sending form data to the first API
       sendEmail(formDatab);
+
+      // Sending form data to the Google Sheets API
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbx1GX8y_b80C_M1-SW1-DLxpVku6_PMaPgOcMe55qsExg7RVc-uYEwPGraN97NX0xFlgg/exec",
+        "https://script.google.com/macros/s/AKfycbze6RZRGRTb-GH2qaukiAM4gO83DF3gU00getQQPgbYj2QaKY-dU0CjsGQk3f_XrWhMHg/exec",
         {
           method: "POST",
           body: formDatab,
@@ -156,20 +160,16 @@ const Form = () => {
       console.log("Response Text:", responseText);
 
       if (responseText.includes("successfully sent")) {
-        console.log("FormData", formDatab);
-
         setSuccessMessage("Form submitted successfully!");
         setFormData({
-          State: "",
           Name: "",
           Phone: "",
           Pincode: "",
           City: "",
-
           SolarFor: "",
           Remark: "",
+          DateTime: "", // Reset DateTime
         });
-
         navigate("/thanks");
       } else {
         throw new Error("Unexpected response");
