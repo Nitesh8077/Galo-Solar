@@ -59,9 +59,12 @@ const Form = () => {
   const handleCountryChange = (e) => {
     const countryId = e.target.value;
     setSelectedCountryId(countryId);
+
+    const countryName = countryMapping[countryId] || ""; // Get the country_name from the mapping
+
     setFormData((prev) => ({
       ...prev,
-      Country: countryId,
+      Country: countryName, // Set country_name instead of country_id
       State: "",
       City: "",
     }));

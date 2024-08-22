@@ -20,6 +20,7 @@ const Form = () => {
     State: "",
     Remark: "",
     DateTime: "",
+    Country: "India",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
