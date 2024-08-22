@@ -25,11 +25,15 @@ const navigation = {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
   const handleNavigation = (href) => {
-    navigate(href); // Use navigate function to redirect
+    navigate(href);
     setOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    window.location.href = "https://www.galosolar.com"; // Replace with your website URL
   };
 
   return (
@@ -63,10 +67,12 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="flex justify-center flex-grow object-fill">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
-                  <img alt="Galo Solar" src="./images/galo.png" />
-                </a>
+                <img
+                  alt="Galo Solar"
+                  src="./images/galo.png"
+                  onClick={handleLogoClick}
+                  className="cursor-pointer"
+                />
               </div>
             </div>
 
@@ -107,14 +113,12 @@ export default function Navigation() {
 
             {/* Logo */}
             <div className="flex-1 flex items-center justify-center lg:justify-start">
-              <a href="#">
-                <span className="sr-only">Your Company</span>
-                <img
-                  alt="Galo Solar"
-                  src="./images/galo.png"
-                  className="h-16 w-auto lg:h-20"
-                />
-              </a>
+              <img
+                alt="Galo Solar"
+                src="./images/galo.png"
+                onClick={handleLogoClick}
+                className="h-16 w-auto lg:h-20 cursor-pointer"
+              />
             </div>
 
             <div className="hidden lg:ml-8 lg:block lg:self-stretch">
