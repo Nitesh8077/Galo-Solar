@@ -17,6 +17,7 @@ const Form = () => {
     SolarFor: "",
     Pincode: "",
     City: "",
+    State: "",
     Remark: "",
     DateTime: "",
   });
@@ -99,27 +100,26 @@ const Form = () => {
     return isValid;
   };
   const sendEmail = async (datab) => {
-    console.log("hiiiiiiiii submit kusum");
+    console.log("Submitting form to Gautam Solar API...");
 
     try {
-      const response = await fetch("https://gautamsolar.us/submit-pmkusumm", {
+      const response = await fetch("https://gautamsolar.us/submit-delhi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: datab,
+        body: JSON.stringify(datab),
       });
-      console.log("response", response);
+
+      console.log("Response:", response);
 
       if (response.ok) {
-        console.log("Form submitted successfully");
+        console.log("Form submitted successfully to Gautam Solar API");
       } else {
-        console.error("Failed to submit form");
+        console.error("Failed to submit form to Gautam Solar API");
       }
-      setShowModal(true);
-      handleCaptchaReset();
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form to Gautam Solar API:", error);
     }
   };
 
@@ -133,17 +133,15 @@ const Form = () => {
     const currentDateTime = new Date().toLocaleString();
     const updatedFormData = { ...formData, DateTime: currentDateTime };
 
-    const formEle = document.querySelector("form");
-    const formDatab = new FormData(formEle);
-
-    // Append DateTime to formDatab
-    formDatab.append("DateTime", currentDateTime);
-
     try {
-      // Sending form data to the first API
-      sendEmail(formDatab);
+      // Sending form data to the new API
+      await sendEmail(updatedFormData);
 
       // Sending form data to the Google Sheets API
+      const formEle = document.querySelector("form");
+      const formDatab = new FormData(formEle);
+      formDatab.append("DateTime", currentDateTime);
+
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbx1DUEmL-F_kWd0QA2olUMJ89QguDL6-etvwEUUgk2SKZ43o4UVAdh4kwi2heaU64Lk/exec",
         {
@@ -166,6 +164,7 @@ const Form = () => {
           Phone: "",
           Pincode: "",
           City: "",
+          State: "",
           SolarFor: "",
           Remark: "",
           DateTime: "", // Reset DateTime

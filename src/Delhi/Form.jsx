@@ -98,16 +98,16 @@ const Form = () => {
     setErrors(newErrors);
     return isValid;
   };
-  const sendEmail = async (datab) => {
-    console.log("hiiiiiiiii submit kusum");
+  const sendEmail = async (formData) => {
+    console.log("hiiiiiiiii submit kusum", formData);
 
     try {
-      const response = await fetch("https://gautamsolar.us/submit-pmkusumm", {
+      const response = await fetch("https://gautamsolar.us/submit-delhi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: datab,
+        body: JSON.stringify(formData),
       });
       console.log("response", response);
 
@@ -140,8 +140,9 @@ const Form = () => {
     formDatab.append("DateTime", currentDateTime);
 
     try {
+      console.log("FormData", formData);
       // Sending form data to the first API
-      sendEmail(formDatab);
+      sendEmail(formData);
 
       // Sending form data to the Google Sheets API
       const response = await fetch(
@@ -161,15 +162,15 @@ const Form = () => {
 
       if (responseText.includes("successfully sent")) {
         setSuccessMessage("Form submitted successfully!");
-        setFormData({
-          Name: "",
-          Phone: "",
-          Pincode: "",
-          City: "",
-          SolarFor: "",
-          Remark: "",
-          DateTime: "", // Reset DateTime
-        });
+        // setFormData({
+        //   Name: "",
+        //   Phone: "",
+        //   Pincode: "",
+        //   City: "",
+        //   SolarFor: "",
+        //   Remark: "",
+        //   DateTime: "",  // Reset DateTime
+        // });
         navigate("/thanks");
       } else {
         throw new Error("Unexpected response");
@@ -181,6 +182,8 @@ const Form = () => {
     } finally {
       setLoading(false);
     }
+
+    console.log("kkkkkkkkkkkk");
   };
 
   return (

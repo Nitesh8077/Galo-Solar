@@ -203,6 +203,50 @@ const Form = () => {
 
     setLoading(true);
 
+    try {
+      // Prepare the data to be sent
+      const payload = {
+        Country: locationType === "india" ? "India" : formData.Country,
+        State: formData.State,
+        Name: formData.Name,
+        Phone: formData.Phone,
+        City: formData.City,
+        Pincode: formData.Pincode,
+        SolarFor: formData.SolarFor,
+        Remark: formData.Remark,
+      };
+
+      // Make the POST request to the API
+      const response = await axios.post(
+        "https://gautamsolar.us/submit-delhi",
+        payload
+      );
+
+      if (response.status === 200) {
+        setSuccessMessage("Form submitted successfully!");
+        setFormData({
+          Country: "",
+          State: "",
+          Name: "",
+          Phone: "",
+          City: "",
+          Pincode: "",
+          SolarFor: "",
+          Remark: "",
+        });
+
+        navigate("/thanks");
+      } else {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSuccessMessage("Form submission failed. Please try again later.");
+      navigate("/thanks");
+    } finally {
+      setLoading(false);
+    }
+
     // Create a FormData object from the form
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
