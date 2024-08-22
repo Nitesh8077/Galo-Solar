@@ -130,20 +130,27 @@ const Form = () => {
 
     setLoading(true);
 
-    // Set the current date and time
-    const currentDateTime = new Date().toLocaleString();
-    const updatedFormData = { ...formData, DateTime: currentDateTime };
+    // Get the current date and format it as dd/mm/yy
+    const currentDate = new Date();
+    const formattedDate = `${String(currentDate.getDate()).padStart(
+      2,
+      "0"
+    )}/${String(currentDate.getMonth() + 1).padStart(2, "0")}/${String(
+      currentDate.getFullYear()
+    ).slice(-2)}`;
+
+    const updatedFormData = { ...formData, DateTime: formattedDate };
 
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
 
-    // Append DateTime to formDatab
-    formDatab.append("DateTime", currentDateTime);
+    // Append the formatted DateTime to formDatab
+    formDatab.append("DateTime", formattedDate);
 
     try {
-      console.log("FormData", formData);
+      console.log("FormData", updatedFormData);
       // Sending form data to the first API
-      sendEmail(formData);
+      sendEmail(updatedFormData);
 
       // Sending form data to the Google Sheets API
       const response = await fetch(
@@ -163,15 +170,6 @@ const Form = () => {
 
       if (responseText.includes("successfully sent")) {
         setSuccessMessage("Form submitted successfully!");
-        // setFormData({
-        //   Name: "",
-        //   Phone: "",
-        //   Pincode: "",
-        //   City: "",
-        //   SolarFor: "",
-        //   Remark: "",
-        //   DateTime: "",  // Reset DateTime
-        // });
         navigate("/thanks");
       } else {
         throw new Error("Unexpected response");

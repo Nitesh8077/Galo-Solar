@@ -130,9 +130,14 @@ const Form = () => {
 
     setLoading(true);
 
-    // Set the current date and time
-    const currentDateTime = new Date().toLocaleString();
-    const updatedFormData = { ...formData, DateTime: currentDateTime };
+    // Format the current date as dd/mm/yy
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const year = String(currentDate.getFullYear()).slice(-2);
+    const formattedDate = `${day}/${month}/${year}`;
+
+    const updatedFormData = { ...formData, DateTime: formattedDate };
 
     try {
       // Sending form data to the new API
@@ -141,7 +146,7 @@ const Form = () => {
       // Sending form data to the Google Sheets API
       const formEle = document.querySelector("form");
       const formDatab = new FormData(formEle);
-      formDatab.append("DateTime", currentDateTime);
+      formDatab.append("DateTime", formattedDate);
 
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbx1DUEmL-F_kWd0QA2olUMJ89QguDL6-etvwEUUgk2SKZ43o4UVAdh4kwi2heaU64Lk/exec",
