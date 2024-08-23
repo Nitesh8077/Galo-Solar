@@ -13,6 +13,7 @@ import backgroundImg from "/images/Vector.png";
 
 const navigation = {
   pages: [
+    { name: "Testing", href: "" },
     { name: "Homes", href: "/homes" },
     { name: "Residential", href: "/residential" },
     { name: "Commercial/Industrial", href: "/commercial" },
