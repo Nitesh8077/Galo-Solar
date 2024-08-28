@@ -37,7 +37,9 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
+      <div className="sticky top-0 bg-white z-50">
       <Navigation />
+      </div> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/homes" element={<Homes />} />
