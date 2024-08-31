@@ -4,24 +4,18 @@ export default {
   theme: {
     extend: {
       keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" },
-        },
-        borderRadius: {
-          "4xl": "2rem", // Customize this value as needed
-        },
+        'bg-spin': {
+          '0%': { '--border-angle': '0turn' },
+          '100%': { '--border-angle': '1turn' }
+        }
       },
-      fontSize: {
-        "10xl": "10rem", // Example size, adjust as needed
-        "11xl": "11rem",
-        "12xl": "12rem",
-      },
-
       animation: {
-        marquee: "marquee 7s linear infinite",
+        'bg-spin': 'bg-spin 3s linear infinite'
       },
-    },
+      borderRadius: {
+        '4xl': '2rem' // Adjust if needed
+      }
+    }
   },
   plugins: [],
 };

@@ -503,13 +503,16 @@ const Form = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="px-4 py-2 bg-black text-yellow-400 w-full rounded-md"
-            disabled={loading}
-          >
-            {loading ? "Loading..." : "Submit"}
-          </button>
+         
+            <button
+              type="submit"
+              className="box rounded-[2em] border-[5px] font-bold text-xl border-transparent px-4 py-2 bg-black text-yellow-400 w-full justify-center items-center"
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Submit"}
+            </button>
+         
+
           {successMessage && (
             <p className="text-green-500 text-xs mt-2">{successMessage}</p>
           )}

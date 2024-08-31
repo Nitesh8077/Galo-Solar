@@ -124,13 +124,38 @@ const Form = () => {
     }
   };
 
+  const sendToTrackOlap = async (formData) => {
+    try {
+      const response = await fetch('https://app.trackolap.com/cust/1/api/lead/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'platform': 'API',
+          'tlp-cid': '66320609b99ee35882dce85e', // Ensure this CID is correct
+          'tlp-t': new Date().getTime().toString(), // Timestamp in ms
+          'api-key': 'c3f04028-5200-42e2-8f5c-0863ce565e6b', // Ensure this API key is correct
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log("Form submitted to TrackOlap successfully");
+      } else {
+        console.error("Failed to submit form to TrackOlap");
+      }
+    } catch (error) {
+      console.error("Error submitting form to TrackOlap:", error);
+    }
+  };
+  
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     setLoading(true);
-
-    // Get the current date and format it as dd/mm/yy
+  
     const currentDate = new Date();
     const formattedDate = `${String(currentDate.getDate()).padStart(
       2,
@@ -138,21 +163,20 @@ const Form = () => {
     )}/${String(currentDate.getMonth() + 1).padStart(2, "0")}/${String(
       currentDate.getFullYear()
     ).slice(-2)}`;
-
+  
     const updatedFormData = { ...formData, DateTime: formattedDate };
-
-    const formEle = document.querySelector("form");
-    const formDatab = new FormData(formEle);
-
-    // Append the formatted DateTime to formDatab
-    formDatab.append("DateTime", formattedDate);
-
+  
     try {
-      console.log("FormData", updatedFormData);
-      // Sending form data to the first API
-      sendEmail(updatedFormData);
-
-      // Sending form data to the Google Sheets API
+      // TrackOlap API ko yahan call karein
+      await sendToTrackOlap(updatedFormData);
+  
+      // Pehle se maujood APIs ko bhi call karein
+      await sendEmail(updatedFormData);
+      
+      const formEle = document.querySelector("form");
+      const formDatab = new FormData(formEle);
+      formDatab.append("DateTime", formattedDate);
+  
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbze6RZRGRTb-GH2qaukiAM4gO83DF3gU00getQQPgbYj2QaKY-dU0CjsGQk3f_XrWhMHg/exec",
         {
@@ -160,14 +184,14 @@ const Form = () => {
           body: formDatab,
         }
       );
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+  
       const responseText = await response.text();
       console.log("Response Text:", responseText);
-
+  
       if (responseText.includes("successfully sent")) {
         setSuccessMessage("Form submitted successfully!");
         navigate("/thanks");
@@ -181,9 +205,8 @@ const Form = () => {
     } finally {
       setLoading(false);
     }
-
-    console.log("kkkkkkkkkkkk");
   };
+  
 
   return (
     <div
