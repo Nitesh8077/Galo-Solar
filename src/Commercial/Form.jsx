@@ -58,15 +58,17 @@ const Form = () => {
 
   const handleCountryChange = (e) => {
     const countryId = e.target.value;
+    const countryName = countryMapping[countryId] || ""; // Get country name from the mapping
     setSelectedCountryId(countryId);
     setFormData((prev) => ({
       ...prev,
-      Country: countryId,
+      Country: countryName, // Set the country name instead of the ID
       State: "",
       City: "",
     }));
     setSelectedStateId("");
   };
+  
 
   const handleStateChange = (e) => {
     const stateId = e.target.value;
@@ -220,10 +222,17 @@ const Form = () => {
 
     // Include other fields as needed
     formDatab.set("State", formData.State);
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate().toString().padStart(2, "0")}/${(currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${currentDate.getFullYear().toString().slice(-2)}`;
+  
+    // Add formatted date to the form data
+    formDatab.set("Date", formattedDate);
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwvaTYAWIOJgKufmR1-XXXYEDX-hadQp-GL1CKbvTn3zS6y7wjhBCe4PbkmXnIVTboU/exec",
+        "https://script.google.com/macros/s/AKfycbxfJBpwZKEQFLMcj-bN5wf0dK_8Bak12WVO3QXV8I1JikCSAoBaK7hzFXYaq_BZZ8pK/exec",
         {
           method: "POST",
           body: formDatab,

@@ -19,6 +19,8 @@ const Form = () => {
   const [formData, setFormData] = useState({
     Country: "",
     Name: "",
+    BName: "",
+    Year: "",
     Phone: "",
     SolarFor: "",
     Pincode: "",
@@ -130,6 +132,22 @@ const Form = () => {
       newErrors.Name = "Name must contain only letters and spaces";
       isValid = false;
     }
+
+    if (!formData.BName.trim()) {
+      newErrors.BName = "BName is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.BName)) {
+      newErrors.BName = "BName must contain only letters and spaces";
+      isValid = false;
+    }
+
+    if (!formData.Year.trim()) {
+      newErrors.Year = "Year is required";
+      isValid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.Year)) {
+      newErrors.Year = "Year must contain only Digits";
+      isValid = false;
+    }
     if (locationType === "outside" && !formData.Country.trim()) {
       newErrors.Country = "Country is required";
       isValid = false;
@@ -202,7 +220,7 @@ const Form = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwm5guFuuWKA7GLbl3DL3551CYLZuBr3GqaLFgt6JICgunynMy98hszv9uz2KhrEztFgQ/exec",
+        "https://script.google.com/macros/s/AKfycbx_aDySLpkr-pFyU8wc8dIgNccqN0FJbsQNIphZOm9HPjbwzbtRTEYmIt_bUVb98SgMdw/exec",
         {
           method: "POST",
           body: formDatab,
@@ -340,13 +358,13 @@ const Form = () => {
               </label>
               <input
                 type="text"
-                name="Name"
-                value={formData.Name}
+                name="BName"
+                value={formData.BName}
                 onChange={handleChange}
                 className="block w-full border border-gray-300 rounded-md p-2"
               />
-              {errors.Name && (
-                <p className="text-red-500 text-xs mt-1">{errors.Name}</p>
+              {errors.BName && (
+                <p className="text-red-500 text-xs mt-1">{errors.BName}</p>
               )}
             </div>
             <div className="flex-1">
@@ -355,13 +373,13 @@ const Form = () => {
               </label>
               <input
                 type="text"
-                name="Phone"
-                value={formData.Phone}
+                name="Year"
+                value={formData.Year}
                 onChange={handleChange}
                 className="block w-full border border-gray-300 rounded-md p-2"
               />
-              {errors.Phone && (
-                <p className="text-red-500 text-xs mt-1">{errors.Phone}</p>
+              {errors.Year && (
+                <p className="text-red-500 text-xs mt-1">{errors.Year}</p>
               )}
             </div>
           </div>
