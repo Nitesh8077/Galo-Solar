@@ -97,12 +97,22 @@ const Form = () => {
 
     setLoading(true);
 
+    const getCurrentDate = () => {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const yy = String(today.getFullYear()).slice(-2);
+      return `${dd}/${mm}/${yy}`;
+    };
+
     const formEle = document.querySelector("form");
     const formDatab = new FormData(formEle);
 
+    formDatab.append("Date", getCurrentDate());
+
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzKL5-p5Qb8W5QP0S274mxKWa_UQwm4JWJPI_skqySEyQU3-K1atrkDPBLOckSkHz0U0g/exec",
+        "https://script.google.com/macros/s/AKfycbxWvMaAkU8oIpra1uc9hncgPaHQ1Qp57l8dj3vIaJ058RXKsHxiES7e5sWJ4XNnP1Y4PA/exec",
         {
           method: "POST",
           body: formDatab,
