@@ -206,6 +206,11 @@ const Form = () => {
 
     setLoading(true);
 
+    const currentDate = new Date();
+    const formattedDate = `${String(currentDate.getDate()).padStart(2, '0')}/${String(
+      currentDate.getMonth() + 1
+    ).padStart(2, '0')}/${String(currentDate.getFullYear()).slice(-2)}`;
+
     try {
       // Prepare the data to be sent
       const payload = {
@@ -217,6 +222,7 @@ const Form = () => {
         Pincode: formData.Pincode,
         SolarFor: formData.SolarFor,
         Remark: formData.Remark,
+        Date: formattedDate,
       };
 
       // Make the POST request to the API
@@ -266,7 +272,7 @@ const Form = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyLqh6P99bQ0X45V5A9QASzFcxFsWXtDoZONe3aLCK-ZAUE4ERTRt5kNWsYfM75ow4/exec",
+        "https://script.google.com/macros/s/AKfycbwu1WeiPLTwxAmiTJ_uqrHD1mm5gSXcY3-8-lWKZm7MKaTZJHv4oM2ENtbdpX2SG1z5/exec",
         {
           method: "POST",
           body: formDatab,

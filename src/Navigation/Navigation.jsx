@@ -72,7 +72,7 @@ export default function Navigation() {
                   alt="Galo Solar"
                   src="./images/galo.png"
                   onClick={handleLogoClick}
-                  className="cursor-pointer"
+                  className="cursor-pointer w-full h-full"
                 />
               </div>
             </div>
