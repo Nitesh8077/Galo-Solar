@@ -59,16 +59,16 @@ const Form = () => {
 
   const handleCountryChange = (e) => {
     const countryId = e.target.value;
+    const countryName = countryMapping[countryId] || ""; // Get country name from the mapping
     setSelectedCountryId(countryId);
     setFormData((prev) => ({
       ...prev,
-      Country: countryId,
+      Country: countryName, // Set the country name instead of the ID
       State: "",
       City: "",
     }));
     setSelectedStateId("");
   };
-
   const handleStateChange = (e) => {
     const stateId = e.target.value;
     setSelectedStateId(stateId);
@@ -221,10 +221,12 @@ const Form = () => {
 
     // Include other fields as needed
     formDatab.set("State", formData.State);
+    const currentDate = new Date().toLocaleDateString("en-GB"); // "en-GB" gives the format dd/mm/yyyy
+    formDatab.set("Date", currentDate);
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbx0_XoLq_tc4yla-ZtWbahkWNSHH844RQ3ejsQ4tBcqX-oaZ7Qup0w6BkUf4lw8p9Y/exec",
+        "https://script.google.com/macros/s/AKfycbylmB9lhg5R8zC_qNjtuxKpWNq0r0rEWWudH5UCJi9clenR6AYSnLXIBNxKQAXLxVMI/exec",
         {
           method: "POST",
           body: formDatab,
