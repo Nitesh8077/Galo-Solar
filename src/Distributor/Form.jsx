@@ -156,8 +156,16 @@ const Form = () => {
       newErrors.State = "State is required";
       isValid = false;
     }
-    if (!formData.SolarFor.trim()) {
-      newErrors.SolarFor = "SolarFor is required";
+    if (!formData.Dealership.trim()) {
+      newErrors.Dealership = "Dealership is required";
+      isValid = false;
+    }
+    if (!formData.Product.trim()) {
+      newErrors.Product = "Product is required";
+      isValid = false;
+    }
+    if (!formData.Estimated.trim()) {
+      newErrors.Estimated = "Estimated is required";
       isValid = false;
     }
     if (!formData.City.trim()) {
@@ -210,29 +218,33 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     setLoading(true);
-
-    const formEle = document.querySelector("form");
-    const formDatab = new FormData(formEle);
-
-    formDatab.set("State", formData.State);
-
+  
+    const formData = new FormData(e.target);
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+  
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbx_aDySLpkr-pFyU8wc8dIgNccqN0FJbsQNIphZOm9HPjbwzbtRTEYmIt_bUVb98SgMdw/exec",
+        "https://script.google.com/macros/s/AKfycbxPmXGHiQDpwop9iQLTsgVYR-EHTx7XC6yxuFsB5ME7Ma_VtfP3if7kRYgcycSthm-i7Q/exec", // Replace with your Apps Script web app URL
         {
           method: "POST",
-          body: formDatab,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
-      const data = await response.json();
-      console.log(data);
+  
+      const result = await response.json();
+      console.log(result);
       setSuccessMessage("Form submitted successfully!");
       setFormData({
         State: "",
@@ -243,8 +255,7 @@ const Form = () => {
         SolarFor: "",
         Remark: "",
       });
-
-      // Navigate to the Thanks component
+  
       navigate("/thanks");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -254,6 +265,8 @@ const Form = () => {
       setLoading(false);
     }
   };
+  
+  
 
   return (
     <div
@@ -401,8 +414,8 @@ const Form = () => {
                 <option value="Retailer">Retailer</option>
                 <option value="Installer">Installer</option>
               </select>
-              {errors.SolarFor && (
-                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              {errors.Dealership && (
+                <p className="text-red-500 text-xs mt-1">{errors.Dealership}</p>
               )}
             </div>
             <div className="flex-1">
@@ -424,8 +437,8 @@ const Form = () => {
                   Complete Solar Systems
                 </option>
               </select>
-              {errors.SolarFor && (
-                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              {errors.Product && (
+                <p className="text-red-500 text-xs mt-1">{errors.Product}</p>
               )}
             </div>
           </div>
@@ -455,8 +468,8 @@ const Form = () => {
                 </option>
                 <option value="Above ₹50 Lakhs">Above ₹50 Lakhs</option>
               </select>
-              {errors.SolarFor && (
-                <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
+              {errors.Estimated && (
+                <p className="text-red-500 text-xs mt-1">{errors.Estimated}</p>
               )}
             </div>
 
