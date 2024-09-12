@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="p-10">
+      <div className="p-16">
         <h1 className="text-6xl font-bold text-center" data-aos="fade-up">Privacy Policy</h1>
         
         {/* Who we are */}
