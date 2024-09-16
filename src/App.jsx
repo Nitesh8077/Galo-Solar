@@ -21,6 +21,7 @@ import Thanks from "./Delhi/Thanks";
 import Faq from "./FAQ/Faq";
 import Distributor from "./Distributor/Distributor";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
+import Dealer from "./Dealer/Dealer";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -54,6 +55,7 @@ function AppContent() {
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/distributor" element={<Distributor />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/Dealer" element={<Dealer />} />
       </Routes>
       {location.pathname === "/l1" ? (
         <DelhiFloatingButton />
