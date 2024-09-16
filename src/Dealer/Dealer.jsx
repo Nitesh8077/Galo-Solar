@@ -148,16 +148,16 @@ const Dealer = () => {
   return (
     <div className="flex flex-col bg-yellow-400 bg-cover bg-center">
       <div className="w-full p-4">
-        <p className="text-3xl md:text-5xl font-bold">
+        <p className="text-3xl md:text-7xl font-bold">
           Empower Your Business with Galo Solar – Kickstart Your Dealership
           Journey Today!
         </p>
-        <p className="text-lg md:text-=3xl mt-4">
+        <p className="text-lg md:text-4xl mt-4">
           Are you ready to take your business to the next level with a
           flourishing solar energy partnership? Start with a tailored
           consultation from our expert team.
         </p>
-        <p className="text-lg md:text-3xl mt-2">
+        <p className="text-lg md:text-4xl mt-2">
           Reach out now and discover how becoming a Galo Solar dealer can drive
           growth, enhance profitability, and future-proof your business!
         </p>
@@ -171,7 +171,7 @@ const Dealer = () => {
             <div className="flex-1">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-xl font-bold"
               >
                 Name
               </label>
@@ -192,7 +192,7 @@ const Dealer = () => {
             <div className="flex-1">
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
+              className="block text-xl font-bold"
               >
                 Phone Number
               </label>
@@ -215,7 +215,7 @@ const Dealer = () => {
             <div className="flex-1">
               <label
                 htmlFor="states"
-                className="block text-sm font-medium text-gray-700"
+              className="block text-xl font-bold"
               >
                 Select State
               </label>
@@ -236,7 +236,7 @@ const Dealer = () => {
             <div className="flex-1">
               <label
                 htmlFor="city"
-                className="block text-sm font-medium text-gray-700"
+              className="block text-xl font-bold"
               >
                 City
               </label>
@@ -259,7 +259,7 @@ const Dealer = () => {
             <div className="flex-1">
               <label
                 htmlFor="pincode"
-                className="block text-sm font-medium text-gray-700"
+               className="block text-xl font-bold"
               >
                 Pincode
               </label>
@@ -278,7 +278,7 @@ const Dealer = () => {
               )}
             </div>
             <div className="flex-1">
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700"
+              <label htmlFor="address" className="block text-xl font-bold"
               >Address</label>
               <input
                 type="text"
@@ -292,7 +292,7 @@ const Dealer = () => {
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <div className="flex-1">
-            <label htmlFor="businessName" className="block text-sm font-medium text-gray-700">Business Name</label>
+            <label htmlFor="businessName" className="block text-xl font-bold">Business Name</label>
             <input
               type="text"
               id="businessName"
@@ -303,7 +303,7 @@ const Dealer = () => {
             />
           </div>
           <div className="flex-1">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="email" className="block text-xl font-bold">Email</label>
               <input
                 type="email"
                 id="email"
@@ -317,7 +317,7 @@ const Dealer = () => {
             </div>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-            <label htmlFor="yearsInBusiness" className="block text-sm font-medium text-gray-700">Years in Business</label>
+            <label htmlFor="yearsInBusiness" className="block text-xl font-bold">Years in Business</label>
             <input
               type="number"
               id="yearsInBusiness"
@@ -328,7 +328,7 @@ const Dealer = () => {
             />
           </div>
           <div className="flex-1">
-            <label htmlFor="gstNumber" className="block text-sm font-medium text-gray-700">GST Number</label>
+            <label htmlFor="gstNumber" className="block text-xl font-bold">GST Number</label>
             <input
               type="text"
               id="gstNumber"
@@ -341,7 +341,7 @@ const Dealer = () => {
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <div className="flex-1">
-            <label htmlFor="bankAccountNumber" className="block text-sm font-medium text-gray-700">Bank Account Number</label>
+            <label htmlFor="bankAccountNumber" className="block text-xl font-bold">Bank Account Number</label>
             <input
               type="text"
               id="bankAccountNumber"
@@ -352,7 +352,7 @@ const Dealer = () => {
             />
           </div>
           <div className="flex-1">
-            <label htmlFor="ifscCode" className="block text-sm font-medium text-gray-700">IFSC Code</label>
+            <label htmlFor="ifscCode" className="block text-xl font-bold">IFSC Code</label>
             <input
               type="text"
               id="ifscCode"
@@ -366,7 +366,7 @@ const Dealer = () => {
           <div className="flex-1">
             <label
               htmlFor="remark"
-              className="block text-sm font-medium text-gray-700"
+             className="block text-xl font-bold"
             >
               Remark
             </label>
@@ -380,7 +380,7 @@ const Dealer = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-yellow-400 text-black text-xl font-bold py-2 px-4 rounded-md focus:outline-none"
+            className="w-full bg-yellow-400 text-black text-2xl font-bold py-2 px-4 rounded-md focus:outline-none"
             disabled={loading} // Disable button while loading
           >
             {loading ? "Submitting..." : "Submit"} {/* Conditional rendering */}
