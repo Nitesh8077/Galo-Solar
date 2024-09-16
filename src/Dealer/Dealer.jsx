@@ -271,6 +271,7 @@ const Dealer = () => {
                 className={`block w-full border ${
                   errors.pincode ? "border-red-500" : "border-gray-300"
                 } rounded-md p-2`}
+                required
               />
               {errors.pincode && (
                 <p className="text-red-500 text-sm">{errors.pincode}</p>
