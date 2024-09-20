@@ -37,14 +37,14 @@ const HappyCustomersCarousel = () => {
       className="bg-black text-yellow-400 py-8"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <h2 className="text-3xl font-bold text-center mb-8">
+      <h2 className="text-5xl font-bold text-center mb-8">
         Our Happy Customers
       </h2>
       <Carousel
         responsive={responsive}
         infinite={true}
         autoPlay={true}
-        autoPlaySpeed={3000}
+        autoPlaySpeed={1500}
         customLeftArrow={<div style={{ display: "none" }} />}
         customRightArrow={<div style={{ display: "none" }} />}
       >
@@ -53,7 +53,7 @@ const HappyCustomersCarousel = () => {
             <img
               src={customer.image}
               alt={customer.name}
-              className="w-72 h-72 object-cover rounded-lg mb-4"
+              className="w-full p-10 object-cover mb-10"
             />
           </div>
         ))}

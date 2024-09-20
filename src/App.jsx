@@ -1,10 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "./Navigation/Navigation";
 import FloatingButton from "./FloatingButton/FloatingButton";
 import Home from "./Home/Home";
@@ -22,6 +17,7 @@ import Faq from "./FAQ/Faq";
 import Distributor from "./Distributor/Distributor";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicy";
 import Dealer from "./Dealer/Dealer";
+import "./App.css"; // Import the updated CSS
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -40,8 +36,8 @@ function AppContent() {
     <>
       <ScrollToTop />
       <div className="sticky top-0 bg-white z-50">
-      <Navigation />
-      </div> 
+        <Navigation />
+      </div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/homes" element={<Homes />} />
@@ -69,8 +65,25 @@ function AppContent() {
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set a timeout to simulate the curtain opening and then hide the overlay
+    const timer = setTimeout(() => {
+      setLoading(false); // Hide the curtains after 2.5 seconds (animation duration)
+    }, 2000); 
+
+    return () => clearTimeout(timer); // Clean up the timeout on unmount
+  }, []);
+
   return (
     <Router>
+      {loading && (
+        <div className="curtain-container">
+          <div className="curtain left-curtain"></div>
+          <div className="curtain right-curtain"></div>
+        </div>
+      )}
       <AppContent />
     </Router>
   );
