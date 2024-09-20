@@ -9,7 +9,7 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import backgroundImg from "/images/Vector.png";
+import backgroundImg from "/images/xyz.png";
 
 const navigation = {
   pages: [
@@ -94,12 +94,18 @@ export default function Navigation() {
       </Dialog>
 
       <header
-        className="relative bg-black "
-        style={{ backgroundImage: `url(${backgroundImg})` }}
-      >
+  className="relative bg-black w-full" // Ensures the header takes the full width of the page
+  style={{ 
+    backgroundImage: `url(${backgroundImg})`,
+    backgroundSize: '100%', // Adjusts the width of the background image
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center', // Centers the image horizontally
+  }}
+>
+
         <nav
           aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          className="mx-auto max-w-full px-4 sm:px-6 lg:px-8"
         >
           <div className="flex h-24 items-center justify-between lg:justify-start">
             <button

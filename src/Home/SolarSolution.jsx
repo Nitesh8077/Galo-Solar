@@ -34,7 +34,7 @@ const SolarSolution = () => {
       <h3 className="text-2xl md:text-6xl font-bold mb-4" data-aos="fade-up">
         Solar Solutions for
       </h3>
-      <div className="space-y-10 text-black">
+      <div >
         {[
           {
             image: "/images/home.png",
@@ -56,7 +56,7 @@ const SolarSolution = () => {
         ].map((item, index) => (
           <div
             key={index}
-            className={`flex flex-col md:flex-row items-center md:items-start w-full md:w-3/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3  rounded-2xl md:rounded-full ${
+            className={`flex flex-col md:flex-row items-center md:items-start w-full md:w-2/4 space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-3  rounded-2xl md:rounded-full ${
               index % 2 === 0 ? "md:ml-auto" : "md:mr-auto"
             }`}
             data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}

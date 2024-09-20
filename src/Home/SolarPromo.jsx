@@ -43,11 +43,14 @@ const SolarPromo = () => {
         </div>
         <div className="w-full p-4">
           <p className="text-black text-base md:text-lg lg:text-xl flex items-center justify-center space-x-2">
-            <img
-              src="/images/ytup.svg"
-              alt="YouTube"
-              className="w-80 md:w-full mt-1 ml-2 inline-block"
-            />
+          <a href="https://www.youtube.com/@galo_solar" target="_blank" rel="noopener noreferrer">
+  <img
+    src="/images/ytup.svg"
+    alt="YouTube"
+    className="w-80 md:w-full mt-1 ml-2 inline-block"
+  />
+</a>
+
           </p>
         </div>
       </div>
