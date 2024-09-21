@@ -13,14 +13,14 @@ function Illuminate() {
       className="min-h-screen bg-yellow-400 p-8 flex flex-col items-center justify-center text-center"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <h1 className="text-4xl font-bold mb-4" data-aos="fade-up">
+      <h1 className="text-5xl font-bold mb-4" data-aos="fade-up">
         Illuminate Your Home with Galo Solar:
       </h1>
-      <h2 className="text-2xl mb-8" data-aos="fade-up" data-aos-delay="200">
+      <h2 className="text-4xl mb-8" data-aos="fade-up" data-aos-delay="200">
         Discover the Benefits of Solar Energy
       </h2>
 
-      <div className="max-w-8xl mx-auto space-y-6 text-left">
+      <div className="w-full mx-auto space-y-6 text-left">
         {[
           {
             title: "Experience and Reliability",
@@ -65,8 +65,8 @@ function Illuminate() {
             data-aos="fade-up"
             data-aos-delay={index * 100}
           >
-            <h3 className="font-bold text-xl">{item.title}</h3>
-            <p className=" text-base">{item.text}</p>
+            <h3 className="font-bold text-2xl">{item.title}</h3>
+            <p className=" text-xl">{item.text}</p>
           </div>
         ))}
       </div>

@@ -20,7 +20,7 @@ function Illuminate() {
         Discover the Benefits of Solar Energy
       </h2>
 
-      <div className="max-w-8xl mx-auto space-y-6 text-left">
+      <div className="max-w-full mx-auto space-y-6 text-left">
         {[
           {
             title: "Experience and Reliability",

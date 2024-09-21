@@ -50,16 +50,16 @@ function SolarInfo() {
             </li>
             <li>Determine your eligibility for state-specific subsidies.</li>
           </ul>
-          <div className="flex flex-wrap gap-6 mt-6" data-aos="fade-up">
+          <div className="flex flex-wrap justify-between mx-4 sm:mx-8 md:mx-20 mt-6 space-y-4 sm:space-y-0" data-aos="fade-up">
             <img
               src="/images/solarinfo1.png"
               alt="High Windspeed"
-              className="rounded-xl shadow-md"
+                  className="rounded-xl shadow-md w-full sm:w-1/2 md:w-auto"
             />
             <img
               src="/images/solarinfo2.png"
               alt="IIT Certified Structures"
-              className="rounded-xl shadow-md"
+                  className="rounded-xl shadow-md w-full sm:w-1/2 md:w-auto"
             />
           </div>
         </div>
@@ -102,18 +102,19 @@ function SolarInfo() {
               coordinating with DISCOM for inspection and approval.
             </li>
           </ul>
-          <div className="flex flex-wrap gap-6 mt-6" data-aos="fade-up">
-            <img
-              src="/images/solarinfo3.png"
-              alt="High Windspeed"
-              className="rounded-xl shadow-md"
-            />
-            <img
-              src="/images/solarinfo4.png"
-              alt="IIT Certified Structures"
-              className="rounded-xl shadow-md"
-            />
-          </div>
+          <div className="flex flex-wrap justify-between mx-4 sm:mx-8 md:mx-20 mt-6 space-y-4 sm:space-y-0" data-aos="fade-up">
+  <img
+    src="/images/solarinfo3.png"
+    alt="High Windspeed"
+    className="rounded-xl shadow-md w-full sm:w-1/2 md:w-auto"
+  />
+  <img
+    src="/images/solarinfo4.png"
+    alt="IIT Certified Structures"
+    className="rounded-xl shadow-md w-full sm:w-1/2 md:w-auto"
+  />
+</div>
+
         </div>
       </div>
 

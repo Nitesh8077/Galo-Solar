@@ -94,10 +94,9 @@ export default function Navigation() {
       </Dialog>
 
       <header
-  className="relative bg-black w-full" // Ensures the header takes the full width of the page
+  className="bg-cover bg-black bg-center md:bg-[url('/images/xyz.png')] bg-none"
   style={{ 
-    backgroundImage: `url(${backgroundImg})`,
-    backgroundSize: '100%', // Adjusts the width of the background image
+    backgroundSize: '100%', // Adjusts the width of the background image for larger screens
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center', // Centers the image horizontally
   }}
