@@ -100,7 +100,7 @@ const QRForm = () => {
             htmlFor="dealername"
             className="block text-base font-semibold text-gray-700"
           >
-            Dealer Name
+            Channel Partner Name
           </label>
           <input
             type="text"
@@ -122,7 +122,7 @@ const QRForm = () => {
             htmlFor="dealerphone"
             className="block text-base font-semibold text-gray-700"
           >
-            Dealer Phone Number
+            Channel Partner Phone Number
           </label>
           <input
             type="text"
