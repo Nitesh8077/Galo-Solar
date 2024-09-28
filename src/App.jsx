@@ -53,7 +53,7 @@ function AppContent() {
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/distributor" element={<Distributor />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-        <Route path="/Dealer" element={<Dealer />} />
+        <Route path="/channelpartner" element={<Dealer />} />
         <Route path="/qr" element={<QRForm />} />
         <Route path="/customer" element={<CustomerContactUs />} />
       </Routes>

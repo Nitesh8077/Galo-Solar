@@ -149,7 +149,7 @@ const Dealer = () => {
     <div className="flex flex-col bg-yellow-400 bg-cover bg-center">
       <div className="w-full p-4">
         <p className="text-3xl md:text-7xl font-bold">
-          Empower Your Business with Galo Solar – Kickstart Your Dealership
+          Empower Your Business with Galo Solar – Kickstart Your Channel Partner
           Journey Today!
         </p>
         <p className="text-lg md:text-4xl mt-4">
