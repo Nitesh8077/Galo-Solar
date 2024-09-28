@@ -32,7 +32,7 @@ const QRForm = () => {
     const id = uuidv4();
     const contactUsUrl = `${
       window.location.origin
-    }/customer-us?id=${id}&dealername=${encodeURIComponent(
+    }/customer?id=${id}&dealername=${encodeURIComponent(
       dealername
     )}&dealerphone=${encodeURIComponent(dealerphone)}`;
 
