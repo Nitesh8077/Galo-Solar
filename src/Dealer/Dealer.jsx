@@ -101,7 +101,7 @@ const Dealer = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbygNFqY8YYryUXQSXsyk3gDDEMD1vIx07maKOkoVBbz0leWoYmWpr-I9E7NEmntQ90e/exec",
+        "https://script.google.com/macros/s/AKfycbxDbZx7LEmIR0oWfOXHFNPqQLsf0ohvB_fRlzwOUuRfxtEuh-0VQSFyryB41JYMLCyI/exec",
         {
           method: "POST",
           contentType: "application/json",
