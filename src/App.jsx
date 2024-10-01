@@ -20,6 +20,7 @@ import Dealer from "./Dealer/Dealer";
 import "./App.css"; // Import the updated CSS
 import QRForm from "./QrProject/QRForm";
 import CustomerContactUs from "./QrProject/CustomerContactUs";
+import QrChannelPartner from "./QrChannelPartner/QrChannelPartner";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -56,6 +57,7 @@ function AppContent() {
         <Route path="/channelpartner" element={<Dealer />} />
         <Route path="/qr" element={<QRForm />} />
         <Route path="/customer" element={<CustomerContactUs />} />
+        <Route path="/qrcp" element={<QrChannelPartner />} />
       </Routes>
       {location.pathname === "/l1" ? (
         <DelhiFloatingButton />
