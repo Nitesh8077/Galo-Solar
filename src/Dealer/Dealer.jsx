@@ -169,10 +169,7 @@ const Dealer = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label
-                htmlFor="name"
-                className="block text-xl font-bold"
-              >
+              <label htmlFor="name" className="block text-xl font-bold">
                 Name
               </label>
               <input
@@ -190,10 +187,7 @@ const Dealer = () => {
               )}
             </div>
             <div className="flex-1">
-              <label
-                htmlFor="phone"
-              className="block text-xl font-bold"
-              >
+              <label htmlFor="phone" className="block text-xl font-bold">
                 Phone Number
               </label>
               <input
@@ -213,10 +207,7 @@ const Dealer = () => {
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label
-                htmlFor="states"
-              className="block text-xl font-bold"
-              >
+              <label htmlFor="states" className="block text-xl font-bold">
                 Select State
               </label>
               <select
@@ -231,13 +222,46 @@ const Dealer = () => {
                   Andaman and Nicobar Islands
                 </option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra and Nagar Haveli">
+                  Dadra and Nagar Haveli
+                </option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
               </select>
             </div>
             <div className="flex-1">
-              <label
-                htmlFor="city"
-              className="block text-xl font-bold"
-              >
+              <label htmlFor="city" className="block text-xl font-bold">
                 City
               </label>
               <input
@@ -257,10 +281,7 @@ const Dealer = () => {
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
-              <label
-                htmlFor="pincode"
-               className="block text-xl font-bold"
-              >
+              <label htmlFor="pincode" className="block text-xl font-bold">
                 Pincode
               </label>
               <input
@@ -278,8 +299,9 @@ const Dealer = () => {
               )}
             </div>
             <div className="flex-1">
-              <label htmlFor="address" className="block text-xl font-bold"
-              >Address</label>
+              <label htmlFor="address" className="block text-xl font-bold">
+                Address
+              </label>
               <input
                 type="text"
                 id="address"
@@ -291,19 +313,23 @@ const Dealer = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div className="flex-1">
-            <label htmlFor="businessName" className="block text-xl font-bold">Business Name</label>
-            <input
-              type="text"
-              id="businessName"
-              value={businessName}
-             className="block w-full border rounded-md p-2"
-              onChange={(e) => setBusinessName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex-1">
-              <label htmlFor="email" className="block text-xl font-bold">Email</label>
+            <div className="flex-1">
+              <label htmlFor="businessName" className="block text-xl font-bold">
+                Business Name
+              </label>
+              <input
+                type="text"
+                id="businessName"
+                value={businessName}
+                className="block w-full border rounded-md p-2"
+                onChange={(e) => setBusinessName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="email" className="block text-xl font-bold">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -314,60 +340,71 @@ const Dealer = () => {
               />
               {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
-            </div>
-            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-            <div className="flex-1">
-            <label htmlFor="yearsInBusiness" className="block text-xl font-bold">Years in Business</label>
-            <input
-              type="number"
-              id="yearsInBusiness"
-              value={yearsInBusiness}
-             className="block w-full border rounded-md p-2"
-              onChange={(e) => setYearsInBusiness(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex-1">
-            <label htmlFor="gstNumber" className="block text-xl font-bold">GST Number</label>
-            <input
-              type="text"
-              id="gstNumber"
-              value={gstNumber}
-               className="block w-full border rounded-md p-2"
-              onChange={(e) => setGstNumber(e.target.value)}
-              required
-            />
-          </div>
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div className="flex-1">
-            <label htmlFor="bankAccountNumber" className="block text-xl font-bold">Bank Account Number</label>
-            <input
-              type="text"
-              id="bankAccountNumber"
-              value={bankAccountNumber}
-              className="block w-full border rounded-md p-2"
-              onChange={(e) => setBankAccountNumber(e.target.value)}
-              required
-            />
+            <div className="flex-1">
+              <label
+                htmlFor="yearsInBusiness"
+                className="block text-xl font-bold"
+              >
+                Years in Business
+              </label>
+              <input
+                type="number"
+                id="yearsInBusiness"
+                value={yearsInBusiness}
+                className="block w-full border rounded-md p-2"
+                onChange={(e) => setYearsInBusiness(e.target.value)}
+              
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="gstNumber" className="block text-xl font-bold">
+                GST Number
+              </label>
+              <input
+                type="text"
+                id="gstNumber"
+                value={gstNumber}
+                className="block w-full border rounded-md p-2"
+                onChange={(e) => setGstNumber(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex-1">
+              <label
+                htmlFor="bankAccountNumber"
+                className="block text-xl font-bold"
+              >
+                Bank Account Number
+              </label>
+              <input
+                type="text"
+                id="bankAccountNumber"
+                value={bankAccountNumber}
+                className="block w-full border rounded-md p-2"
+                onChange={(e) => setBankAccountNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="ifscCode" className="block text-xl font-bold">
+                IFSC Code
+              </label>
+              <input
+                type="text"
+                id="ifscCode"
+                value={ifscCode}
+                className="block w-full border rounded-md p-2"
+                onChange={(e) => setIfscCode(e.target.value)}
+                required
+              />
+            </div>
           </div>
           <div className="flex-1">
-            <label htmlFor="ifscCode" className="block text-xl font-bold">IFSC Code</label>
-            <input
-              type="text"
-              id="ifscCode"
-              value={ifscCode}
-             className="block w-full border rounded-md p-2"
-              onChange={(e) => setIfscCode(e.target.value)}
-              required
-            />
-          </div>
-          </div>
-          <div className="flex-1">
-            <label
-              htmlFor="remark"
-             className="block text-xl font-bold"
-            >
+            <label htmlFor="remark" className="block text-xl font-bold">
               Remark
             </label>
             <input
@@ -388,7 +425,7 @@ const Dealer = () => {
         </form>
         {message && <p className="text-green-500 mt-4">{message}</p>}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

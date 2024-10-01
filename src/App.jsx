@@ -63,9 +63,9 @@ function AppContent() {
         <DelhiFloatingButton />
       ) : location.pathname === "/l2" ? (
         <UPFB />
-      ) : (
+      ) : location.pathname !== "/customer" && location.pathname !== "/channelpartner" ? (
         <FloatingButton />
-      )}
+      ) : null}
     </>
   );
 }
