@@ -172,7 +172,7 @@ const Dealer = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label htmlFor="name" className="block text-xl font-bold">
-                Name
+                Name<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -190,7 +190,7 @@ const Dealer = () => {
             </div>
             <div className="flex-1">
               <label htmlFor="phone" className="block text-xl font-bold">
-                Phone Number
+                Phone Number<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -210,7 +210,7 @@ const Dealer = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label htmlFor="states" className="block text-xl font-bold">
-                Select State
+                Select State<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <select
                 id="states"
@@ -264,7 +264,7 @@ const Dealer = () => {
             </div>
             <div className="flex-1">
               <label htmlFor="city" className="block text-xl font-bold">
-                City
+                City<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -284,7 +284,7 @@ const Dealer = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label htmlFor="pincode" className="block text-xl font-bold">
-                Pincode
+                Pincode<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -310,14 +310,14 @@ const Dealer = () => {
                 value={address}
                 className="block w-full border rounded-md p-2"
                 onChange={(e) => setAddress(e.target.value)}
-                required
+               
               />
             </div>
           </div>
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             <div className="flex-1">
               <label htmlFor="businessName" className="block text-xl font-bold">
-                Business Name
+                Business Name<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -330,7 +330,7 @@ const Dealer = () => {
             </div>
             <div className="flex-1">
               <label htmlFor="email" className="block text-xl font-bold">
-                Email
+                Email<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="email"
@@ -380,7 +380,7 @@ const Dealer = () => {
                 htmlFor="bankAccountNumber"
                 className="block text-xl font-bold"
               >
-                Bank Account Number
+                Bank Account Number<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -393,7 +393,7 @@ const Dealer = () => {
             </div>
             <div className="flex-1">
               <label htmlFor="ifscCode" className="block text-xl font-bold">
-                IFSC Code
+                IFSC Code<span className="text-red-500 ml-1 font-extrabold">*</span>
               </label>
               <input
                 type="text"
@@ -408,7 +408,7 @@ const Dealer = () => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <div className="flex-1">
             <label htmlFor="sales" className="block text-xl font-bold">
-            Sales Executive Name
+            Sales Executive Name<span className="text-red-500 ml-1 font-extrabold">*</span>
             </label>
             <input
               id="sales"
