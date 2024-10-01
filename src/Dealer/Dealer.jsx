@@ -330,7 +330,7 @@ const Dealer = () => {
             </div>
             <div className="flex-1">
               <label htmlFor="email" className="block text-xl font-bold">
-                Email<span className="text-red-500 ml-1 font-extrabold">*</span>
+                Email
               </label>
               <input
                 type="email"
@@ -338,7 +338,7 @@ const Dealer = () => {
                 value={email}
                 className="block w-full border rounded-md p-2"
                 onChange={handleChange}
-                required
+              
               />
               {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
