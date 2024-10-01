@@ -15,6 +15,7 @@ const Dealer = () => {
   const [gstNumber, setGstNumber] = useState("");
   const [bankAccountNumber, setBankAccountNumber] = useState("");
   const [ifscCode, setIfscCode] = useState("");
+  const [sales, setSales] = useState("");
   const [remark, setRemark] = useState("");
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
@@ -101,7 +102,7 @@ const Dealer = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxDbZx7LEmIR0oWfOXHFNPqQLsf0ohvB_fRlzwOUuRfxtEuh-0VQSFyryB41JYMLCyI/exec",
+        "https://script.google.com/macros/s/AKfycbyhoYNDBW83B4GXbMlbGqFabShVWlBT2uGTrdZ0wCpr-UOZWrPn_TXRhx6TMzlIl20_/exec",
         {
           method: "POST",
           contentType: "application/json",
@@ -125,6 +126,7 @@ const Dealer = () => {
             gstNumber: gstNumber,
             bankAccountNumber: bankAccountNumber,
             ifscCode: ifscCode,
+            sales: sales,
             remark: remark,
             datetime: currentDateTime,
           }),
@@ -368,7 +370,7 @@ const Dealer = () => {
                 value={gstNumber}
                 className="block w-full border rounded-md p-2"
                 onChange={(e) => setGstNumber(e.target.value)}
-                required
+              
               />
             </div>
           </div>
@@ -403,6 +405,19 @@ const Dealer = () => {
               />
             </div>
           </div>
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+          <div className="flex-1">
+            <label htmlFor="sales" className="block text-xl font-bold">
+            Sales Executive Name
+            </label>
+            <input
+              id="sales"
+              value={sales}
+              onChange={(e) => setSales(e.target.value)}
+              className="block w-full border border-gray-300 rounded-md p-2"
+              rows="3"
+            />
+          </div>
           <div className="flex-1">
             <label htmlFor="remark" className="block text-xl font-bold">
               Remark
@@ -414,6 +429,7 @@ const Dealer = () => {
               className="block w-full border border-gray-300 rounded-md p-2"
               rows="3"
             />
+          </div>
           </div>
           <button
             type="submit"
