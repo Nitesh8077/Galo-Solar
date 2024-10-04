@@ -315,18 +315,18 @@ const Form = () => {
       className="flex flex-col md:flex-row items-center bg-yellow-400 p-4 bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImg})` }}
     >
-      <div className="w-full md:w-1/2 p-4">
-        <p className="text-3xl md:text-5xl font-bold">
-          Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
-        </p>
-        <p className="text-lg md:text-xl mt-4">
-          Ready to brighten your home with solar energy? Begin with a
-          complimentary consultation from our expert team.{" "}
-          <br className="mt-4" />
-          Connect with us today to explore how solar can transform
-          <br /> your energy use and savings!
-        </p>
-      </div>
+     <div className="w-full md:w-1/2 p-4">
+  <p className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-black leading-snug">
+    Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+  </p>
+  <p className="text-lg md:text-xl mt-4 text-black leading-loose tracking-widest">
+    Ready to brighten your home with solar energy? Begin with a complimentary consultation from our expert team.{" "}
+    <br className="mt-4" />
+    Connect with us today to explore how solar can transform
+    <br /> your energy use and savings!
+  </p>
+</div>
+
       <div
         className="p-4 md:p-8 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg"
         data-aos="fade-up"
