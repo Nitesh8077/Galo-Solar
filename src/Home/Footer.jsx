@@ -54,7 +54,7 @@ const Footer = () => {
         </div>
         <div data-aos="fade-up">
           <p className="font-bold">CONNECT WITH US</p>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 mt-2">
             <a
               href="https://www.facebook.com/galoenergyofficial"
               target="_blank"
@@ -76,9 +76,9 @@ const Footer = () => {
             >
               <img src="/images/yt.svg" alt="YouTube" className="w-10" />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/company/galo-energy-pvt-ltd/" target="_blank" rel="noopener noreferrer">
               <img
-                src="/images/twitter.svg"
+                src="/images/link.webp"
                 alt="Twitter"
                 className="w-8 m-1"
               />
