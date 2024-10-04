@@ -207,9 +207,12 @@ const Form = () => {
     setLoading(true);
 
     const currentDate = new Date();
-    const formattedDate = `${String(currentDate.getDate()).padStart(2, '0')}/${String(
-      currentDate.getMonth() + 1
-    ).padStart(2, '0')}/${String(currentDate.getFullYear()).slice(-2)}`;
+    const formattedDate = `${String(currentDate.getDate()).padStart(
+      2,
+      "0"
+    )}/${String(currentDate.getMonth() + 1).padStart(2, "0")}/${String(
+      currentDate.getFullYear()
+    ).slice(-2)}`;
 
     try {
       // Prepare the data to be sent
@@ -486,10 +489,17 @@ const Form = () => {
                 className="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
               >
                 <option value="">Select...</option>
-                <option value="Residential">Residential</option>
-                <option value="Commercial">Commercial</option>
-                <option value="Industrial">Industrial</option>
-                <option value="Agricultural">Agricultural</option>
+                <option value="Homes">Homes</option>
+                <option
+                  value="Residential
+"
+                >
+                  Residential
+                </option>
+                <option value="Commercial/Industrial">
+                  Commercial/Industrial
+                </option>
+                <option value="PM KUSUM">PM KUSUM</option>
               </select>
               {errors.SolarFor && (
                 <p className="text-red-500 text-xs mt-1">{errors.SolarFor}</p>
@@ -509,15 +519,13 @@ const Form = () => {
             </div>
           </div>
 
-         
-            <button
-              type="submit"
-              className="box rounded-[2em] border-[5px] font-bold text-xl border-transparent px-4 py-2 bg-black text-yellow-400 w-full justify-center items-center"
-              disabled={loading}
-            >
-              {loading ? "Loading..." : "Submit"}
-            </button>
-         
+          <button
+            type="submit"
+            className="box rounded-[2em] border-[5px] font-bold text-xl border-transparent px-4 py-2 bg-black text-yellow-400 w-full justify-center items-center"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Submit"}
+          </button>
 
           {successMessage && (
             <p className="text-green-500 text-xs mt-2">{successMessage}</p>
