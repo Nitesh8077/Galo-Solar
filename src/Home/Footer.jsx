@@ -56,7 +56,7 @@ const Footer = () => {
           <p className="font-bold">CONNECT WITH US</p>
           <div className="flex space-x-4">
             <a
-              href="https://www.facebook.com/profile.php?id=100081798261662"
+              href="https://www.facebook.com/galoenergyofficial"
               target="_blank"
               rel="noopener noreferrer"
             >
