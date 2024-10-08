@@ -53,7 +53,7 @@ export default function Navigation() {
         <div className="fixed inset-0 z-40 flex">
           <DialogPanel
             transition
-            className="relative flex w-full max-w-xs transform flex-col overflow-y-auto bg-white pb-12 shadow-xl transition duration-300 ease-in-out"
+            className="relative flex w-full max-w-xs transform flex-col overflow-y-auto bg-white pt-20 shadow-xl transition duration-300 ease-in-out"
           >
             <div className="flex px-4 pb-2 pt-5 justify-between">
               <button
