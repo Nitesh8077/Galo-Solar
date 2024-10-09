@@ -109,7 +109,7 @@ const QRForm = () => {
       <div className="flex justify-center items-center mt-10">
   <div
     ref={qrCodeRef}
-    className="text-center bg-white p-2 flex-col justify-between rounded-lg shadow-md inline-block"
+    className="text-center bg-yellow-500 p-2 flex-col justify-between rounded-lg shadow-md inline-block"
   >
     <img id="qrCodeImg" alt="QR Code" />
     {startingNumber && (
