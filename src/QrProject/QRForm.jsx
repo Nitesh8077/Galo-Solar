@@ -80,7 +80,7 @@ const QRForm = () => {
       >
         <img id="qrCodeImg" alt="QR Code" />
         {dealername && (
-          <div className="text-xl font-bold mt-4">{dealername}</div>
+          <div className="text-xl font-bold">{dealername}</div>
         )}
       </div>
     </div>
