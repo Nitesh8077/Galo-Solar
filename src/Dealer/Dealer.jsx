@@ -102,7 +102,7 @@ const Dealer = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyhoYNDBW83B4GXbMlbGqFabShVWlBT2uGTrdZ0wCpr-UOZWrPn_TXRhx6TMzlIl20_/exec",
+        "https://script.google.com/macros/s/AKfycbzcc0aBC8iviPx8dzXiy4cik7AKsxFIUxuYQ05LzcpQekOpi2g8f8sQykVZoYnUkhIw/exec",
         {
           method: "POST",
           contentType: "application/json",
@@ -380,7 +380,7 @@ const Dealer = () => {
                 htmlFor="bankAccountNumber"
                 className="block text-xl font-bold"
               >
-                Bank Account Number<span className="text-red-500 ml-1 font-extrabold">*</span>
+                Bank Account Number
               </label>
               <input
                 type="text"
@@ -388,12 +388,12 @@ const Dealer = () => {
                 value={bankAccountNumber}
                 className="block w-full border rounded-md p-2"
                 onChange={(e) => setBankAccountNumber(e.target.value)}
-                required
+               
               />
             </div>
             <div className="flex-1">
               <label htmlFor="ifscCode" className="block text-xl font-bold">
-                IFSC Code<span className="text-red-500 ml-1 font-extrabold">*</span>
+                IFSC Code
               </label>
               <input
                 type="text"
@@ -401,7 +401,7 @@ const Dealer = () => {
                 value={ifscCode}
                 className="block w-full border rounded-md p-2"
                 onChange={(e) => setIfscCode(e.target.value)}
-                required
+               
               />
             </div>
           </div>
@@ -416,11 +416,12 @@ const Dealer = () => {
               onChange={(e) => setSales(e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               rows="3"
+              required
             />
           </div>
           <div className="flex-1">
             <label htmlFor="remark" className="block text-xl font-bold">
-              Remark
+              QR Serial Number<span className="text-red-500 ml-1 font-extrabold">*</span>
             </label>
             <input
               id="remark"
@@ -428,6 +429,7 @@ const Dealer = () => {
               onChange={(e) => setRemark(e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               rows="3"
+              required
             />
           </div>
           </div>
