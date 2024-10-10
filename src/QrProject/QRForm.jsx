@@ -38,6 +38,10 @@ const QRForm = () => {
         const qrCodeImg = document.getElementById("qrCodeImg");
         qrCodeImg.src = qrCodeDataUrl;
 
+        // Update the serial number for the current iteration
+        const serialNumberDiv = document.getElementById("serialNumberDiv");
+        serialNumberDiv.textContent = serialNum;
+
         // Wait for the QR code and serial number to render, then capture it
         await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for rendering
 
@@ -109,12 +113,11 @@ const QRForm = () => {
       <div className="flex justify-center items-center mt-10">
   <div
     ref={qrCodeRef}
-    className="text-center bg-yellow-500 flex-col justify-between rounded-lg shadow-md inline-block"
+    className="text-center bg-yellow-500 flex-col p-2 justify-between shadow-md inline-block"
   >
     <img id="qrCodeImg" alt="QR Code" />
-    {startingNumber && (
-      <div className="text-xl font-bold">{startingNumber}</div>
-    )}
+    {/* Serial number will update dynamically */}
+    <div id="serialNumberDiv" className="text-xl font-bold"></div>
   </div>
 </div>
 
