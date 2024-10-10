@@ -52,7 +52,7 @@ const QRCodeGrid = () => {
             <img
               src={URL.createObjectURL(qr)}
               alt={`qr-code-${idx}`}
-              className="object-cover w-[360px] h-[360px] border"
+              className="object-cover w-[360px] h-[360px]"
             />
           </div>
         ))}
