@@ -115,7 +115,7 @@ const QRForm = () => {
     ref={qrCodeRef}
     className="text-center flex-col p-2 justify-between shadow-md inline-block"
   >
-    <img id="qrCodeImg" alt="QR Code" />
+    <img id="qrCodeImg" alt="QR Code" className="-mb-5"/>
     {/* Serial number will update dynamically */}
     <div id="serialNumberDiv" className="text-xl font-bold"></div>
   </div>
