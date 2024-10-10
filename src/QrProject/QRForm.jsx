@@ -113,7 +113,7 @@ const QRForm = () => {
       <div className="flex justify-center bg-white items-center mt-10 m-2">
         <div
           ref={qrCodeRef}
-          className="text-center flex-col bg-white p-2 justify-between shadow-md inline-block"
+          className="text-center flex-col bg-white justify-between shadow-md inline-block"
         >
           <img id="qrCodeImg" alt="QR Code" className="-mb-4 bg-white" />
           {/* Serial number will update dynamically */}
