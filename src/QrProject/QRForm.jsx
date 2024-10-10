@@ -110,17 +110,19 @@ const QRForm = () => {
       </form>
 
       {/* QR code and serial number section */}
-      <div className="flex justify-center items-center mt-10">
-  <div
-    ref={qrCodeRef}
-    className="text-center flex-col p-2 justify-between shadow-md inline-block"
-  >
-    <img id="qrCodeImg" alt="QR Code" className="-mb-5"/>
-    {/* Serial number will update dynamically */}
-    <div id="serialNumberDiv" className="text-xl font-bold"></div>
-  </div>
-</div>
-
+      <div className="flex justify-center bg-white items-center mt-10">
+        <div
+          ref={qrCodeRef}
+          className="text-center flex-col bg-white p-2 justify-between shadow-md inline-block"
+        >
+          <img id="qrCodeImg" alt="QR Code" className="-mb-4 bg-white" />
+          {/* Serial number will update dynamically */}
+          <div
+            id="serialNumberDiv"
+            className="text-xl font-bold bg-white"
+          ></div>
+        </div>
+      </div>
     </div>
   );
 };
