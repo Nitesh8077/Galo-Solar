@@ -21,6 +21,7 @@ import "./App.css"; // Import the updated CSS
 import QRForm from "./QrProject/QRForm";
 import CustomerContactUs from "./QrProject/CustomerContactUs";
 import QrChannelPartner from "./QrChannelPartner/QrChannelPartner";
+import ImageGrid from "./QrProject/ImageGrid";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -56,6 +57,7 @@ function AppContent() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/channelpartner" element={<Dealer />} />
         <Route path="/qr" element={<QRForm />} />
+        <Route path="/image" element={<ImageGrid />} />
         <Route path="/customer" element={<CustomerContactUs />} />
         <Route path="/qrcp" element={<QrChannelPartner />} />
       </Routes>
