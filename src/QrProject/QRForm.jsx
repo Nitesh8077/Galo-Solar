@@ -7,14 +7,14 @@ import { saveAs } from "file-saver";
 const QRForm = () => {
   const [startingNumber, setStartingNumber] = useState("");
   const [endingNumber, setEndingNumber] = useState("");
-  const qrCodeRef = useRef(null); // Ref for capturing QR code and serial number
+  const qrCodeRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const startPrefix = startingNumber.slice(0, 4); // Extract "GALX"
-    const startNum = parseInt(startingNumber.slice(4)); // Extract numeric part from "GALX001" -> 1
-    const endNum = parseInt(endingNumber.slice(4)); // Extract numeric part from "GALX100"
+    const startPrefix = startingNumber.slice(0, 4);
+    const startNum = parseInt(startingNumber.slice(4));
+    const endNum = parseInt(endingNumber.slice(4));
 
     if (isNaN(startNum) || isNaN(endNum) || startNum > endNum) {
       alert("Please enter valid serial numbers.");
@@ -24,28 +24,28 @@ const QRForm = () => {
     const zip = new JSZip();
 
     for (let i = startNum; i <= endNum; i++) {
-      const serialNum = `${startPrefix}${String(i).padStart(3, "0")}`; // Format as "GALX001", "GALX002", etc.
+      const serialNum = `${startPrefix}${String(i).padStart(3, "0")}`;
       const contactUsUrl = `${window.location.origin}/customer?id=${serialNum}`;
 
       try {
-        // Generate the QR code as Data URL
         const qrCodeDataUrl = await QRCode.toDataURL(contactUsUrl, {
           width: 256,
-          margin: 1,
+          margin: 0, // Reduce margin around QR code
         });
 
-        // Set the QR code as the src of an img tag
         const qrCodeImg = document.getElementById("qrCodeImg");
         qrCodeImg.src = qrCodeDataUrl;
 
-        // Update the serial number for the current iteration
         const serialNumberDiv = document.getElementById("serialNumberDiv");
         serialNumberDiv.textContent = serialNum;
 
-        // Wait for the QR code and serial number to render, then capture it
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for rendering
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-        await html2canvas(qrCodeRef.current).then((canvas) => {
+        // Capture the rendered QR code and serial number
+        await html2canvas(qrCodeRef.current, {
+          scale: 2, // Increase resolution for better quality
+          useCORS: true, // Prevent issues with cross-origin images
+        }).then((canvas) => {
           canvas.toBlob((blob) => {
             zip.file(`${serialNum}_qrcode.png`, blob);
           });
@@ -55,9 +55,8 @@ const QRForm = () => {
       }
     }
 
-    // Generate ZIP and trigger download
     zip.generateAsync({ type: "blob" }).then((content) => {
-      saveAs(content, "qrcodes_with_serial.zip"); // Download the ZIP file
+      saveAs(content, "qrcodes_with_serial.zip");
     });
   };
 
@@ -109,17 +108,15 @@ const QRForm = () => {
         </button>
       </form>
 
-      {/* QR code and serial number section */}
       <div className="flex justify-center bg-white items-center mt-10 m-2">
         <div
           ref={qrCodeRef}
-          className="text-center flex-col bg-white justify-between shadow-md inline-block"
+          className="text-center flex-col bg-white justify-between shadow-md inline-block p-2"
         >
-          <img id="qrCodeImg" alt="QR Code" className="-mb-4 bg-white" />
-          {/* Serial number will update dynamically */}
+          <img id="qrCodeImg" alt="QR Code" className="bg-white" />
           <div
             id="serialNumberDiv"
-            className="text-xl font-bold bg-white pb-2"
+            className="text-xl font-bold bg-white"
           ></div>
         </div>
       </div>
