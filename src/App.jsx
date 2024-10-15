@@ -24,6 +24,7 @@ import QrChannelPartner from "./QrChannelPartner/QrChannelPartner";
 import ImageGrid from "./QrProject/ImageGrid";
 import CommonQR from "./QrProject/CommonQR";
 import AutoForm from "./Dealer/AutoForm";
+import Spinner from "./Spinner/Spinner";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -64,6 +65,7 @@ function AppContent() {
         <Route path="/customer" element={<CustomerContactUs />} />
         <Route path="/qrcp" element={<QrChannelPartner />} />
         <Route path="/commonqr" element={<CommonQR />} />
+        <Route path="/spinner" element={<Spinner />} />
       </Routes>
       {location.pathname === "/l1" ? (
         <DelhiFloatingButton />
