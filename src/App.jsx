@@ -59,7 +59,7 @@ function AppContent() {
         <Route path="/distributor" element={<Distributor />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/channelpartner" element={<Dealer />} />
-        <Route path="/autochannelpartner" element={<AutoForm />} />
+        <Route path="/autocp" element={<AutoForm />} />
         <Route path="/qr" element={<QRForm />} />
         <Route path="/image" element={<ImageGrid />} />
         <Route path="/customer" element={<CustomerContactUs />} />
