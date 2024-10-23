@@ -115,16 +115,14 @@ const SpinWheel = () => {
 
   const handleSpin = () => {
     if (!spinning) {
-      // Define three fixed speed options: slow, medium, fast
-      const speedOptions = [0.3, 0.4, 0.5,0.6]; // Slow: 0.1, Medium: 0.2, Fast: 0.3
-      const randomSpeed = speedOptions[Math.floor(Math.random() * speedOptions.length)]; // Randomly choose one of the speeds
+      const speedOptions = [0.3, 0.4, 0.5, 0.6];
+      const randomSpeed = speedOptions[Math.floor(Math.random() * speedOptions.length)];
   
-      setAngVel(randomSpeed); // Apply the chosen speed
+      setAngVel(randomSpeed);
       setSpinning(true);
       setShowPopup(false);
     }
   };
-  
 
   const handleSpinComplete = () => {
     navigate(`/form?result=${encodeURIComponent(result)}`);
@@ -134,6 +132,16 @@ const SpinWheel = () => {
     setShowPopup(false);
     handleSpinComplete();
   };
+
+  // UseEffect to automatically navigate after 2 seconds
+  useEffect(() => {
+    if (showPopup) {
+      const timer = setTimeout(() => {
+        handleSpinComplete();
+      }, 2000); // 2 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [showPopup]);
 
   return (
     <>
@@ -148,7 +156,6 @@ const SpinWheel = () => {
             className="block"
           />
           
-          {/* Arrow pointer below the spin button */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-20">
             <div className="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[30px] border-l-transparent border-r-transparent border-t-black"></div>
           </div>

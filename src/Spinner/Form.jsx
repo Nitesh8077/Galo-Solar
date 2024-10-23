@@ -122,23 +122,17 @@ const Form = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row bg-yellow-400 p-4 bg-cover bg-center">
-        <div className="w-full md:w-1/2 p-4">
+      <div className="flex flex-col md:flex-row bg-yellow-400 p-2 bg-cover bg-center">
+        <div className="w-full md:w-1/2 p-2">
           <div className="flex justify-center items-center"></div>
-          <p className="text-3xl md:text-5xl font-bold mt-5">
-            Illuminate Your Future with Solar Energy – Start with a Free
-            Check-Up!
+          <p className="text-3xl md:text-4xl font-bold">
+          Claim Your Prize Now! Brighten Your Future with Solar Energy – Start with a Free Check-Up!
           </p>
-          <p className="text-lg md:text-3xl mt-4">
-            Ready to brighten your home with solar energy? Begin with a free
-            consultation from our expert team.
-          </p>
-          <p className="text-lg md:text-3xl mt-2">
-            Connect with us today to explore how solar can transform your energy
-            use and savings!
+          <p className="text-lg md:text-2xl mt-4">
+          Get started with a free consultation from our expert team. Fill in your details below to secure your reward and exclusive offer. Ensure all information is correct for smooth processing. Don’t miss out!
           </p>
         </div>
-        <div className="p-4 md:p-8 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg">
+        <div className="p-4 md:p-6 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg">
           <form className="space-y-4">
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
               <div className="flex-1">
