@@ -163,7 +163,7 @@ const SpinWheel = () => {
         </div>
 
         {showPopup && (
-          <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-gradient-to-br from-white to-gray-100 p-4 sm:p-8 rounded-xl shadow-2xl transform scale-105 transition-transform duration-300 sm:w-auto">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-blue-600 mb-4 animate-bounce text-center">🎉 Congratulations!</h2>
               <p className="text-base sm:text-lg text-gray-700 text-center">
