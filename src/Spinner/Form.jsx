@@ -94,14 +94,17 @@ const Form = () => {
 
       setLoading(true); // Set loading to true
 
-      fetch("https://script.google.com/macros/s/AKfycbzdiFAttjcW6iWZmi1lqfiaWJkkAoQPWrD2bWj0Hh-aqQP_une5-QCTtrEV0EzjC1TvKw/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzdiFAttjcW6iWZmi1lqfiaWJkkAoQPWrD2bWj0Hh-aqQP_une5-QCTtrEV0EzjC1TvKw/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      )
         .then((response) => {
           console.log("Success:", response);
           navigate("/thanks");
@@ -123,13 +126,16 @@ const Form = () => {
         <div className="w-full md:w-1/2 p-4">
           <div className="flex justify-center items-center"></div>
           <p className="text-3xl md:text-5xl font-bold mt-5">
-            Illuminate Your Future with Solar Energy – Start with a Free Check-Up!
+            Illuminate Your Future with Solar Energy – Start with a Free
+            Check-Up!
           </p>
           <p className="text-lg md:text-3xl mt-4">
-            Ready to brighten your home with solar energy? Begin with a free consultation from our expert team.
+            Ready to brighten your home with solar energy? Begin with a free
+            consultation from our expert team.
           </p>
           <p className="text-lg md:text-3xl mt-2">
-            Connect with us today to explore how solar can transform your energy use and savings!
+            Connect with us today to explore how solar can transform your energy
+            use and savings!
           </p>
         </div>
         <div className="p-4 md:p-8 w-full md:w-1/2 mx-auto bg-white rounded-xl shadow-lg">
@@ -147,7 +153,9 @@ const Form = () => {
                   id="name"
                   value={name}
                   onChange={handleChange}
-                  className={`block w-full border ${errors.name ? "border-red-500" : "border-gray-300"} rounded-md p-2`}
+                  className={`block w-full border ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  } rounded-md p-2`}
                   required
                 />
                 {errors.name && (
@@ -166,7 +174,9 @@ const Form = () => {
                   id="phone"
                   value={phone}
                   onChange={handleChange}
-                  className={`block w-full border ${errors.phone ? "border-red-500" : "border-gray-300"} rounded-md p-2`}
+                  className={`block w-full border ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  } rounded-md p-2`}
                   required
                 />
                 {errors.phone && (
@@ -190,14 +200,18 @@ const Form = () => {
                   required
                 >
                   <option value="">Select an option</option>
-                  <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                  <option value="Andaman and Nicobar Islands">
+                    Andaman and Nicobar Islands
+                  </option>
                   <option value="Andhra Pradesh">Andhra Pradesh</option>
                   <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                   <option value="Assam">Assam</option>
                   <option value="Bihar">Bihar</option>
                   <option value="Chandigarh">Chandigarh</option>
                   <option value="Chhattisgarh">Chhattisgarh</option>
-                  <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                  <option value="Dadra and Nagar Haveli">
+                    Dadra and Nagar Haveli
+                  </option>
                   <option value="Daman and Diu">Daman and Diu</option>
                   <option value="Delhi">Delhi</option>
                   <option value="Goa">Goa</option>
@@ -240,7 +254,9 @@ const Form = () => {
                   id="city"
                   value={city}
                   onChange={handleChange}
-                  className={`block w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md p-2`}
+                  className={`block w-full border ${
+                    errors.city ? "border-red-500" : "border-gray-300"
+                  } rounded-md p-2`}
                   required
                 />
                 {errors.city && (
@@ -261,7 +277,9 @@ const Form = () => {
                   id="pincode"
                   value={pincode}
                   onChange={handleChange}
-                  className={`block w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md p-2`}
+                  className={`block w-full border ${
+                    errors.pincode ? "border-red-500" : "border-gray-300"
+                  } rounded-md p-2`}
                   required
                 />
                 {errors.pincode && (
@@ -275,13 +293,28 @@ const Form = () => {
                 >
                   Solar for
                 </label>
-                <input
-                  type="text"
+                <select
                   id="solarfor"
                   value={solarfor}
                   onChange={(e) => setSolarfor(e.target.value)}
                   className="block w-full border border-gray-300 rounded-md p-2"
-                />
+                >
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  <option
+                    value="
+Homes"
+                  >
+                    Homes
+                  </option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial/Industrial">
+                    Commercial/Industrial
+                  </option>
+                  <option value="PM KUSUM">PM KUSUM</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
             </div>
             <div>
